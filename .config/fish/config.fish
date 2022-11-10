@@ -18,25 +18,25 @@ set -g EDITOR vim
 
 alias c='clear'
 alias e='exit'
-alias ld=':' # nop
 if type -q exa
   alias ls='exa --sort modified --reverse --icons'
 else
   alias ls='ls -rt'
 end
+alias ld=':' # nop
 alias ll='ls -l'
 alias la='ll -a'
 alias lv='v'
-function cd; builtin cd $argv && ld; end
 function cs; builtin cd $argv && ls; end;
+function cd; builtin cd $argv && ld; end
 function cl; builtin cd $argv && ll; end;
 function ca; builtin cd $argv && la; end;
 function cv; builtin cd $argv && lv; end;
-function hd; cd ~/Sync/; cd (python3 ~/.hd.py $argv); end;
-function hs; cd ~/Sync/; cs (python3 ~/.hd.py $argv); end;
-function hl; cd ~/Sync/; cl (python3 ~/.hd.py $argv); end;
-function ha; cd ~/Sync/; ca (python3 ~/.hd.py $argv); end;
-function hv; cd ~/Sync/; cv (python3 ~/.hd.py $argv); end;
+function hs; cd $SYNC_DIR; cs (python3 ~/.hd.py $argv); end;
+function hd; cd $SYNC_DIR; cd (python3 ~/.hd.py $argv); end;
+function hl; cd $SYNC_DIR; cl (python3 ~/.hd.py $argv); end;
+function ha; cd $SYNC_DIR; ca (python3 ~/.hd.py $argv); end;
+function hv; cd $SYNC_DIR; cv (python3 ~/.hd.py $argv); end;
 alias s='git status'
 alias d='git diff'
 alias a='git add'
