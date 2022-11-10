@@ -1,0 +1,14 @@
+font:
+  size: 5.5
+  normal:
+    family: Fira Code
+
+colors:
+  primary:
+    background: '#000000'
+
+shell:
+  program: /usr/bin/tmux
+
+window:
+  startup_mode: Fullscreen
