@@ -19,7 +19,11 @@ set -g EDITOR vim
 alias c='clear'
 alias e='exit'
 alias ld=':' # nop
-alias ls='exa --sort modified --reverse --icons'
+if type -q exa
+  alias ls='exa --sort modified --reverse --icons'
+else
+  alias ls='ls -rt'
+end
 alias ll='ls -l'
 alias la='ll -a'
 alias lv='v'
@@ -58,5 +62,7 @@ function fish_greeting
   # empty greeting
 end
 
-thefuck --alias | source
+if type -q thefuck
+  thefuck --alias | source
+end
 export PATH="$HOME/.cargo/bin:$PATH"
