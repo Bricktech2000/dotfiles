@@ -33,6 +33,7 @@ then, run the following commands:
 
 ```bash
 git clone --bare <repo-url> ~/dotfiles
+config config --local status.showUntrackedFiles no
 
 config checkout
 ```
