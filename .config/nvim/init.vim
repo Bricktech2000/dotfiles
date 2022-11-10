@@ -77,7 +77,7 @@ let g:vimwiki_key_mappings = { 'table_mappings': 0 }
 
 Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
 let g:tex_flavor='latex'
-let g:tex_conceal='abdgm'
+let g:tex_conceal='abdgms'
 set conceallevel=2
 
 Plug 'drmingdrmer/vim-syntax-markdown'
@@ -188,6 +188,7 @@ autocmd BufEnter * syn match texMathSymbol '\\dot *' contained conceal cchar=˙
 autocmd BufEnter * syn match texMathSymbol '\\acute *' contained conceal cchar=´
 autocmd BufEnter * syn match texMathSymbol '\\check *' contained conceal cchar=ˇ
 autocmd BufEnter * syn match texMathSymbol '\\dots' contained conceal cchar=…
+autocmd BufEnter * syn match texMathSymbol ' *\\cdots *' contained conceal cchar=…
 autocmd BufEnter * syn match texMathSymbol '\\text-' contained conceal cchar=-
 autocmd BufEnter * syn match texMathSymbol '\\lbrace' contained conceal cchar={
 autocmd BufEnter * syn match texMathSymbol '\\rbrace' contained conceal cchar=}
@@ -211,37 +212,6 @@ autocmd BufEnter * syn match texMathSymbol '_B' contained conceal cchar=₆
 autocmd BufEnter * syn match texMathSymbol '_n' contained conceal cchar=ₙ
 autocmd BufEnter * syn match texMathSymbol '_N' contained conceal cchar=ₙ
 autocmd BufEnter * syn match texMathSymbol '\\omega' contained conceal cchar=ω
-
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=0\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=⁰
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=1\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=¹
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=2\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=²
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=3\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=³
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=4\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=⁴
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=5\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=⁵
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=6\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=⁶
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=7\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=⁷
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=8\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=⁸
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=9\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=⁹
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=a\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᵃ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=b\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᵇ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=i\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ⁱ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=j\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ʲ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=m\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᵐ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=n\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ⁿ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=p\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᵖ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=A\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᴬ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=B\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᵇ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=I\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᴵ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=J\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᴶ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=M\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᴹ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=N\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᴺ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=P\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=ᴾ
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=,\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=⋅
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=\.\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=⋅
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<= \%([0-9aA-Z-z\\, ]*}\)\@=/ contained conceal
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<= *\\cdot *\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal cchar=˙
-autocmd BufEnter * syn match texMathSymbol /\^{\%([0-9A-Za-z\\, ]*}\)\@=/ contained conceal
-autocmd BufEnter * syn match texMathSymbol /\%(\^{[0-9A-Za-z\\, ]*\)\@<=}/ contained conceal
 
 " non-math definitions
 autocmd BufEnter * syn match Normal '&mdash;' conceal cchar=—
