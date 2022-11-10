@@ -59,3 +59,4 @@ function fish_greeting
 end
 
 thefuck --alias | source
+export PATH="$HOME/.cargo/bin:$PATH"
