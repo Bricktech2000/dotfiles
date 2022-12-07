@@ -71,6 +71,8 @@ Plug 'Bricktech2000/vimwiki' " (without overriding Tex parsing)
 nnoremap <leader>wb <cmd>VimwikiBacklinks<cr>
 " prevent vtmwiki from remapping <Tab> in normal mode
 let g:vimwiki_key_mappings = { 'table_mappings': 0 }
+" prevent vtmwiki from constantly breaking tables
+let g:vimwiki_table_auto_fmt = 0
 " needed for vimwiki update links on rename and backlinks
 " unfortunately breaks syntax highlighting
 " let g:vimwiki_ext2syntax = { '.md': 'default' }
