@@ -12,7 +12,6 @@ set nu
 
 set ignorecase
 set smartcase
-
 set nohlsearch
 set incsearch
 
@@ -61,6 +60,7 @@ let g:python_recommended_style = 0
 let g:pymode_indent = 0
 augroup fmt
   autocmd!
+  autocmd BufWritePre * set fileformat=unix
   autocmd BufWritePre * CocCommand prettier.forceFormatDocument
   autocmd BufWritePre *.py PymodeLintAuto
   autocmd BufWritePre *.rs RustFmt
