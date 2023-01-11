@@ -3,3 +3,5 @@
 	name = Bricktech
 [credential]
 	helper = store
+[advice]
+	detachedHead = false
