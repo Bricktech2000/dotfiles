@@ -52,6 +52,9 @@ Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'github/copilot.vim'
 
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'rust-lang/rust.vim'
