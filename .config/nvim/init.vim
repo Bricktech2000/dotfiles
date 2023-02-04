@@ -10,11 +10,6 @@ set smartindent
 set relativenumber
 set nu
 
-set ignorecase
-set smartcase
-set nohlsearch
-set incsearch
-
 set hidden
 set noerrorbells
 " set nowrap
@@ -23,6 +18,14 @@ set scrolloff=12
 set noshowmode
 set signcolumn=yes
 set updatetime=50
+
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+" clear highlighting on escape and improve highlight colors
+nnoremap <esc> <cmd>noh<cr><esc>
+autocmd ColorScheme * highlight Search ctermbg=None ctermfg=white cterm=bold
 
 let mapleader=' '
 imap <Tab> <C-n>
@@ -221,4 +224,4 @@ autocmd BufEnter * syn match texMathSymbol '\\omega' contained conceal cchar=ω
 " non-math definitions
 autocmd BufEnter * syn match Normal '&mdash;' conceal cchar=—
 
-hi clear Conceal
+highlight clear Conceal
