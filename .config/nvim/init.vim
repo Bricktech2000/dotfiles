@@ -26,6 +26,7 @@ set incsearch
 " clear highlighting on escape and improve highlight colors
 nnoremap <esc> <cmd>noh<cr><esc>
 autocmd ColorScheme * highlight Search ctermbg=None ctermfg=white cterm=bold
+autocmd ColorScheme * highlight MatchParen ctermbg=None ctermfg=white cterm=bold
 
 let mapleader=' '
 imap <Tab> <C-n>
