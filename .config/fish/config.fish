@@ -26,16 +26,19 @@ end
 alias ld=':' # nop
 alias ll='ls -l'
 alias la='ll -a'
+alias lt='la --tree'
 alias lv='v'
 function cs; builtin cd $argv && ls; end;
 function cd; builtin cd $argv && ld; end
 function cl; builtin cd $argv && ll; end;
 function ca; builtin cd $argv && la; end;
+function ct; builtin cd $argv && lt; end;
 function cv; builtin cd $argv && lv; end;
 function hs; cd $SYNC_DIR; cs (python3 ~/.hd.py $argv); end;
 function hd; cd $SYNC_DIR; cd (python3 ~/.hd.py $argv); end;
 function hl; cd $SYNC_DIR; cl (python3 ~/.hd.py $argv); end;
 function ha; cd $SYNC_DIR; ca (python3 ~/.hd.py $argv); end;
+function ht; cd $SYNC_DIR; ct (python3 ~/.hd.py $argv); end;
 function hv; cd $SYNC_DIR; cv (python3 ~/.hd.py $argv); end;
 alias s='git status'
 alias d='git diff'
