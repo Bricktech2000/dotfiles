@@ -20,7 +20,7 @@ RUN apt-get install -y tmux
 # fish
 RUN add-apt-repository ppa:fish-shell/release-3
 RUN apt-get install -y exa fish
-RUN curl -L https://get.oh-my.fish > install_omf && fish install_omf --noninteractive && fish -c "omf install bobthefish" && rm install_omf
+RUN curl -sL https://get.oh-my.fish > install_omf && fish install_omf --noninteractive && fish -c "omf install bobthefish" && rm install_omf
 RUN fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
 RUN fish -c "echo y | fish_config theme save 'Mono Smoke'"
 RUN pip3 install thefuck
@@ -28,13 +28,13 @@ RUN chsh -s /usr/bin/fish
 
 # nvm
 RUN fish -c "fisher install edc/bass"
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+RUN curl -sLo https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 RUN fish -c "nvm install node"
 
 # neovim
 RUN add-apt-repository ppa:ethereum/ethereum
 RUN apt-get install -y latexmk solc clangd
 RUN fish -c "npm install --global --save-dev prettier prettier-plugin-solidity" && pip3 install neovim
-RUN curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+RUN curl -sfLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN echo "\n\nThe error below is expected and can safely be ignored.\n" && nvim +'PlugInstall --sync' +qa
 RUN nvim +':CocInstall -sync coc-tsserver coc-markdownlint coc-clangd coc-rust-analyzer coc-prettier coc-solidity' +qa

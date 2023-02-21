@@ -18,6 +18,7 @@ set scrolloff=12
 set noshowmode
 set signcolumn=yes
 set updatetime=50
+set autoread
 
 set ignorecase
 set smartcase
