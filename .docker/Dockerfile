@@ -28,13 +28,14 @@ RUN chsh -s /usr/bin/fish
 
 # nvm
 RUN fish -c "fisher install edc/bass"
-RUN curl -sLo https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+RUN curl -sLo- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 RUN fish -c "nvm install node"
 
 # neovim
 RUN add-apt-repository ppa:ethereum/ethereum
-RUN apt-get install -y latexmk solc clangd
+RUN DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
+RUN apt-get install -y latexmk solc clangd pylint
 RUN fish -c "npm install --global --save-dev prettier prettier-plugin-solidity" && pip3 install neovim
 RUN curl -sfLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 RUN echo "\n\nThe error below is expected and can safely be ignored.\n" && nvim +'PlugInstall --sync' +qa
-RUN nvim +':CocInstall -sync coc-tsserver coc-markdownlint coc-clangd coc-rust-analyzer coc-prettier coc-solidity' +qa
+RUN nvim +':CocInstall -sync coc-markdownlint coc-clangd coc-rust-analyzer coc-prettier coc-solidity coc-pyright coc-snippets coc-tsserver coc-eslint coc-tslint coc-css coc-lists coc-highlight coc-json' +qa

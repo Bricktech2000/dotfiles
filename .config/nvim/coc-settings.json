@@ -1,0 +1,34 @@
+{
+  // require .prettierrc
+  "prettier.requireConfig": true,
+
+  // tslint on save
+  "tslint.enable": true,
+  "tslint.autoFixOnSave": true,
+
+  "coc.preferences.formatOnSaveFiletypes": [
+    "css",
+    "md",
+    "markdown",
+    "Markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "python",
+    "rust",
+    "json"
+  ],
+
+  "python.formatting.provider": "autopep8",
+  "python.formatting.autopep8Path": "~/.local/bin/autopep8",
+  "python.formatting.autopep8Args": [
+    "--max-line-length=1000",
+    "--indent-size=2"
+  ],
+
+  "diagnostic.errorSign": "•",
+  "diagnostic.warningSign": "•",
+  "diagnostic.infoSign": "•",
+  "diagnostic.hintSign": "•"
+}

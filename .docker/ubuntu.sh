@@ -1,8 +1,4 @@
-echo "Installing Docker..."
-sudo apt-get update
-sudo apt-get install -y docker.io
-
-xset r rate 100 50
+xset r rate 200 50
 setxkbmap dvorak
 setxkbmap -option "caps:swapescape"
 curl -sL https://github.com/Bricktech2000/dotfiles/raw/master/.docker/Dockerfile | \
