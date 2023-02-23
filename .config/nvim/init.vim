@@ -98,6 +98,8 @@ Plug 'tomlion/vim-solidity'
 
 Plug 'mxw/vim-jsx'
 
+Plug 'prisma/vim-prisma'
+
 call plug#end()
 
 
