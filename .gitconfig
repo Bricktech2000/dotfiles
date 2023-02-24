@@ -1,12 +1,12 @@
 [user]
-	name = Emilien Breton
-	email = bricktech2000@gmail.com
+  name = Emilien Breton
+  email = bricktech2000@gmail.com
   signkey = bricktech2000@gmail.com
 [credential]
-	helper = store
+  helper = store
 [advice]
-	detachedHead = false
+  detachedHead = false
 [commit]
-	gpgsign = true
+  gpgsign = true
 [safe]
   directory = *

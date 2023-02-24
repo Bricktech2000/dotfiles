@@ -1,8 +1,6 @@
 {
-  // require .prettierrc
   "prettier.requireConfig": true,
 
-  // tslint on save
   "tslint.enable": true,
   "tslint.autoFixOnSave": true,
 
@@ -22,10 +20,7 @@
 
   "python.formatting.provider": "autopep8",
   "python.formatting.autopep8Path": "~/.local/bin/autopep8",
-  "python.formatting.autopep8Args": [
-    "--max-line-length=1000",
-    "--indent-size=2"
-  ],
+  "python.formatting.autopep8Args": ["--global-config", ".autopep8"],
 
   "diagnostic.errorSign": "•",
   "diagnostic.warningSign": "•",
