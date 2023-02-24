@@ -55,6 +55,8 @@ alias l='git pull --rebase'
 alias V='git revert --no-commit'
 alias k='git checkout'
 alias b='git branch'
+alias t='git stash'
+alias T='git stash pop'
 alias f='fuck --yeah'
 alias F='fuck'
 alias v='nvim'
@@ -70,4 +72,5 @@ end
 if type -q thefuck
   thefuck --alias | source
 end
+
 export PATH="$HOME/.cargo/bin:$PATH"
