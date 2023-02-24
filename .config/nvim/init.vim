@@ -8,18 +8,22 @@ set expandtab
 set smartindent
 
 set relativenumber
-set nu
+set number
 
 set hidden
 set noerrorbells
 " set nowrap
 set noswapfile
 set scrolloff=12
-set noshowmode
 set signcolumn=yes
 set updatetime=50
 set autoread
 set fileformat=unix
+set noruler
+set noshowmode
+set cmdheight=1
+set laststatus=0
+set shortmess+=sWFlS
 
 set ignorecase
 set smartcase
@@ -38,7 +42,8 @@ call plug#begin()
 Plug 'nvim-telescope/telescope.nvim'
 nnoremap <leader>o <cmd>Telescope find_files<cr>
 nnoremap <leader>f <cmd>Telescope live_grep<cr>
-nnoremap <leader>s <cmd>w<cr>
+nnoremap <leader>h <cmd>Telescope help_tags<cr>
+nnoremap <leader>s <cmd>silent! w<cr>
 nnoremap <leader>q <cmd>q!<cr>
 Plug 'nvim-lua/plenary.nvim'
 
@@ -105,9 +110,9 @@ call plug#end()
 colorscheme molokai
 
 lua << END
-require('lualine').setup({
-  options = { theme = 'iceberg_dark' }
-})
+-- require('lualine').setup({
+--   options = { theme = 'iceberg_dark' }
+-- })
 
 require('gitsigns').setup({
   signs = {
@@ -120,4 +125,3 @@ require('gitsigns').setup({
   }
 })
 END
-

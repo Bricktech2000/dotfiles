@@ -19,7 +19,7 @@ RUN apt-get install -y tmux
 
 # fish
 RUN add-apt-repository ppa:fish-shell/release-3
-RUN apt-get install -y exa fish
+RUN apt-get install -y exa fish ripgrep
 RUN curl -sL https://get.oh-my.fish > install_omf && fish install_omf --noninteractive && fish -c "omf install bobthefish" && rm install_omf
 RUN fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
 RUN fish -c "echo y | fish_config theme save 'Mono Smoke'"

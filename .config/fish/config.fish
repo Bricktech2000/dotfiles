@@ -64,6 +64,7 @@ alias pull='sudo ~/pull.sh'
 alias restart='sudo ~/restart.sh'
 alias server='~/server.sh'
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias grep='RIPGREP_CONFIG_PATH=~/.config/ripgreprc rg'
 
 function fish_greeting
   # empty greeting
