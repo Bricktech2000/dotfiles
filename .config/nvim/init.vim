@@ -50,9 +50,13 @@ augroup molokai
   autocmd ColorScheme * highlight Folded ctermbg=None
   autocmd ColorScheme * highlight LineNr ctermbg=None
   autocmd ColorScheme * highlight SignColumn ctermbg=None
+  autocmd ColorScheme * highlight DiffAdd ctermbg=None ctermfg=22
+  autocmd ColorScheme * highlight DiffChange ctermbg=None ctermfg=17
+  autocmd ColorScheme * highlight DiffDelete ctermbg=None ctermfg=124 cterm=bold
   autocmd ColorScheme * highlight Search ctermbg=None ctermfg=white cterm=bold
-  autocmd ColorScheme * highlight MatchParen ctermbg=None ctermfg=white cterm=bold
-  autocmd ColorScheme * highlight TelescopeMatching ctermbg=None ctermfg=white cterm=bold
+  autocmd ColorScheme * highlight IncSearch ctermbg=253 ctermfg=16 cterm=bold " same as cursor
+  autocmd ColorScheme * highlight MatchParen ctermbg=None ctermfg=white cterm=bold " same as search
+  autocmd ColorScheme * highlight TelescopeMatching ctermbg=None ctermfg=white cterm=bold " same as search
   autocmd ColorScheme * highlight clear Conceal
 augroup END
 let g:rehash256=1
@@ -60,6 +64,8 @@ let g:rehash256=1
 Plug 'nvim-lualine/lualine.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
+
+Plug 'lewis6991/gitsigns.nvim'
 
 Plug 'github/copilot.vim'
 
@@ -102,4 +108,16 @@ lua << END
 require('lualine').setup({
   options = { theme = 'iceberg_dark' }
 })
+
+require('gitsigns').setup({
+  signs = {
+    add          = { text = '│' },
+    change       = { text = '│' },
+    delete       = { text = '_' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '~' },
+    untracked    = { text = '┆' },
+  }
+})
 END
+
