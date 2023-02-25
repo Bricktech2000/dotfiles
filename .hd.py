@@ -28,5 +28,5 @@ elif len(sys.argv) == 2:
   print(most_recent_path)
 
 else:
-  print('Usage: .ch.py [<accronym>]')
+  print('Usage: .hd.py [<accronym>]')
   sys.exit(1)
