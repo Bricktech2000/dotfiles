@@ -66,6 +66,7 @@ autocmd BufEnter * syn match texMathSymbol /\%(\\braket{\\braket{[^}]*\)\@<=}}/ 
 autocmd BufEnter * syn match texMathSymbol /\\\%(dim\)\@=/ contained conceal
 autocmd BufEnter * syn match texMathSymbol /\\\%(det\)\@=/ contained conceal
 autocmd BufEnter * syn match texMathSymbol /\\\%(lim\)\@=/ contained conceal
+autocmd BufEnter * syn match texMathSymbol /\\\%(arg\)\@=/ contained conceal
 autocmd BufEnter * syn match texMathSymbol /\\\%(sin\)\@=/ contained conceal
 autocmd BufEnter * syn match texMathSymbol /\\\%(cos\)\@=/ contained conceal
 autocmd BufEnter * syn match texMathSymbol /\\\%(tan\)\@=/ contained conceal
