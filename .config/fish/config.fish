@@ -42,6 +42,7 @@ function ht; cd $SYNC_DIR; ct (python3 ~/.hd.py $argv); end;
 function hv; cd $SYNC_DIR; cv (python3 ~/.hd.py $argv); end;
 alias s='git status'
 alias d='git diff'
+alias D='git diff --text'
 alias a='git add'
 alias A='git fetch --all --prune'
 alias m='git commit -m'
