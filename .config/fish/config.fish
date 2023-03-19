@@ -26,7 +26,7 @@ end
 alias ld=':' # nop
 alias ll='ls -l'
 alias la='ll -a'
-alias lt='la --tree'
+alias lt='ll --tree'
 alias lv='v'
 function cs; builtin cd $argv && ls; end;
 function cd; builtin cd $argv && ld; end
