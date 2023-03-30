@@ -14,8 +14,6 @@ set -g fish_cursor_insert line
 set -g fish_cursor_replace_one underscore
 set -g fish_cursor_visual block
 
-set -g EDITOR vim
-
 alias c='clear'
 alias e='exit'
 if type -q exa
@@ -26,7 +24,7 @@ end
 alias ld=':' # nop
 alias ll='ls -l'
 alias la='ll -a'
-alias lt='ll --tree'
+alias lt='ll --tree --git-ignore'
 alias lv='v'
 function cs; builtin cd $argv && ls; end;
 function cd; builtin cd $argv && ld; end
@@ -66,6 +64,12 @@ alias restart='sudo ~/restart.sh'
 alias server='~/server.sh'
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias grep='RIPGREP_CONFIG_PATH=~/.config/ripgreprc rg'
+
+set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;38:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37"
+set -x LS_COLORS "*=0;38:di=1;0:ln=1;0:so=0:pi=0:ex=37:bd=0:cd=0:su=37:sg=37:tw=1;0:ow=1;0"
+set -x EDITOR nvim
+set -x VISUAL nvim
+set -x PAGER less
 
 function fish_greeting
   # empty greeting
