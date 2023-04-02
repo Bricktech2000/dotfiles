@@ -16,11 +16,7 @@ set -g fish_cursor_visual block
 
 alias c='clear'
 alias e='exit'
-if type -q exa
-  alias ls='exa --sort modified --reverse --icons'
-else
-  alias ls='ls -rt'
-end
+alias ls='exa --sort modified --reverse --icons'
 alias ld=':' # nop
 alias ll='ls -l'
 alias la='ll -a'
