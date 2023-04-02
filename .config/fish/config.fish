@@ -39,8 +39,8 @@ function ha; cd $SYNC_DIR; ca (python3 ~/.hd.py $argv); end;
 function ht; cd $SYNC_DIR; ct (python3 ~/.hd.py $argv); end;
 function hv; cd $SYNC_DIR; cv (python3 ~/.hd.py $argv); end;
 alias s='git status'
-alias d='git diff'
-alias D='git diff --text'
+alias d='git diff --no-prefix'
+alias D='git diff --no-prefix --text'
 alias a='git add'
 alias A='git fetch --all --prune'
 alias m='git commit -m'
@@ -65,8 +65,8 @@ alias server='~/server.sh'
 alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 alias grep='RIPGREP_CONFIG_PATH=~/.config/ripgreprc rg'
 
-set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;38:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37"
-set -x LS_COLORS "*=0;38:di=1;0:ln=1;0:so=0:pi=0:ex=37:bd=0:cd=0:su=37:sg=37:tw=1;0:ow=1;0"
+set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;37:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37"
+set -x LS_COLORS "*=0;37:di=1;0:ln=1;0:so=0:pi=0:ex=37:bd=0:cd=0:su=37:sg=37:tw=1;0:ow=1;0:or=1;37:pi=1;37"
 set -x EDITOR nvim
 set -x VISUAL nvim
 set -x PAGER less
