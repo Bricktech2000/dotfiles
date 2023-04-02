@@ -83,6 +83,7 @@ Plug 'prisma/vim-prisma'
 Plug 'dag/vim-fish'
 augroup fmt
   autocmd BufWritePre *.md silent! call CocAction('runCommand', 'prettier.forceFormatDocument')
+  autocmd FileType * set formatoptions-=cro
 augroup END
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
