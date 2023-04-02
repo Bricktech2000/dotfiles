@@ -10,3 +10,6 @@
   gpgsign = true
 [safe]
   directory = *
+[color "diff"]
+  frag = white bold
+  meta = 244 ul
