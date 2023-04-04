@@ -88,6 +88,8 @@ augroup END
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+" found with `:verbose set tabstop?`
+let g:rust_recommended_style = 0
 
 Plug 'Bricktech2000/vimwiki' " (without overriding Tex parsing)
 nnoremap <leader>wb <cmd>VimwikiBacklinks<cr>

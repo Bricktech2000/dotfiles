@@ -27,6 +27,8 @@
     "2"
   ],
 
+  "rust-analyzer.disableProgressNotifications": true,
+
   "diagnostic.errorSign": "•",
   "diagnostic.warningSign": "•",
   "diagnostic.infoSign": "•",
