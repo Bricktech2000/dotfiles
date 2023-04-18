@@ -40,8 +40,8 @@ imap <S-Tab> <C-p>
 call plug#begin()
 
 Plug 'nvim-telescope/telescope.nvim'
-nnoremap <leader>o <cmd>Telescope find_files<cr>
-nnoremap <leader>f <cmd>Telescope live_grep<cr>
+nnoremap <leader>o <cmd>Telescope find_files find_command=rg,--smart-case,--sortr,modified,--multiline,--files<cr>
+nnoremap <leader>f <cmd>Telescope live_grep find_command=rg,--smart-case,--sortr,modified,--multiline<cr>
 nnoremap <leader>h <cmd>Telescope help_tags<cr>
 nnoremap <leader>s <cmd>silent! w<cr>
 nnoremap <leader>q <cmd>q!<cr>
