@@ -18,25 +18,25 @@ alias c='clear'
 alias e='exit'
 alias ls='exa --sort modified --reverse --icons'
 alias ld=':' # nop
-alias ll='ls -l'
-alias la='ll -a'
-alias lt='ll --tree --git-ignore'
+alias ll='ls -l --git-ignore'
+alias lt='ls -l --tree --git-ignore'
+alias la='ls -l -a'
 alias lv='v'
 function cs; builtin cd $argv && ls; end;
 function cd; builtin cd $argv && ld; end
 function cl; builtin cd $argv && ll; end;
-function ca; builtin cd $argv && la; end;
 function ct; builtin cd $argv && lt; end;
+function ca; builtin cd $argv && la; end;
 function cv; builtin cd $argv && lv; end;
 function hs; cd $SYNC_DIR; cs (python3 ~/.hd.py $argv); end;
 function hd; cd $SYNC_DIR; cd (python3 ~/.hd.py $argv); end;
 function hl; cd $SYNC_DIR; cl (python3 ~/.hd.py $argv); end;
-function ha; cd $SYNC_DIR; ca (python3 ~/.hd.py $argv); end;
 function ht; cd $SYNC_DIR; ct (python3 ~/.hd.py $argv); end;
+function ha; cd $SYNC_DIR; ca (python3 ~/.hd.py $argv); end;
 function hv; cd $SYNC_DIR; cv (python3 ~/.hd.py $argv); end;
-alias s='git status'
-alias d='git diff --no-prefix'
-alias D='git diff --no-prefix --text'
+alias s='git status --short'
+alias d='git diff --no-prefix --color=always | sed -z "s/diff --git[^\n]*\(\n[^\n]*\)\{3\}+++ /\n/g" | sed -z "s/\n[^\n]*@@ [^@]* @@//g"'
+alias D='d --text'
 alias a='git add'
 alias A='git fetch --all --prune'
 alias m='git commit -m'
