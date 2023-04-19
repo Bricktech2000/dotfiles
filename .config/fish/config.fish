@@ -34,7 +34,7 @@ function hl; cd $SYNC_DIR; cl (python3 ~/.hd.py $argv); end;
 function ht; cd $SYNC_DIR; ct (python3 ~/.hd.py $argv); end;
 function ha; cd $SYNC_DIR; ca (python3 ~/.hd.py $argv); end;
 function hv; cd $SYNC_DIR; cv (python3 ~/.hd.py $argv); end;
-function d; git diff --no-prefix --color=always $argv HEAD | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/\n.\{7\}@\+ [^@]* @\+/\n/g; s/+++ //g" | less -RFX; end;
+function d; git diff --no-prefix --color=always $argv HEAD | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | less -RFX; end;
 alias D='d --text'
 alias s='git status --short'
 alias S='d --staged'
