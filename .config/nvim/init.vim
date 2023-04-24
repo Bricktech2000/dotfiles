@@ -91,24 +91,34 @@ nmap <silent> gr <Plug>(coc-references)
 " found with `:verbose set tabstop?`
 let g:rust_recommended_style = 0
 
-Plug 'Bricktech2000/vimwiki' " (without overriding Tex parsing)
-nnoremap <leader>wb <cmd>VimwikiBacklinks<cr>
-" prevent vtmwiki from remapping <Tab> in normal mode
+Plug 'vimwiki/vimwiki' " (without overriding Tex parsing)
+" prevent vimwiki from remapping <Tab> in normal mode
 let g:vimwiki_key_mappings = { 'table_mappings': 0 }
 " prevent vtmwiki from constantly breaking tables
 let g:vimwiki_table_auto_fmt = 0
+" conceal code block markers
+let g:vimwiki_conceal_pre = 1
+" disable vimwiki conceal
+" let g:vimwiki_conceallevel = 0
 " needed for vimwiki update links on rename and backlinks
 " unfortunately breaks syntax highlighting
 " let g:vimwiki_ext2syntax = { '.md': 'default' }
 
-Plug 'KeitaNakamura/tex-conceal.vim', {'for': 'tex'}
-let g:tex_flavor='latex'
-let g:tex_conceal='abdgms'
-set conceallevel=2
-source ~/.config/nvim/conceal.vim
-
 call plug#end()
 
+
+autocmd BufEnter * syn match Normal '&nbsp;' conceal cchar= 
+autocmd BufEnter * syn match Normal '&emsp;' conceal cchar= 
+autocmd BufEnter * syn match Normal '&mdash;' conceal cchar=—
+autocmd BufEnter * syn match Normal '&times;' conceal cchar=×
+autocmd BufEnter * syn match Normal '&bull;' conceal cchar=•
+autocmd BufEnter * syn match Normal '&lambda;' conceal cchar=λ
+autocmd BufEnter * syn match Normal '&minus;' conceal cchar=−
+autocmd BufEnter * syn match Normal '&equiv;' conceal cchar=≡
+autocmd BufEnter * syn match Normal '&uarr;' conceal cchar=↑
+autocmd BufEnter * syn match Normal '&darr;' conceal cchar=↓
+autocmd BufEnter * syn match Normal '&larr;' conceal cchar=←
+autocmd BufEnter * syn match Normal '&rarr;' conceal cchar=→
 
 colorscheme molokai
 
