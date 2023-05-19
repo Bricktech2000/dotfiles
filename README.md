@@ -1,6 +1,6 @@
 # dotfiles
 
-A repository of my dotfiles
+_A repository of my dotfiles_
 
 ## Creating this Repository
 
