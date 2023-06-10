@@ -91,13 +91,13 @@ nmap <silent> gr <Plug>(coc-references)
 " found with `:verbose set tabstop?`
 let g:rust_recommended_style = 0
 
-Plug 'vimwiki/vimwiki' " (without overriding Tex parsing)
+Plug 'vimwiki/vimwiki'
 " prevent vimwiki from remapping <Tab> in normal mode
 let g:vimwiki_key_mappings = { 'table_mappings': 0 }
 " prevent vtmwiki from constantly breaking tables
 let g:vimwiki_table_auto_fmt = 0
 " conceal code block markers
-let g:vimwiki_conceal_pre = 1
+" let g:vimwiki_conceal_pre = 1
 " disable vimwiki conceal
 " let g:vimwiki_conceallevel = 0
 " needed for vimwiki update links on rename and backlinks
