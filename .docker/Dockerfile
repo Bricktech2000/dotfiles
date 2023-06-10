@@ -8,6 +8,7 @@ RUN apt-get install -y software-properties-common curl
 RUN add-apt-repository ppa:neovim-ppa/unstable
 RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
 RUN apt-get install -y git neovim python3 python3-pip nodejs
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
 
 # dotfiles
 RUN git clone --bare https://github.com/Bricktech2000/dotfiles.git ~/dotfiles
@@ -19,7 +20,7 @@ RUN apt-get install -y tmux
 
 # fish
 RUN add-apt-repository ppa:fish-shell/release-3
-RUN apt-get install -y exa fish ripgrep
+RUN apt-get install -y fish ripgrep && fish -c "cargo install exa"
 RUN curl -sL https://get.oh-my.fish > install_omf && fish install_omf --noninteractive && fish -c "omf install bobthefish" && rm install_omf
 RUN fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
 RUN fish -c "echo y | fish_config theme save 'Mono Smoke'"
