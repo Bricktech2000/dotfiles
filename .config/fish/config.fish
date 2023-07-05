@@ -16,10 +16,10 @@ set -g fish_cursor_visual block
 
 alias c='clear'
 alias e='exit'
-alias ls='exa --sort modified --reverse --icons'
+alias ls='exa --sort modified --reverse --icons --git-ignore'
 alias ld=':' # nop
-alias ll='ls -l --git-ignore'
-alias lt='ls -l --tree --git-ignore'
+alias ll='ls -l'
+alias lt='ls -l --tree'
 alias la='ls -l -a'
 alias lv='v'
 function cs; builtin cd $argv && ls; end;
@@ -34,10 +34,9 @@ function hl; cd $SYNC_DIR; cl (python3 ~/.hd.py $argv); end;
 function ht; cd $SYNC_DIR; ct (python3 ~/.hd.py $argv); end;
 function ha; cd $SYNC_DIR; ca (python3 ~/.hd.py $argv); end;
 function hv; cd $SYNC_DIR; cv (python3 ~/.hd.py $argv); end;
-function d; git diff --no-prefix --color=always HEAD $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | less -RFX; end;
-alias D='d --stat'
+function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | less -RFX; end;
 alias s='git status --short'
-alias S='d --staged'
+alias S='d HEAD --stat'
 alias a='git add'
 alias A='git fetch --all --prune'
 alias m='git commit -m'
