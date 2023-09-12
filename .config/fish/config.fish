@@ -1,3 +1,4 @@
+set -g theme_display_date no
 set -g theme_display_user no
 set -g theme_display_hostname no
 set -g theme_color_scheme base16-dark
@@ -85,7 +86,7 @@ set -x PAGER less
 function fish_greeting
   clear
   # set grey foreground color
-  echo -en "\033[38;5;242m\n"
+  echo -en "\033[38;5;240m\n"
   # move to column 1000, then move left (24 + 2) columns, then print line
   echo -en "\033[1000G\033[26D      ,+*%%@@%%*+,      \n"
   echo -en "\033[1000G\033[26D   :*@@@@@@@@@@@@@@*:   \n"

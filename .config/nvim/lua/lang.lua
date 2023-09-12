@@ -120,7 +120,7 @@ config = function()
     callback = function()
       vim.cmd(
         'syntax region markdownUrl matchgroup=markdownLinkDelimiter '
-          .. 'start="\\[\\[" end="\\]\\]" contains=markdownUrl keepend oneline concealends'
+        .. 'start="\\[\\[" end="\\]\\]" contains=markdownUrl keepend oneline concealends'
       )
     end,
   })
