@@ -45,7 +45,7 @@ config checkout
 ln -s ~/.nixos/ /etc/nixos # on NixOS
 ```
 
-As this repository exclusively contains handwritten dotfiles, additional configuration is required to get everything working properly. The [Dockerfile](./.docker/Dockerfile) fetches this repository and builds a container with this configuration from an Ubuntu image. Standalone [installation scripts](./.docker) that temporarily change the keyboard layout to Dvorak, remap the Caps Lock key to Escape, build the container, and mount the filesystem onto it are available for a few common operating systems.
+If you are not using NixOS, additional configuration may be required. If anything behaves incorrectly, it is recommended to read over the [.nixos](./.nixos) configuration files and run equivalent commands manually.
 
 ## Inspiration
 
