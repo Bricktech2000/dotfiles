@@ -60,7 +60,7 @@ config = function()
   hi({ 'SignColumn', bg_none })
   hi({ 'Search', bg_none, fg_white, st_bold })
   hi({ 'IncSearch', 'ctermfg=16', 'ctermbg=253', st_bold }) -- same as cursor
-  hi({ 'MatchParen', bg_none, fg_white, st_bold }) -- same as search
+  hi({ 'MatchParen', bg_none, fg_white, st_bold })          -- same as search
 end
 
 vim.g.rehash256 = 1
@@ -104,6 +104,8 @@ vim.g.minimap_cursor_diffremove_color = 'DiffDeleteBright'
 vim.g.minimap_range_diffadd_color = 'DiffAddBright'
 vim.g.minimap_range_diff_color = 'DiffChangeBright'
 vim.g.minimap_range_diffremove_color = 'DiffDeleteBright'
+
+map('n', '<leader>m', '<cmd>MinimapToggle<cr>')
 
 -- requires `code-minimap`. will throw a soft error if not installed
 P[#P + 1] = { 'wfxr/minimap.vim', config = config }
