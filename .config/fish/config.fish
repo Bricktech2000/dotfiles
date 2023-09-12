@@ -19,7 +19,7 @@ alias f='fuck --yeah'
 alias F='fuck'
 alias v='nvim'
 alias x='nix-shell -p'
-alias c='clear'
+alias c='fish_greeting'
 alias e='exit'
 
 # navigation
@@ -83,7 +83,24 @@ set -x VISUAL nvim
 set -x PAGER less
 
 function fish_greeting
-  # empty greeting
+  clear
+  # set grey foreground color
+  echo -en "\033[38;5;242m\n"
+  # move to column 1000, then move left (24 + 2) columns, then print line
+  echo -en "\033[1000G\033[26D      ,+*%%@@%%*+,      \n"
+  echo -en "\033[1000G\033[26D   :*@@@@@@@@@@@@@@*:   \n"
+  echo -en "\033[1000G\033[26D  *@@@@@@#*++*#@@@@@@*  \n"
+  echo -en "\033[1000G\033[26D #@@@@@%+++::+++%@@@@@# \n"
+  echo -en "\033[1000G\033[26D+@@@@@@*+++**+++#@@@@@@+\n"
+  echo -en "\033[1000G\033[26D%@@@@@@%+::::::+%@@@@@@%\n"
+  echo -en "\033[1000G\033[26D%@@@@@@@@#*++*#@@@@@@@@%\n"
+  echo -en "\033[1000G\033[26D+@@@@#*+=+@@@@+=+*#@@@@+\n"
+  echo -en "\033[1000G\033[26D #@@#:::::%@@%:::::#@@# \n"
+  echo -en "\033[1000G\033[26D  *@#:::::+@@+:::::#@*  \n"
+  echo -en "\033[1000G\033[26D   :*::::::**::::::*:   \n"
+  echo -en "\033[1000G\033[26D     '':--::::--:''     \n"
+  # move up (12 + 1) lines
+  echo -en "\033[13A"
 end
 
 if type -q thefuck
