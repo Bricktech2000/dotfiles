@@ -22,7 +22,8 @@ config commit -m "initial commit"
 config remote add origin <repo-url>
 config push -u origin master
 
-ln -s /etc/nixos/ .nixos # on NixOS
+mv /etc/nixos/ ~/.nixos # on NixOS
+ln -s ~/.nixos/ /etc/nixos # on NixOS
 ```
 
 ## Installing these Dotfiles
@@ -41,8 +42,7 @@ config config --local status.showUntrackedFiles no
 
 config checkout
 
-mv .nixos/ /etc/nixos # on NixOS
-ln -s /etc/nixos/ .nixos # on NixOS
+ln -s ~/.nixos/ /etc/nixos # on NixOS
 ```
 
 As this repository exclusively contains handwritten dotfiles, additional configuration is required to get everything working properly. The [Dockerfile](./.docker/Dockerfile) fetches this repository and builds a container with this configuration from an Ubuntu image. Standalone [installation scripts](./.docker) that temporarily change the keyboard layout to Dvorak, remap the Caps Lock key to Escape, build the container, and mount the filesystem onto it are available for a few common operating systems.
