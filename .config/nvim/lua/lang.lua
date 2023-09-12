@@ -71,6 +71,22 @@ end
 
 P[#P + 1] = { 'neovim/nvim-lspconfig', config = config }
 
+-- mostly from nvim-lsp documentation
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+    local opts = { buffer = ev.buf }
+    local builtin = require('telescope.builtin')
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts)
+    vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
+  end,
+})
+
 -- linting and formatting
 
 config = function()
@@ -104,7 +120,7 @@ config = function()
     callback = function()
       vim.cmd(
         'syntax region markdownUrl matchgroup=markdownLinkDelimiter '
-        .. 'start="\\[\\[" end="\\]\\]" contains=markdownUrl keepend oneline concealends'
+          .. 'start="\\[\\[" end="\\]\\]" contains=markdownUrl keepend oneline concealends'
       )
     end,
   })
