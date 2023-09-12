@@ -14,8 +14,15 @@ set -g fish_cursor_insert line
 set -g fish_cursor_replace_one underscore
 set -g fish_cursor_visual block
 
+# general
+alias f='fuck --yeah'
+alias F='fuck'
+alias v='nvim'
+alias x='nix-shell -p'
 alias c='clear'
 alias e='exit'
+
+# navigation
 alias ls='exa --sort modified --reverse --icons --git'
 alias ld=':' # nop
 alias ll='ls -l'
@@ -34,6 +41,8 @@ function hl; cd ~/; cl (python3 ~/.hd.py $argv); end;
 function ht; cd ~/; ct (python3 ~/.hd.py $argv); end;
 function ha; cd ~/; ca (python3 ~/.hd.py $argv); end;
 function hv; cd ~/; cv (python3 ~/.hd.py $argv); end;
+
+# git
 function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | less -RFX; end;
 alias s='git status --short'
 alias S='d HEAD --stat'
@@ -53,20 +62,19 @@ alias b='git branch'
 alias B='git rebase'
 alias t='git stash'
 alias T='git stash pop'
-alias f='fuck --yeah'
-alias F='fuck'
-alias v='nvim'
-alias x='nix-shell -p'
-alias pull='sudo ~/pull.sh'
-alias restart='sudo ~/restart.sh'
-alias server='~/server.sh'
-alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+
+# trash
 alias rm='trash-put'
 alias rl='trash-list'
 alias ru='trash-restore'
 alias rd='trash-empty'
 alias rx='trash-rm'
+
+# ripgrep
 alias grep='rg --smart-case --sortr modified --multiline --no-line-number --colors=path:fg:244 --colors=path:style:underline --colors=match:fg:white --colors=match:style:bold'
+
+# config
+alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
 set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;37:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37:su=1;37:sf=1;37:xa=1;37:ga=30:gm=30:gd=30:gv=30:gt=30"
 set -x LS_COLORS "*=0;37:di=1;0:ln=1;0:so=0:pi=0:ex=37:bd=0:cd=0:su=37:sg=37:tw=1;0:ow=1;0:or=1;37:pi=1;37"
