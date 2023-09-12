@@ -28,12 +28,12 @@ function cl; builtin cd $argv && ll; end;
 function ct; builtin cd $argv && lt; end;
 function ca; builtin cd $argv && la; end;
 function cv; builtin cd $argv && lv; end;
-function hs; cd $SYNC_DIR; cs (python3 ~/.hd.py $argv); end;
-function hd; cd $SYNC_DIR; cd (python3 ~/.hd.py $argv); end;
-function hl; cd $SYNC_DIR; cl (python3 ~/.hd.py $argv); end;
-function ht; cd $SYNC_DIR; ct (python3 ~/.hd.py $argv); end;
-function ha; cd $SYNC_DIR; ca (python3 ~/.hd.py $argv); end;
-function hv; cd $SYNC_DIR; cv (python3 ~/.hd.py $argv); end;
+function hs; cd ~/; cs (python3 ~/.hd.py $argv); end;
+function hd; cd ~/; cd (python3 ~/.hd.py $argv); end;
+function hl; cd ~/; cl (python3 ~/.hd.py $argv); end;
+function ht; cd ~/; ct (python3 ~/.hd.py $argv); end;
+function ha; cd ~/; ca (python3 ~/.hd.py $argv); end;
+function hv; cd ~/; cv (python3 ~/.hd.py $argv); end;
 function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | less -RFX; end;
 alias s='git status --short'
 alias S='d HEAD --stat'
@@ -56,10 +56,16 @@ alias T='git stash pop'
 alias f='fuck --yeah'
 alias F='fuck'
 alias v='nvim'
+alias x='nix-shell -p'
 alias pull='sudo ~/pull.sh'
 alias restart='sudo ~/restart.sh'
 alias server='~/server.sh'
-alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias rm='trash-put'
+alias rl='trash-list'
+alias ru='trash-restore'
+alias rd='trash-empty'
+alias rx='trash-rm'
 alias grep='rg --smart-case --sortr modified --multiline --no-line-number --colors=path:fg:244 --colors=path:style:underline --colors=match:fg:white --colors=match:style:bold'
 
 set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;37:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37:su=1;37:sf=1;37:xa=1;37:ga=30:gm=30:gd=30:gv=30:gt=30"
@@ -77,3 +83,4 @@ if type -q thefuck
 end
 
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"

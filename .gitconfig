@@ -13,3 +13,5 @@
 [color "diff"]
   frag = white bold
   meta = 244 ul
+[core]
+  filemode = false
