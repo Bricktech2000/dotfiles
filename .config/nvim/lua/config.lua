@@ -122,7 +122,7 @@ config = function()
     resume = {},
   }
   for _, v in pairs(pickers) do
-    v.initial_mode = 'normal'
+    v.initial_mode = 'insert'
   end
   require('telescope').setup({ pickers = pickers })
 
@@ -160,5 +160,14 @@ P[#P + 1] = { 'numToStr/Comment.nvim', config = config }
 
 P[#P + 1] = 'tpope/vim-surround'
 
-map('v', 'p', '"_dp')
-map('v', 'P', '"_dP')
+-- run telescope.nvim
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    local bufferPath = vim.fn.expand('%:p')
+    local builtin = require('telescope.builtin')
+    if vim.fn.isdirectory(bufferPath) ~= 0 then
+      vim.api.nvim_buf_delete(0, { force = true })
+      builtin.find_files()
+    end
+  end,
+})

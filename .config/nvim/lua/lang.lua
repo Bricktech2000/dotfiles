@@ -4,29 +4,26 @@ local hi = vim.cmd.highlight
 local bg_none = 'ctermbg=None'
 local st_underline = 'cterm=underline'
 
--- language servers
-
 config = function()
   require('mason').setup()
 end
 
 P[#P + 1] = { 'williamboman/mason.nvim', config = config }
 
+-- language servers
+
 config = function()
   require('mason-lspconfig').setup({
-    automatic_installation = true,
+    -- 'automatic_installation' does not seem to work
     ensure_installed = {
-      -- general purpose
       'rust_analyzer',
       'clojure_lsp',
       'pyright',
       'clangd',
-      -- domain specific
       'lua_ls',
-      'nil_ls',
       'bashls',
       'vimls',
-      -- web cruft
+      'rnix',
       'tailwindcss',
       'dockerls',
       'tsserver',
@@ -34,12 +31,12 @@ config = function()
       'denols',
       'eslint',
       'cssls',
-      -- data and markup
       'yamlls',
       'jsonls',
       'taplo',
       'html',
     },
+    -- automatic_installation = true,
   })
 end
 
@@ -48,25 +45,29 @@ P[#P + 1] = { 'williamboman/mason-lspconfig', config = config }
 config = function()
   local lspconfig = require('lspconfig')
 
-  lspconfig['rust_analyzer'].setup({})
-  lspconfig['clojure_lsp'].setup({})
-  lspconfig['pyright'].setup({})
-  lspconfig['clangd'].setup({})
-  lspconfig['lua_ls'].setup({ settings = { Lua = { diagnostics = { globals = { 'vim', 'P' } } } } })
-  lspconfig['nil_ls'].setup({})
-  lspconfig['bashls'].setup({})
-  lspconfig['vimls'].setup({})
-  lspconfig['tailwindcss'].setup({})
-  lspconfig['dockerls'].setup({})
-  lspconfig['tsserver'].setup({})
-  lspconfig['prismals'].setup({})
-  lspconfig['denols'].setup({})
-  lspconfig['eslint'].setup({})
-  lspconfig['cssls'].setup({})
-  lspconfig['yamlls'].setup({})
-  lspconfig['jsonls'].setup({})
-  lspconfig['taplo'].setup({})
-  lspconfig['html'].setup({})
+  -- general purpose
+  lspconfig.rust_analyzer.setup({})
+  lspconfig.clojure_lsp.setup({})
+  lspconfig.pyright.setup({})
+  lspconfig.clangd.setup({})
+  -- domain specific
+  lspconfig.lua_ls.setup({ settings = { Lua = { diagnostics = { globals = { 'vim', 'P' } } } } })
+  lspconfig.bashls.setup({})
+  lspconfig.vimls.setup({})
+  lspconfig.rnix.setup({})
+  -- web cruft
+  lspconfig.tailwindcss.setup({})
+  lspconfig.dockerls.setup({})
+  lspconfig.tsserver.setup({})
+  lspconfig.prismals.setup({})
+  lspconfig.denols.setup({})
+  lspconfig.eslint.setup({})
+  lspconfig.cssls.setup({})
+  -- data and markup
+  lspconfig.yamlls.setup({})
+  lspconfig.jsonls.setup({})
+  lspconfig.taplo.setup({})
+  lspconfig.html.setup({})
 end
 
 P[#P + 1] = { 'neovim/nvim-lspconfig', config = config }
@@ -92,18 +93,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 config = function()
   require('mason-null-ls').setup({
     automatic_installation = true,
-    ensure_installed = {
-      -- general purpose
-      'clang-format',
-      'autopep8',
-      'rustfmt',
-      -- domain specific
-      'shfmt',
-      'stylua',
-      -- data and markup
-      'prettierd',
-      'eslint_d',
-    },
   })
 end
 
@@ -120,7 +109,7 @@ config = function()
     callback = function()
       vim.cmd(
         'syntax region markdownUrl matchgroup=markdownLinkDelimiter '
-        .. 'start="\\[\\[" end="\\]\\]" contains=markdownUrl keepend oneline concealends'
+          .. 'start="\\[\\[" end="\\]\\]" contains=markdownUrl keepend oneline concealends'
       )
     end,
   })
@@ -130,11 +119,14 @@ config = function()
 
   null_ls.setup({
     sources = {
+      -- general purpose
       fmt.clang_format,
       fmt.autopep8,
       fmt.rustfmt,
+      -- domain specific
       fmt.shfmt,
       fmt.stylua,
+      -- data and markup
       fmt.prettierd,
       fmt.eslint_d,
     },
