@@ -167,7 +167,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
     local builtin = require('telescope.builtin')
     if vim.fn.isdirectory(bufferPath) ~= 0 then
       vim.api.nvim_buf_delete(0, { force = true })
-      builtin.find_files()
+      builtin.find_files({ search_dirs = { bufferPath } })
     end
   end,
 })

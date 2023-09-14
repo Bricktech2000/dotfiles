@@ -83,6 +83,7 @@
       trash-cli
       diskonaut
       ripgrep
+      thefuck
       pandoc
       gnupg
       fish
