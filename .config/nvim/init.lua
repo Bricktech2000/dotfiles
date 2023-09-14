@@ -19,15 +19,15 @@ P = {}
 require('lang')
 require('config')
 
-for _, v in ipairs(P) do
-  if type(v) == 'string' then
-    v = { v }
+for _, plugin in ipairs(P) do
+  if type(plugin) == 'string' then
+    plugin = { plugin }
   end
-  if v.lazy == nil then
-    v.lazy = false
+  if plugin.lazy == nil then
+    plugin.lazy = false
   end
-  if v.priority == nil then
-    v.priority = 0
+  if plugin.priority == nil then
+    plugin.priority = 0
   end
 end
 

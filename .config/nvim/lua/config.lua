@@ -121,8 +121,8 @@ config = function()
     help_tags = {},
     resume = {},
   }
-  for _, v in pairs(pickers) do
-    v.initial_mode = 'insert'
+  for _, picker in ipairs(pickers) do
+    picker.initial_mode = 'insert'
   end
   require('telescope').setup({ pickers = pickers })
 
@@ -140,6 +140,12 @@ P[#P + 1] = { 'nvim-telescope/telescope.nvim', config = config }
 
 map('n', '<leader>s', '<cmd>silent! w<cr>')
 map('n', '<leader>q', '<cmd>q!<cr>')
+
+for _, key in ipairs({ '<up>', '<down>', '<left>', '<right>' }) do
+  for _, mode in ipairs({ 'n', 'i', 'v' }) do
+    map(mode, key, '<nop>')
+  end
+end
 
 -- convenience
 

@@ -167,8 +167,8 @@ P[#P + 1] = { 'jose-elias-alvarez/null-ls.nvim', config = config }
 --     ['&larr;'] = '←',
 --     ['&rarr;'] = '→',
 --   }
---   for k, v in pairs(conceals) do
---     vim.cmd('autocmd BufEnter * syntax match Conceal "' .. k .. '" conceal cchar=' .. v)
+--   for match, cchar in pairs(conceals) do
+--     vim.cmd('autocmd BufEnter * syntax match Conceal "' .. match .. '" conceal cchar=' .. cchar)
 --   end
 --
 --   hi({ 'clear', 'Conceal' })
