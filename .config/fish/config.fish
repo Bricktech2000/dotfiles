@@ -36,12 +36,12 @@ function cl; builtin cd $argv && ll; end;
 function ct; builtin cd $argv && lt; end;
 function ca; builtin cd $argv && la; end;
 function cv; builtin cd $argv && lv; end;
-function hs; cd ~/; cs (python3 ~/.hd.py $argv); end;
-function hd; cd ~/; cd (python3 ~/.hd.py $argv); end;
-function hl; cd ~/; cl (python3 ~/.hd.py $argv); end;
-function ht; cd ~/; ct (python3 ~/.hd.py $argv); end;
-function ha; cd ~/; ca (python3 ~/.hd.py $argv); end;
-function hv; cd ~/; cv (python3 ~/.hd.py $argv); end;
+function hs; builtin cd ~/; cs (python3 ~/.hd.py $argv); end;
+function hd; builtin cd ~/; cd (python3 ~/.hd.py $argv); end;
+function hl; builtin cd ~/; cl (python3 ~/.hd.py $argv); end;
+function ht; builtin cd ~/; ct (python3 ~/.hd.py $argv); end;
+function ha; builtin cd ~/; ca (python3 ~/.hd.py $argv); end;
+function hv; builtin cd ~/; cv (python3 ~/.hd.py $argv); end;
 
 # git
 function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | less -RFX; end;
@@ -64,7 +64,7 @@ alias B='git rebase'
 alias t='git stash'
 alias T='git stash pop'
 
-# trash
+# trash-cli
 alias rm='trash-put'
 alias rl='trash-list'
 alias ru='trash-restore'
@@ -72,7 +72,9 @@ alias rd='trash-empty'
 alias rx='trash-rm'
 
 # ripgrep
-alias grep='rg --smart-case --sortr modified --multiline --no-line-number --colors=path:fg:244 --colors=path:style:underline --colors=match:fg:white --colors=match:style:bold'
+alias rg='rg --smart-case --sortr modified --multiline --no-line-number --colors=path:fg:244 --colors=path:style:underline --colors=match:fg:white --colors=match:style:bold'
+alias rc='grep --context 8'
+alias rh='grep --passthru'
 
 # config
 alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
