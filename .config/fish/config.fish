@@ -73,8 +73,8 @@ alias rx='trash-rm'
 
 # ripgrep
 alias rg='rg --smart-case --sortr modified --multiline --no-line-number --colors=path:fg:244 --colors=path:style:underline --colors=match:fg:white --colors=match:style:bold'
-alias rc='grep --context 8'
-alias rh='grep --passthru'
+alias rc='rg --context 8'
+alias rh='rg --passthru'
 
 # config
 alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
