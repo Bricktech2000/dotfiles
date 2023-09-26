@@ -65,11 +65,13 @@ alias t='git stash'
 alias T='git stash pop'
 
 # trash-cli
-alias rm='trash-put'
 alias rl='trash-list'
 alias ru='trash-restore'
 alias rd='trash-empty'
 alias rx='trash-rm'
+if type -q trash-put
+  alias rm='trash-put'
+end
 
 # ripgrep
 alias rg='rg --smart-case --sortr modified --multiline --no-line-number --colors=path:fg:244 --colors=path:style:underline --colors=match:fg:white --colors=match:style:bold'
