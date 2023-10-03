@@ -60,7 +60,7 @@ config = function()
   hi({ 'SignColumn', bg_none })
   hi({ 'Search', bg_none, fg_white, st_bold })
   hi({ 'IncSearch', 'ctermfg=16', 'ctermbg=253', st_bold }) -- same as cursor
-  hi({ 'MatchParen', bg_none, fg_white, st_bold })          -- same as search
+  hi({ 'MatchParen', bg_none, fg_white, st_bold }) -- same as search
 end
 
 vim.g.rehash256 = 1
@@ -152,6 +152,8 @@ end
 build = function()
   vim.cmd('Copilot setup')
 end
+
+vim.g.copilot_filetypes = { markdown = true }
 
 P[#P + 1] = { 'github/copilot.vim', build = build }
 
