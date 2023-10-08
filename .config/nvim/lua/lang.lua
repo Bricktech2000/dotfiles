@@ -103,17 +103,6 @@ config = function()
   local fmt = null_ls.builtins.formatting
   local diag = null_ls.builtins.diagnostics
 
-  -- TODO this is hacky
-  hi({ 'markdownUrl', bg_none, 'ctermfg=244', st_underline })
-  vim.api.nvim_create_autocmd('BufEnter', {
-    callback = function()
-      vim.cmd(
-        'syntax region markdownUrl matchgroup=markdownLinkDelimiter '
-          .. 'start="\\[\\[" end="\\]\\]" contains=markdownUrl keepend oneline concealends'
-      )
-    end,
-  })
-
   -- from null-ls documentation
   local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 
@@ -151,32 +140,31 @@ P[#P + 1] = { 'jose-elias-alvarez/null-ls.nvim', config = config }
 
 -- notes
 
--- TODO vimwiki breaks Prettier autoformatting
+config = function()
+  local conceals = {
+    ['&nbsp;'] = ' ',
+    ['&mdash;'] = '—',
+    ['&times;'] = '×',
+    ['&bull;'] = '•',
+    ['&lambda;'] = 'λ',
+    ['&minus;'] = '−',
+    ['&equiv;'] = '≡',
+    ['&uarr;'] = '↑',
+    ['&darr;'] = '↓',
+    ['&larr;'] = '←',
+    ['&rarr;'] = '→',
+  }
+  for match, cchar in pairs(conceals) do
+    vim.cmd('autocmd BufEnter * syntax match Conceal "' .. match .. '" conceal cchar=' .. cchar)
+  end
 
--- config = function()
---   local conceals = {
---     ['&nbsp;'] = ' ',
---     ['&mdash;'] = '—',
---     ['&times;'] = '×',
---     ['&bull;'] = '•',
---     ['&lambda;'] = 'λ',
---     ['&minus;'] = '−',
---     ['&equiv;'] = '≡',
---     ['&uarr;'] = '↑',
---     ['&darr;'] = '↓',
---     ['&larr;'] = '←',
---     ['&rarr;'] = '→',
---   }
---   for match, cchar in pairs(conceals) do
---     vim.cmd('autocmd BufEnter * syntax match Conceal "' .. match .. '" conceal cchar=' .. cchar)
---   end
---
---   hi({ 'clear', 'Conceal' })
--- end
---
--- P[#P + 1] = { 'vimwiki/vimwiki', config = config }
--- vim.g.vimwiki_key_mappings = { table_mappings = 0 } -- prevents vimwiki from remapping <Tab> in insert mode
--- vim.g.vimwiki_table_auto_fmt = 0                    -- prevents vtmwiki from constantly breaking tables
--- vim.g.vimwiki_conceal_pre = 1                       -- conceals code block markers
--- vim.g.vimwiki_conceallevel = 0                      -- disables vimwiki conceal
--- vim.g.vimwiki_ext2syntax = { ['.md'] = 'default' }  -- needed for backlink update on rename
+  hi({ 'clear', 'Conceal' })
+end
+
+P[#P + 1] = { 'vimwiki/vimwiki', config = config }
+vim.g.vimwiki_key_mappings = { table_mappings = 0 } -- prevents vimwiki from remapping <Tab> in insert mode
+vim.g.vimwiki_table_auto_fmt = 0 -- prevents vtmwiki from constantly breaking tables
+vim.g.vimwiki_filetypes = { 'markdown' } -- prevents vimwiki from overriding `filetype` and breaking Prettier
+vim.g.vimwiki_conceallevel = 0 -- disables vimwiki conceal
+-- vim.g.vimwiki_conceal_pre = 1 -- conceals code block markers
+-- vim.g.vimwiki_ext2syntax = { ['.md'] = 'default' } -- needed for backlink update on rename

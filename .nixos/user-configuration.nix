@@ -91,6 +91,7 @@
       # graphical
       logisim-evolution
       prismlauncher # minecraft
+      protonvpn-gui
       gnome.totem
       obs-studio
       syncthing
@@ -99,6 +100,7 @@
       bottles
       kitty
       brave
+      cura
       # libraries
       xclip # neovim
       pinentry # gnupg
