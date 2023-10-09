@@ -16,8 +16,8 @@ set -g fish_cursor_replace_one underscore
 set -g fish_cursor_visual block
 
 # general
-alias f='fuck --yeah'
-alias F='fuck'
+alias f='fuck'
+alias F='fuck --yeah'
 alias v='nvim'
 alias x='nix-shell -p'
 alias c='fish_greeting'
