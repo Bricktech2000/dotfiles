@@ -61,7 +61,7 @@ alias V='git revert --no-commit'
 alias k='git checkout'
 alias b='git branch'
 alias B='git rebase'
-alias t='git stash'
+alias t='git stash push'
 alias T='git stash pop'
 
 # trash-cli
