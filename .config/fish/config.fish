@@ -1,50 +1,49 @@
-set -g theme_display_date no
-set -g theme_display_user no
-set -g theme_display_hostname no
-set -g theme_color_scheme base16-dark
-
-set -g fish_key_bindings fish_vi_key_bindings
-fish_vi_key_bindings default
-for mode in default insert visual
-  bind -M $mode \r -m default execute
-end
 set fish_vi_force_cursor
-
-set -g fish_cursor_default block
-set -g fish_cursor_insert line
-set -g fish_cursor_replace_one underscore
-set -g fish_cursor_visual block
+set fish_cursor_default block
+set fish_cursor_insert line
+set fish_cursor_visual block
+set fish_cursor_replace underscore
+set fish_cursor_replace_one underscore
+set fish_key_bindings _vi_normal
+# using `fish_vi_key_bindings default` doesn't seem to work, so we define
+# a custom `fish_key_bindings` function and set mode to `default` manually
+function _vi_normal; fish_vi_key_bindings; set fish_bind_mode default; end
+for mode in default insert visual replace replace_one
+  bind -M $mode \r -m default execute
+  bind -M $mode \cl 'clear; fish_prompt'
+  bind -M $mode \cg 'meta; fish_prompt' # similar to Vim's <C-g>
+  bind -M $mode \ex 'meta; fish_prompt' # for termux volume keys
+end
 
 # general
-alias f='fuck'
-alias F='fuck --yeah'
 alias v='nvim'
 alias x='nix-shell -p'
-alias c='fish_greeting'
+alias c='clear'
 alias e='exit'
 
 # navigation
 alias ls='exa --sort modified --reverse --icons --git'
-alias ld=':' # nop
+alias ld=':' # no-op
 alias ll='ls -l'
 alias lt='ls -l --tree'
 alias la='ls -l -a'
 alias lv='v .'
-function cs; builtin cd $argv && ls; end;
-function cd; builtin cd $argv && ld; end
-function cl; builtin cd $argv && ll; end;
-function ct; builtin cd $argv && lt; end;
-function ca; builtin cd $argv && la; end;
-function cv; builtin cd $argv && lv; end;
+function cs; _cd_checked $argv && ls; end;
+function cd; _cd_checked $argv && ld; end
+function cl; _cd_checked $argv && ll; end;
+function ct; _cd_checked $argv && lt; end;
+function ca; _cd_checked $argv && la; end;
+function cv; _cd_checked $argv && lv; end;
 function hs; builtin cd ~/; cs (python3 ~/.hd.py $argv); end;
 function hd; builtin cd ~/; cd (python3 ~/.hd.py $argv); end;
 function hl; builtin cd ~/; cl (python3 ~/.hd.py $argv); end;
 function ht; builtin cd ~/; ct (python3 ~/.hd.py $argv); end;
 function ha; builtin cd ~/; ca (python3 ~/.hd.py $argv); end;
 function hv; builtin cd ~/; cv (python3 ~/.hd.py $argv); end;
+function _cd_checked; if test "$argv" = '.'; return 1; end; builtin cd $argv; end
 
 # git
-function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | less -RFX; end;
+function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | $PAGER -RFX; end;
 alias s='git status --short'
 alias S='d HEAD --stat'
 alias a='git add'
@@ -54,8 +53,8 @@ alias g='git log --all --graph --pretty=format:"%C(244 ul)%h%d%Creset %cr %C(whi
 alias G='g --stat'
 alias r='git reset'
 alias R='git reset --hard'
-alias p='git push'
-alias P='git push --force'
+alias h='git push'
+alias H='git push --force'
 alias l='git pull --rebase'
 alias V='git revert --no-commit'
 alias k='git checkout'
@@ -78,6 +77,17 @@ alias rg='rg --smart-case --sortr modified --multiline --no-line-number --colors
 alias rc='rg --context 8'
 alias rh='rg --passthru'
 
+# xclip
+alias y='xclip -selection clipboard'
+alias p='xclip -selection clipboard -o'
+
+# thefuck
+alias f='fuck'
+alias F='fuck --yeah'
+if type -q thefuck
+  thefuck --alias | source
+end
+
 # config
 alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
@@ -87,10 +97,10 @@ set -x EDITOR nvim
 set -x VISUAL nvim
 set -x PAGER less
 
+alias clear='fish_greeting'
 function fish_greeting
-  clear
-  # set grey foreground color
-  echo -en "\033[38;5;240m\n"
+  echo -en "\033[2J\033[H" # clears screen and homes cursor
+  echo -en "\033[38;5;240m\n" # sets grey foreground color
   # move to column 1000, then move left (24 + 2) columns, then print line
   echo -en "\033[1000G\033[26D      ,+*%%@@%%*+,      \n"
   echo -en "\033[1000G\033[26D   :*@@@@@@@@@@@@@@*:   \n"
@@ -104,12 +114,57 @@ function fish_greeting
   echo -en "\033[1000G\033[26D  *@#:::::+@@+:::::#@*  \n"
   echo -en "\033[1000G\033[26D   :*::::::**::::::*:   \n"
   echo -en "\033[1000G\033[26D     ''\"--::::--\"''     \n"
-  # move up (12 + 1) lines
-  echo -en "\033[13A"
+  echo -en "\033[13A" # moves up (12 + 1) lines
+  echo -en "\033[0m" # resets color
 end
 
-if type -q thefuck
-  thefuck --alias | source
+function fish_mode_prompt; end # empty mode prompt
+function fish_right_prompt; end # empty right prompt
+function fish_title; meta; end
+
+function fish_prompt
+  set -l _status $status
+
+  if test $_status -ne 0
+    _echo_bold -n '! ' # last command failed
+  else if test (jobs -p | wc -l) -ne 0
+    _echo_bold -n '% ' # job is running
+  else if test (id -u) -eq 0
+    _echo_bold -n '# ' # user is root
+  else
+    _echo_bold -n '$ ' # default
+  end
+
+  commandline -f repaint
+end
+
+function meta
+  set -l _status $status
+  set -l curr_commit (git rev-parse --abbrev-ref HEAD 2> /dev/null)
+  set -l is_git_repo (git rev-parse --is-inside-work-tree 2> /dev/null)
+  if test "$curr_commit" = 'HEAD'; set curr_commit (git rev-parse --short HEAD 2> /dev/null); end
+  set -l cmd_duration (math round $CMD_DURATION / 1000)
+  echo -en '\r  '
+
+  _echo_bold -n 'in'; echo -n " $(prompt_pwd) "
+  if test $is_git_repo
+    _echo_bold -n 'on'; echo -n " $curr_commit "
+  end
+  _echo_bold -n 'as'; echo -n " $USER "
+  if test $cmd_duration -gt 0
+    _echo_bold -n 'took'; echo -n " $(date -d @$cmd_duration -u +%H:%M:%S) "
+  end
+  if test $_status -ne 0
+    _echo_bold -n 'exit'; echo -n " $(printf '0x%x' $_status) "
+  end
+
+  echo -en '\n'
+end
+
+function _echo_bold
+  echo -en "\033[1m" # sets bold style
+  echo $argv
+  echo -en "\033[0m" # resets style
 end
 
 export PATH="$HOME/.cargo/bin:$PATH"

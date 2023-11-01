@@ -107,7 +107,6 @@
       code-minimap # miminap.vim
       any-nix-shell # fish
       python311Packages.pip
-      fishPlugins.bobthefish
       gnomeExtensions.just-perfection
       texlive.combined.scheme-tetex # pandoc
     ];

@@ -8,6 +8,7 @@ local bg_none = 'ctermbg=None'
 local fg_black = 'ctermfg=0'
 local st_bold = 'cterm=bold'
 local fg_white = 'ctermfg=7'
+local bg_grey = 'ctermbg=238'
 
 -- core
 
@@ -59,8 +60,17 @@ config = function()
   hi({ 'LineNr', bg_none })
   hi({ 'SignColumn', bg_none })
   hi({ 'Search', bg_none, fg_white, st_bold })
+  hi({ 'Question', bg_none, fg_white, st_bold })            -- same as search
+  hi({ 'ErrorMsg', bg_none, fg_white, st_bold })            -- same as search
+  hi({ 'Pmenu', bg_none, fg_white })
+  hi({ 'PmenuSel', bg_grey, fg_white })                     -- same as visual
   hi({ 'IncSearch', 'ctermfg=16', 'ctermbg=253', st_bold }) -- same as cursor
-  hi({ 'MatchParen', bg_none, fg_white, st_bold }) -- same as search
+  hi({ 'MatchParen', bg_none, fg_white, st_bold })          -- same as search
+  hi({ 'StatusLine', bg_none, fg_black })
+  hi({ 'StatusLineNC', bg_none, fg_black })
+  hi({ 'VertSplit', bg_none, fg_black })
+  vim.cmd('autocmd BufEnter * syntax match Trailing /\\s\\+$/')
+  hi({ 'Trailing', bg_grey, fg_white }) -- same as visual
 end
 
 vim.g.rehash256 = 1
@@ -108,7 +118,7 @@ vim.g.minimap_range_diffremove_color = 'DiffDeleteBright'
 map('n', '<leader>m', '<cmd>MinimapToggle<cr>')
 
 -- requires `code-minimap`. will throw a soft error if not installed
-P[#P + 1] = { 'wfxr/minimap.vim', config = config }
+-- P[#P + 1] = 'wfxr/minimap.vim'
 
 -- navigation
 

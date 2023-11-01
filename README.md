@@ -45,7 +45,7 @@ config checkout
 ln -s ~/.nixos/ /etc/nixos # on NixOS
 ```
 
-If you are not using NixOS, additional configuration may be required. If anything behaves incorrectly, it is recommended to read over the [.nixos](./.nixos) configuration files and run equivalent commands manually.
+If you are not using NixOS, additional configuration may be required. If anything behaves incorrectly, read over the [.nixos](.nixos/) configuration files and run equivalent commands manually.
 
 ## Inspiration
 
