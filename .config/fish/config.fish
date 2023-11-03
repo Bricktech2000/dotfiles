@@ -4,7 +4,7 @@ set fish_cursor_insert line
 set fish_cursor_visual block
 set fish_cursor_replace underscore
 set fish_cursor_replace_one underscore
-set fish_key_bindings _vi_normal
+set -g fish_key_bindings _vi_normal
 # using `fish_vi_key_bindings default` doesn't seem to work, so we define
 # a custom `fish_key_bindings` function and set mode to `default` manually
 function _vi_normal; fish_vi_key_bindings; set fish_bind_mode default; end
@@ -124,13 +124,16 @@ function fish_title; meta; end
 
 function fish_prompt
   set -l _status $status
+  set -l is_git_repo (git rev-parse --is-inside-work-tree 2> /dev/null) # TODO duplicated
 
   if test $_status -ne 0
     _echo_bold -n '! ' # last command failed
   else if test (jobs -p | wc -l) -ne 0
-    _echo_bold -n '% ' # job is running
+    _echo_bold -n '% ' # jobs running
+  else if test $is_git_repo
+    _echo_bold -n '& ' # within git repo
   else if test (id -u) -eq 0
-    _echo_bold -n '# ' # user is root
+    _echo_bold -n '# ' # user root
   else
     _echo_bold -n '$ ' # default
   end
@@ -142,6 +145,7 @@ function meta
   set -l _status $status
   set -l curr_commit (git rev-parse --abbrev-ref HEAD 2> /dev/null)
   set -l is_git_repo (git rev-parse --is-inside-work-tree 2> /dev/null)
+  set -l repo_dirty (git diff --shortstat 2> /dev/null | tail -n1)
   if test "$curr_commit" = 'HEAD'; set curr_commit (git rev-parse --short HEAD 2> /dev/null); end
   set -l cmd_duration (math round $CMD_DURATION / 1000)
   echo -en '\r  '
@@ -150,12 +154,15 @@ function meta
   if test $is_git_repo
     _echo_bold -n 'on'; echo -n " $curr_commit "
   end
+  if test $repo_dirty
+    echo -n '(dirty) '
+  end
   _echo_bold -n 'as'; echo -n " $USER "
   if test $cmd_duration -gt 0
     _echo_bold -n 'took'; echo -n " $(date -d @$cmd_duration -u +%H:%M:%S) "
   end
   if test $_status -ne 0
-    _echo_bold -n 'exit'; echo -n " $(printf '0x%x' $_status) "
+    _echo_bold -n 'exit'; echo -n " $(printf '0x%02X' $_status) "
   end
 
   echo -en '\n'
