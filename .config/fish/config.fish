@@ -18,6 +18,7 @@ end
 # general
 alias v='nvim'
 alias x='nix-shell -p'
+alias X='nix-shell --pure -p'
 alias c='clear'
 alias e='exit'
 
@@ -130,6 +131,8 @@ function fish_prompt
     _echo_bold -n '! ' # last command failed
   else if test (jobs -p | wc -l) -ne 0
     _echo_bold -n '% ' # jobs running
+  else if test $IN_NIX_SHELL
+    _echo_bold -n 'S ' # within nix-shell
   else if test $is_git_repo
     _echo_bold -n '& ' # within git repo
   else if test (id -u) -eq 0
@@ -151,6 +154,11 @@ function meta
   echo -en '\r  '
 
   _echo_bold -n 'in'; echo -n " $(prompt_pwd) "
+  if test "$IN_NIX_SHELL" = 'pure'
+    echo -n '(pure) '
+  else if test "$IN_NIX_SHELL" = 'impure'
+    echo -n '(impure) '
+  end
   if test $is_git_repo
     _echo_bold -n 'on'; echo -n " $curr_commit "
   end
