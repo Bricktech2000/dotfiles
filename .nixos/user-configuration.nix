@@ -42,6 +42,8 @@
     sleep-inactive-battery-timeout=0
     [org.gnome.nautilus.preferences]
     search-filter-time-type='last_modified'
+    default-sort-order='mtime'
+    default-sort-in-reverse-order='true'
     [org.gnome.desktop.peripherals.touchpad]
     disable-while-typing=false
     [org/gnome/settings-daemon/plugins/media-keys]
