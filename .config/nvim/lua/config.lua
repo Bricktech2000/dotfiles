@@ -94,6 +94,8 @@ config = function()
   hi({ 'StatusLine', bg_none, fg_black })
   hi({ 'StatusLineNC', bg_none, fg_black })
   hi({ 'VertSplit', bg_none, fg_black })
+
+  map('n', '<leader>m', '<cmd>MinimapToggle<cr>')
 end
 
 vim.g.minimap_auto_start = 1
@@ -115,26 +117,22 @@ vim.g.minimap_range_diffadd_color = 'DiffAddBright'
 vim.g.minimap_range_diff_color = 'DiffChangeBright'
 vim.g.minimap_range_diffremove_color = 'DiffDeleteBright'
 
-map('n', '<leader>m', '<cmd>MinimapToggle<cr>')
-
 -- requires `code-minimap`. will throw a soft error if not installed
 -- P[#P + 1] = 'wfxr/minimap.vim'
 
 -- navigation
 
 config = function()
-  local ripgrep = { 'rg', '--smart-case', '--sortr', 'modified', '--multiline' }
-  local pickers = {
-    find_files = { find_command = { unpack(ripgrep), '--files' } },
-    live_grep = { find_command = { unpack(ripgrep) } },
-    lsp_references = {},
-    help_tags = {},
-    resume = {},
-  }
-  for _, picker in ipairs(pickers) do
-    picker.initial_mode = 'insert'
-  end
-  require('telescope').setup({ pickers = pickers })
+  require('telescope').setup({
+    defaults = { layout_config = { width = 100000000000, height = 100000000000 } },
+    pickers = {
+      find_files = { initial_mode = 'insert' },
+      live_grep = { initial_mode = 'insert' },
+      lsp_references = { initial_mode = 'normal' },
+      help_tags = { initial_mode = 'insert' },
+      resume = { initial_mode = 'normal' },
+    },
+  })
 
   hi({ 'TelescopeMatching', bg_none, fg_white, st_bold }) -- same as search
 
@@ -178,7 +176,7 @@ P[#P + 1] = { 'numToStr/Comment.nvim', config = config }
 
 P[#P + 1] = 'tpope/vim-surround'
 
--- run telescope.nvim
+-- run telescope.nvim on startup if the current buffer is a directory
 vim.api.nvim_create_autocmd('VimEnter', {
   callback = function()
     local bufferPath = vim.fn.expand('%:p')

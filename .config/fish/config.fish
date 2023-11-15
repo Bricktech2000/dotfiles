@@ -12,7 +12,6 @@ for mode in default insert visual replace replace_one
   bind -M $mode \r -m default execute
   bind -M $mode \cl 'clear; fish_prompt'
   bind -M $mode \cg 'meta; fish_prompt' # similar to Vim's <C-g>
-  bind -M $mode \ex 'meta; fish_prompt' # for termux volume keys
 end
 
 # general
