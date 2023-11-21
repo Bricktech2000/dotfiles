@@ -18,6 +18,7 @@ end
 alias v='nvim'
 alias x='nix-shell -p'
 alias X='nix-shell --pure -p'
+alias p='python3 -i -c "import cmath, math, random, re, time"'
 alias c='clear'
 alias e='exit'
 
@@ -78,8 +79,8 @@ alias rc='rg --context 8'
 alias rh='rg --passthru'
 
 # xclip
-alias y='xclip -selection clipboard'
-alias p='xclip -selection clipboard -o'
+alias Y='xclip -selection clipboard'
+alias P='xclip -selection clipboard -o'
 
 # thefuck
 alias f='fuck'
