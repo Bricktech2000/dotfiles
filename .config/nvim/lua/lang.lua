@@ -1,8 +1,6 @@
 local config = function() end
 
 local hi = vim.cmd.highlight
-local bg_none = 'ctermbg=None'
-local st_underline = 'cterm=underline'
 
 config = function()
   require('mason').setup()
@@ -14,7 +12,7 @@ P[#P + 1] = { 'williamboman/mason.nvim', config = config }
 
 config = function()
   require('mason-lspconfig').setup({
-    -- 'automatic_installation' does not seem to work
+    -- `automatic_installation` does not appear to work
     ensure_installed = {
       'rust_analyzer',
       'clojure_lsp',
@@ -92,6 +90,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 config = function()
   require('mason-null-ls').setup({
+    -- `automatic_installation` does appear to work here
     automatic_installation = true,
   })
 end
@@ -137,6 +136,10 @@ config = function()
 end
 
 P[#P + 1] = { 'jose-elias-alvarez/null-ls.nvim', config = config }
+
+-- syntax highlighting
+
+P[#P + 1] = { 'llathasa-veleth/vim-brainfuck' }
 
 -- notes
 

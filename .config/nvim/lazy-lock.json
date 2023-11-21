@@ -13,6 +13,7 @@
   "plenary.nvim": { "branch": "master", "commit": "9ce85b0f7dcfe5358c0be937ad23e456907d410b" },
   "telescope.nvim": { "branch": "master", "commit": "5a747a9587e4bfc4ae086a38cc679fe54f983b69" },
   "ultisnips": { "branch": "master", "commit": "f6d1501b630cb783b0af8507c5588328f826d40f" },
+  "vim-brainfuck": { "branch": "master", "commit": "dca6a47c043c2906524825cb47071778ec564380" },
   "vim-snippets": { "branch": "master", "commit": "ccc2fa1529d372f7ac16d5eb07a385a72b50e05d" },
   "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
   "vimwiki": { "branch": "dev", "commit": "f0fe154ede6b11e3db9b058b930005a056a3d1c6" }
