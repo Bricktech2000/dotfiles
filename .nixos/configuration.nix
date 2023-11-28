@@ -72,6 +72,7 @@
     htop
     wget
     curl
+    zip
     git
     xxd
     gdb

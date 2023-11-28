@@ -85,6 +85,7 @@
       trash-cli
       diskonaut
       ripgrep
+      radare2
       thefuck
       pandoc
       gnupg
