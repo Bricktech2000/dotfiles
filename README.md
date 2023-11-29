@@ -7,7 +7,7 @@ _A repository of my dotfiles_
 To create a similar _dotfiles_ repository, add the following to your shell config:
 
 ```bash
-alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 ```
 
 Then, run the following commands:
@@ -31,7 +31,7 @@ ln -s ~/.nixos/ /etc/nixos # on NixOS
 To clone these dotfiles to your machine, add the following to your shell config:
 
 ```bash
-alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 ```
 
 Then, run the following commands:
