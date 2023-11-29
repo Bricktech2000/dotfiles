@@ -1,0 +1,24 @@
+# use vi bindings in `readline`
+set editing-mode vi
+
+# use different cursor in different modes
+set show-mode-in-prompt on
+set vi-cmd-mode-string "\1\e[2 q\2"
+set vi-ins-mode-string "\1\e[6 q\2"
+
+# remove delay between `<esc>` and cursor change
+set keyseq-timeout 0
+
+# fix `<C-l>` in insert mode
+set keymap vi-insert
+"\f": clear-screen
+
+# disable bell
+set bell-style none
+
+# seems to break `python3` REPL
+# # remap `<cr>` to `<cr><esc>`
+# set keymap vi-insert
+# "\C-m": "\C-j\e"
+# set keymap vi-command
+# "\C-m": "\C-j\e"
