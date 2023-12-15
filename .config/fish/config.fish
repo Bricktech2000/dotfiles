@@ -45,6 +45,7 @@ function _cd_checked; if test "$argv" = '.'; return 1; end; builtin cd $argv; en
 
 # git
 function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | $PAGER -RFX; end;
+alias D='d --staged'
 alias s='git status --short'
 alias S='d HEAD --stat'
 alias a='git add'
