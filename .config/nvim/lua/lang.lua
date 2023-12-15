@@ -1,11 +1,9 @@
 local config = function() end
 
+local map = vim.keymap.set
 local hi = vim.cmd.highlight
 
-config = function()
-  require('mason').setup()
-end
-
+config = function() require('mason').setup() end
 P[#P + 1] = { 'williamboman/mason.nvim', config = config }
 
 -- language servers
@@ -78,11 +76,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     local opts = { buffer = ev.buf }
     local builtin = require('telescope.builtin')
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', 'gn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', 'gr', builtin.lsp_references, opts)
+    map('n', 'gD', vim.lsp.buf.declaration, opts)
+    map('n', 'gd', vim.lsp.buf.definition, opts)
+    map('n', 'gi', vim.lsp.buf.implementation, opts)
+    map('n', 'gn', vim.lsp.buf.rename, opts)
+    map('n', 'gr', builtin.lsp_references, opts)
   end,
 })
 
@@ -126,9 +124,7 @@ config = function()
         vim.api.nvim_create_autocmd('BufWritePre', {
           group = augroup,
           buffer = bufnr,
-          callback = function()
-            vim.lsp.buf.format({ async = false })
-          end,
+          callback = function() vim.lsp.buf.format({ async = false }) end,
         })
       end
     end,
@@ -166,8 +162,8 @@ end
 
 P[#P + 1] = { 'vimwiki/vimwiki', config = config }
 vim.g.vimwiki_key_mappings = { table_mappings = 0 } -- prevents vimwiki from remapping <Tab> in insert mode
-vim.g.vimwiki_table_auto_fmt = 0 -- prevents vtmwiki from constantly breaking tables
-vim.g.vimwiki_filetypes = { 'markdown' } -- prevents vimwiki from overriding `filetype` and breaking Prettier
-vim.g.vimwiki_conceallevel = 0 -- disables vimwiki conceal
+vim.g.vimwiki_table_auto_fmt = 0                    -- prevents vtmwiki from constantly breaking tables
+vim.g.vimwiki_filetypes = { 'markdown' }            -- prevents vimwiki from overriding `filetype` and breaking Prettier
+vim.g.vimwiki_conceallevel = 0                      -- disables vimwiki conceal
 -- vim.g.vimwiki_conceal_pre = 1 -- conceals code block markers
 -- vim.g.vimwiki_ext2syntax = { ['.md'] = 'default' } -- needed for backlink update on rename

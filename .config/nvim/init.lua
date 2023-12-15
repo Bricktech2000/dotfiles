@@ -16,19 +16,13 @@ vim.opt.rtp:prepend(lazypath)
 
 P = {}
 
-require('lang')
 require('config')
+require('lang')
 
 for _, plugin in ipairs(P) do
-  if type(plugin) == 'string' then
-    plugin = { plugin }
-  end
-  if plugin.lazy == nil then
-    plugin.lazy = false
-  end
-  if plugin.priority == nil then
-    plugin.priority = 0
-  end
+  if type(plugin) == 'string' then plugin = { plugin } end
+  if plugin.lazy == nil then plugin.lazy = false end
+  if plugin.priority == nil then plugin.priority = 0 end
 end
 
 require('lazy').setup(P)

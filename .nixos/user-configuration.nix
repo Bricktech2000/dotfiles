@@ -107,7 +107,6 @@
       # libraries
       xclip # neovim
       pinentry # gnupg
-      code-minimap # miminap.vim
       any-nix-shell # fish
       python311Packages.pip
       gnomeExtensions.just-perfection

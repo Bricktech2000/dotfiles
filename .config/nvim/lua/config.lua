@@ -10,7 +10,7 @@ local st_bold = 'cterm=bold'
 local fg_white = 'ctermfg=7'
 local bg_grey = 'ctermbg=238'
 
--- core
+-- system
 
 opt.errorbells = false
 opt.swapfile = false
@@ -18,13 +18,14 @@ opt.updatetime = 50
 opt.autoread = true
 opt.fileformat = 'unix'
 
--- general
+-- behavior
 
 opt.tabstop = 2
 opt.softtabstop = 2
 opt.shiftwidth = 2
 opt.expandtab = true
 opt.smartindent = true
+opt.formatoptions = ''
 
 opt.ignorecase = true
 opt.smartcase = true
@@ -47,9 +48,21 @@ opt.cmdheight = 1
 opt.laststatus = 0
 opt.shortmess = 's' .. 'W' .. 'F' .. 'l' .. 'I'
 
-map('n', '<esc>', '<cmd>noh|echo<cr><esc>')
+-- essentials
 
-P[#P + 1] = 'kyazdani42/nvim-web-devicons'
+map('n', '<esc>', '<cmd>noh|echo<cr><esc>')
+map('n', '<leader>s', '<cmd>silent! w<cr>')
+map('n', '<leader>q', '<cmd>q!<cr>')
+
+P[#P + 1] = 'tpope/vim-commentary'
+P[#P + 1] = 'tpope/vim-surround'
+P[#P + 1] = 'tpope/vim-repeat'
+
+build = function() vim.cmd('Copilot setup') end
+vim.g.copilot_filetypes = { markdown = true }
+P[#P + 1] = { 'github/copilot.vim', build = build }
+
+-- colors
 
 config = function()
   vim.cmd.colorscheme('molokai')
@@ -90,36 +103,6 @@ end
 
 P[#P + 1] = { 'lewis6991/gitsigns.nvim', config = config }
 
-config = function()
-  hi({ 'StatusLine', bg_none, fg_black })
-  hi({ 'StatusLineNC', bg_none, fg_black })
-  hi({ 'VertSplit', bg_none, fg_black })
-
-  map('n', '<leader>m', '<cmd>MinimapToggle<cr>')
-end
-
-vim.g.minimap_auto_start = 1
-vim.g.minimap_width = 16
-vim.g.minimap_window_width_override_for_scaling = 200
--- somewhat of a performance hit when opening files
--- vim.g.minimap_git_colors = 1
-
-vim.g.minimap_base_highlight = 'Comment'
-vim.g.minimap_cursor_color = 'Normal'
-vim.g.minimap_range_color = 'Normal'
-vim.g.minimap_diffadd_color = 'DiffAdd'
-vim.g.minimap_diff_color = 'DiffChange'
-vim.g.minimap_diffremove_color = 'DiffDelete'
-vim.g.minimap_cursor_diffadd_color = 'DiffAddBright'
-vim.g.minimap_cursor_diff_color = 'DiffChangeBright'
-vim.g.minimap_cursor_diffremove_color = 'DiffDeleteBright'
-vim.g.minimap_range_diffadd_color = 'DiffAddBright'
-vim.g.minimap_range_diff_color = 'DiffChangeBright'
-vim.g.minimap_range_diffremove_color = 'DiffDeleteBright'
-
--- requires `code-minimap`. will throw a soft error if not installed
--- P[#P + 1] = 'wfxr/minimap.vim'
-
 -- navigation
 
 config = function()
@@ -144,37 +127,8 @@ config = function()
 end
 
 P[#P + 1] = 'nvim-lua/plenary.nvim'
+P[#P + 1] = 'kyazdani42/nvim-web-devicons'
 P[#P + 1] = { 'nvim-telescope/telescope.nvim', config = config }
-
-map('n', '<leader>s', '<cmd>silent! w<cr>')
-map('n', '<leader>q', '<cmd>q!<cr>')
-
-for _, key in ipairs({ '<up>', '<down>', '<left>', '<right>' }) do
-  for _, mode in ipairs({ 'n', 'i', 'v' }) do
-    map(mode, key, '<nop>')
-  end
-end
-
--- convenience
-
-build = function()
-  vim.cmd('Copilot setup')
-end
-
-vim.g.copilot_filetypes = { markdown = true }
-
-P[#P + 1] = { 'github/copilot.vim', build = build }
-
-P[#P + 1] = 'honza/vim-snippets'
-P[#P + 1] = 'SirVer/ultisnips'
-
-config = function()
-  require('Comment').setup()
-end
-
-P[#P + 1] = { 'numToStr/Comment.nvim', config = config }
-
-P[#P + 1] = 'tpope/vim-surround'
 
 -- run telescope.nvim on startup if the current buffer is a directory
 vim.api.nvim_create_autocmd('VimEnter', {
@@ -187,3 +141,16 @@ vim.api.nvim_create_autocmd('VimEnter', {
     end
   end,
 })
+
+-- why vim why
+
+for _, key in ipairs({ '<up>', '<down>', '<left>', '<right>' }) do
+  for _, mode in ipairs({ 'n', 'i', 'v' }) do
+    map(mode, key, '<nop>')
+  end
+end
+
+local ftplugin_overrides = { 'formatoptions', 'softtabstop', 'tabstop', 'shiftwidth' }
+for _, option in ipairs(ftplugin_overrides) do
+  vim.cmd('autocmd FileType * setlocal ' .. option .. '=' .. opt[option]._value)
+end
