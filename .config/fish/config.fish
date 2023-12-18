@@ -122,11 +122,13 @@ end
 
 function fish_mode_prompt; end # empty mode prompt
 function fish_right_prompt; end # empty right prompt
-function fish_title; meta; end
+function fish_title; meta raw; end
 
 function fish_prompt
   set -l _status $status
-  set -l is_git_repo (git rev-parse --is-inside-work-tree 2> /dev/null) # TODO duplicated
+  set -l is_git_repo (git rev-parse --is-inside-work-tree 2> /dev/null)
+
+  set -g _echo_raw 0
 
   if test $_status -ne 0
     _echo_bold -n '! ' # last command failed
@@ -154,6 +156,8 @@ function meta
   set -l cmd_duration (math round $CMD_DURATION / 1000)
   echo -en '\r  '
 
+  test "$argv" != 'raw'; set -g _echo_raw $status
+
   _echo_bold -n 'in'; echo -n " $(prompt_pwd) "
   if test "$IN_NIX_SHELL" = 'pure'
     echo -n '(pure) '
@@ -178,9 +182,13 @@ function meta
 end
 
 function _echo_bold
-  echo -en "\033[1m" # sets bold style
-  echo $argv
-  echo -en "\033[0m" # resets style
+  if test $_echo_raw -eq 1
+    echo $argv
+  else
+    echo -en "\033[1m" # sets bold style
+    echo $argv
+    echo -en "\033[0m" # resets style
+  end
 end
 
 export PATH="$HOME/.cargo/bin:$PATH"
