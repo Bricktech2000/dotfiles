@@ -105,7 +105,7 @@ function fish_greeting
   echo -en "\033[38;5;240m\n" # sets grey foreground color
   # move to column 1000, then move left (24 + 2) columns, then print line
   echo -en "\033[1000G\033[26D      ,+*%%@@%%*+,      \n"
-  echo -en "\033[1000G\033[26D   :*@@@@@@@@@@@@@@*:   \n"
+  echo -en "\033[1000G\033[26D    *@@@@@@@@@@@@@@*    \n"
   echo -en "\033[1000G\033[26D  *@@@@@@#*++*#@@@@@@*  \n"
   echo -en "\033[1000G\033[26D #@@@@@%+++::+++%@@@@@# \n"
   echo -en "\033[1000G\033[26D+@@@@@@*+++**+++#@@@@@@+\n"
@@ -114,8 +114,8 @@ function fish_greeting
   echo -en "\033[1000G\033[26D+@@@@#*+=+@@@@+=+*#@@@@+\n"
   echo -en "\033[1000G\033[26D #@@#:::::%@@%:::::#@@# \n"
   echo -en "\033[1000G\033[26D  *@#:::::+@@+:::::#@*  \n"
-  echo -en "\033[1000G\033[26D   :*::::::**::::::*:   \n"
-  echo -en "\033[1000G\033[26D     ''\"--::::--\"''     \n"
+  echo -en "\033[1000G\033[26D    *::::::**::::::*    \n"
+  echo -en "\033[1000G\033[26D     '''::::::::'''     \n"
   echo -en "\033[13A" # moves up (12 + 1) lines
   echo -en "\033[0m" # resets color
 end
