@@ -2,7 +2,7 @@
 
 _A repository of my dotfiles_
 
-## Creating this Repository
+## Repository Creation
 
 To create a similar _dotfiles_ repository, add the following to your shell config:
 
@@ -26,7 +26,7 @@ mv /etc/nixos/ ~/.nixos # on NixOS
 ln -s ~/.nixos/ /etc/nixos # on NixOS
 ```
 
-## Installing these Dotfiles
+## Installation
 
 To clone these dotfiles to your machine, add the following to your shell config:
 
