@@ -1,5 +1,6 @@
 # general
 
+pkg install termux-api # also ensure 'Termux:API' app is installed
 mkdir ~/bin && ln -s ~/.termux/termux-file-editor ~/bin/termux-file-editor
 
 # storage

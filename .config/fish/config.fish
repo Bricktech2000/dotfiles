@@ -66,12 +66,12 @@ alias t='git stash push'
 alias T='git stash pop'
 
 # trash-cli
-alias rl='trash-list'
-alias ru='trash-restore'
-alias rd='trash-empty'
-alias rx='trash-rm'
 if type -q trash-put
   alias rm='trash-put'
+  alias rl='trash-list'
+  alias ru='trash-restore'
+  alias rd='trash-empty'
+  alias rx='trash-rm'
 end
 
 # ripgrep
@@ -80,13 +80,19 @@ alias rc='rg --context 8'
 alias rh='rg --passthru'
 
 # xclip
-alias Y='xclip -selection clipboard'
-alias P='xclip -selection clipboard -o'
+if type -q termux-clipboard-get
+  alias Y='termux-clipboard-set'
+  alias P='termux-clipboard-get'
+end
+if type -q xclip
+  alias Y='xclip -selection clipboard'
+  alias P='xclip -selection clipboard -o'
+end
 
 # thefuck
-alias f='fuck'
-alias F='fuck --yeah'
 if type -q thefuck
+  alias f='fuck'
+  alias F='fuck --yeah'
   thefuck --alias | source
 end
 
@@ -94,7 +100,7 @@ end
 alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
 # dbless
-function dbless; python3 ~/.bin/dbless.py (cat ~/.bin/token) $argv | xclip -selection clipboard 1> /dev/null 2> /dev/null; end
+function dbless; python3 ~/.bin/dbless.py (cat ~/.bin/token) $argv | Y 1> /dev/null 2> /dev/null; end
 
 set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;37:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37:su=1;37:sf=1;37:xa=1;37:ga=30:gm=30:gd=30:gv=30:gt=30"
 set -x LS_COLORS "*=0;37:di=1;0:ln=1;0:so=0:pi=0:ex=37:bd=0:cd=0:su=37:sg=37:tw=1;0:ow=1;0:or=1;37:pi=1;37"
