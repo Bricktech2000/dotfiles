@@ -15,3 +15,5 @@
   meta = 244 ul
 [core]
   filemode = false
+[init]
+	defaultBranch = master
