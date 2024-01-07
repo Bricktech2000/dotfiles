@@ -14,7 +14,7 @@ local bg_grey = 'ctermbg=238'
 
 opt.errorbells = false
 opt.swapfile = false
-opt.updatetime = 50
+opt.updatetime = 250
 opt.autoread = true
 opt.fileformat = 'unix'
 
@@ -143,6 +143,13 @@ vim.api.nvim_create_autocmd('VimEnter', {
 })
 
 -- why vim why
+
+for _, mode in ipairs({ 'n', 'v' }) do
+  map(mode, '<space>', '<nop>')
+
+  map(mode, '/', '/\\v')
+  map(mode, '?', '?\\v')
+end
 
 for _, key in ipairs({ '<up>', '<down>', '<left>', '<right>' }) do
   for _, mode in ipairs({ 'n', 'i', 'v' }) do
