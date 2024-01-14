@@ -89,13 +89,6 @@ if type -q xclip
   alias P='xclip -selection clipboard -o'
 end
 
-# thefuck
-if type -q thefuck
-  alias f='fuck'
-  alias F='fuck --yeah'
-  thefuck --alias | source
-end
-
 # config
 alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 

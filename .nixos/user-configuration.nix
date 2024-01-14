@@ -86,7 +86,6 @@
       diskonaut
       ripgrep
       radare2
-      thefuck
       gnumake
       pandoc
       gnupg

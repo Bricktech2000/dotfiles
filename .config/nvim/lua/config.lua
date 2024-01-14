@@ -151,10 +151,11 @@ for _, mode in ipairs({ 'n', 'v' }) do
   map(mode, '?', '?\\v')
 end
 
-for _, key in ipairs({ '<up>', '<down>', '<left>', '<right>' }) do
-  for _, mode in ipairs({ 'n', 'i', 'v' }) do
-    map(mode, key, '<nop>')
-  end
+for _, mode in ipairs({ 'n', 'i', 'v' }) do
+  map(mode, '<up>', '<nop>')
+  map(mode, '<down>', '<nop>')
+  map(mode, '<left>', '<nop>')
+  map(mode, '<right>', '<nop>')
 end
 
 local ftplugin_overrides = { 'formatoptions', 'softtabstop', 'tabstop', 'shiftwidth' }
