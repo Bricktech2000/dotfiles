@@ -76,6 +76,7 @@
     git
     xxd
     gdb
+    pv
   ];
   nix.settings = {
     keep-outputs = true;

@@ -38,9 +38,13 @@ vim.g.mapleader = ' '
 -- looks
 
 opt.wrap = true
-opt.linebreak = true
 opt.number = false
+opt.linebreak = true
+opt.showbreak = '| '
+opt.breakindent = true
+opt.breakindentopt = ''
 opt.scrolloff = 12
+opt.sidescrolloff = 12
 opt.signcolumn = 'yes'
 opt.showmode = false
 opt.ruler = false
@@ -51,6 +55,7 @@ opt.shortmess = 's' .. 'W' .. 'F' .. 'l' .. 'I'
 -- essentials
 
 map('n', '<esc>', '<cmd>noh|echo<cr><esc>')
+map('n', '<leader>w', '<cmd>set wrap!<cr>')
 map('n', '<leader>s', '<cmd>silent! w<cr>')
 map('n', '<leader>q', '<cmd>q!<cr>')
 
