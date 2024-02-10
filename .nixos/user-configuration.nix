@@ -5,7 +5,7 @@
     layout = "us";
     xkbVariant = "dvorak";
     xkbOptions = "caps:swapescape";
-    autoRepeatDelay = 100; # 100 ms
+    autoRepeatDelay = 200; # 200 ms
     autoRepeatInterval = 10; # 100 Hz
   };
   console.keyMap = "dvorak";
@@ -15,7 +15,7 @@
   ];
   services.xserver.desktopManager.gnome.extraGSettingsOverrides = ''
     [org.gnome.desktop.peripherals.keyboard]
-    delay=100
+    delay=200
     repeat-interval=10
     [org.gnome.desktop.peripherals.mouse]
     speed=1
@@ -79,7 +79,8 @@
       python311
       nodejs_20
       rustup
-      gcc13
+      clang
+      gcc
       ghc
       # terminal
       trash-cli

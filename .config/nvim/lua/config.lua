@@ -111,6 +111,16 @@ P[#P + 1] = { 'lewis6991/gitsigns.nvim', config = config }
 -- navigation
 
 config = function()
+  local devicons = require('nvim-web-devicons')
+  for _, icon in pairs(devicons.get_icons()) do
+    devicons.set_icon({ [icon.name] = { name = icon.name, color = 'white' } })
+  end
+  devicons.set_default_icon('', 'white') -- `exa`'s default icon
+end
+
+P[#P + 1] = { 'kyazdani42/nvim-web-devicons', config = config }
+
+config = function()
   require('telescope').setup({
     defaults = { layout_config = { width = 100000000000, height = 100000000000 } },
     pickers = {
@@ -132,7 +142,6 @@ config = function()
 end
 
 P[#P + 1] = 'nvim-lua/plenary.nvim'
-P[#P + 1] = 'kyazdani42/nvim-web-devicons'
 P[#P + 1] = { 'nvim-telescope/telescope.nvim', config = config }
 
 -- run telescope.nvim on startup if the current buffer is a directory
