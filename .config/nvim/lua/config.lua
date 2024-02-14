@@ -55,8 +55,8 @@ opt.shortmess = 's' .. 'W' .. 'F' .. 'l' .. 'I'
 -- essentials
 
 map('n', '<esc>', '<cmd>noh|echo<cr><esc>')
-map('n', '<leader>w', '<cmd>set wrap!<cr>')
-map('n', '<leader>s', '<cmd>silent! w<cr>')
+map('n', '<leader>l', '<cmd>set wrap!<cr>')
+map('n', '<leader>s', '<cmd>w<cr>')
 map('n', '<leader>q', '<cmd>q!<cr>')
 
 P[#P + 1] = 'tpope/vim-commentary'
