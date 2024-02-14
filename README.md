@@ -4,10 +4,10 @@ _A repository of my dotfiles_
 
 ## Repository Creation
 
-To create a similar _dotfiles_ repository, add the following to your shell config:
+To create a similar dotfiles repository, add the following to your shell config:
 
 ```bash
-alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 ```
 
 Then, run the following commands:
@@ -15,12 +15,12 @@ Then, run the following commands:
 ```bash
 git init --bare ~/dotfiles
 echo "dotfiles" >> ~/.gitignore
-config config --local status.showUntrackedFiles no
+dot config --local status.showUntrackedFiles no
 
-config add .gitignore
-config commit -m "initial commit"
-config remote add origin <repo-url>
-config push -u origin master
+dot add .gitignore
+dot commit -m "initial commit"
+dot remote add origin <repo-url>
+dot push -u origin master
 
 mv /etc/nixos/ ~/.nixos # on NixOS
 ln -s ~/.nixos/ /etc/nixos # on NixOS
@@ -31,16 +31,16 @@ ln -s ~/.nixos/ /etc/nixos # on NixOS
 To clone these dotfiles to your machine, add the following to your shell config:
 
 ```bash
-alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 ```
 
 Then, run the following commands:
 
 ```bash
 git clone --bare <repo-url> ~/dotfiles
-config config --local status.showUntrackedFiles no
+dot config --local status.showUntrackedFiles no
 
-config checkout
+dot checkout
 
 ln -s ~/.nixos/ /etc/nixos # on NixOS
 ```

@@ -62,7 +62,7 @@ alias V='git revert --no-commit'
 alias k='git checkout'
 alias b='git branch'
 alias B='git rebase'
-alias t='git stash push'
+alias t='git stash push --include-untracked'
 alias T='git stash pop'
 
 # trash-cli
@@ -89,8 +89,8 @@ if type -q xclip
   alias P='xclip -selection clipboard -o'
 end
 
-# config
-alias config='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+# dotfiles
+alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
 # dbless
 function dbless; python3 ~/.bin/dbless.py (cat ~/.bin/token) $argv | Y 1> /dev/null 2> /dev/null; end
