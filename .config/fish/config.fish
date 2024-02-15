@@ -46,17 +46,17 @@ function _cd_checked; if test "$argv" = '.'; return 1; end; builtin cd $argv; en
 # git
 function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | $PAGER -RFX; end;
 alias D='d --staged'
+alias w='d --word-diff'
+alias W='w --staged'
 alias s='git status --short'
-alias S='d HEAD --stat'
 alias a='git add'
 alias A='git fetch --all --prune'
 alias m='git commit -m'
 alias g='git log --all --graph --pretty=format:"%C(244 ul)%h%d%Creset %cr %C(white bold)%an%Creset %s" --abbrev-commit'
-alias G='g --stat'
 alias r='git reset'
 alias R='git reset --hard'
 alias h='git push'
-alias H='git push --force'
+alias H='git push --force-with-lease'
 alias l='git pull --rebase'
 alias V='git revert --no-commit'
 alias k='git checkout'
@@ -64,6 +64,7 @@ alias b='git branch'
 alias B='git rebase'
 alias t='git stash push --include-untracked'
 alias T='git stash pop'
+alias M='git blame --color-by-age --date=relative -w -C -C'
 
 # trash-cli
 if type -q trash-put
