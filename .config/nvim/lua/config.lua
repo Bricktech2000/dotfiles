@@ -8,7 +8,8 @@ local bg_none = 'ctermbg=None'
 local fg_black = 'ctermfg=0'
 local st_bold = 'cterm=bold'
 local fg_white = 'ctermfg=7'
-local bg_grey = 'ctermbg=238'
+local bg_gray = 'ctermbg=238'
+local fg_gray = 'ctermfg=239'
 
 -- system
 
@@ -64,7 +65,7 @@ P[#P + 1] = 'tpope/vim-surround'
 P[#P + 1] = 'tpope/vim-repeat'
 
 build = function() vim.cmd('Copilot setup') end
-vim.g.copilot_filetypes = { markdown = true }
+vim.g.copilot_filetypes = { markdown = true, [''] = true }
 P[#P + 1] = { 'github/copilot.vim', build = build }
 
 -- colors
@@ -81,29 +82,34 @@ config = function()
   hi({ 'Question', bg_none, fg_white, st_bold })            -- same as search
   hi({ 'ErrorMsg', bg_none, fg_white, st_bold })            -- same as search
   hi({ 'Pmenu', bg_none, fg_white })
-  hi({ 'PmenuSel', bg_grey, fg_white })                     -- same as visual
+  hi({ 'PmenuSel', bg_gray, fg_white })                     -- same as visual
   hi({ 'IncSearch', 'ctermfg=16', 'ctermbg=253', st_bold }) -- same as cursor
   hi({ 'MatchParen', bg_none, fg_white, st_bold })          -- same as search
   hi({ 'StatusLine', bg_none, fg_black })
   hi({ 'StatusLineNC', bg_none, fg_black })
   hi({ 'VertSplit', bg_none, fg_black })
   vim.cmd('autocmd BufEnter * syntax match Trailing /\\s\\+$/')
-  hi({ 'Trailing', bg_grey, fg_white }) -- same as visual
+  hi({ 'Trailing', bg_gray, fg_white }) -- same as visual
 end
 
 vim.g.rehash256 = 1
 P[#P + 1] = { 'tomasr/molokai', config = config, priority = 1 }
 
 config = function()
-  require('gitsigns').setup()
+  require('gitsigns').setup({
+    signs = {
+      add = { text = '│' }, -- box drawings light vertical
+      change = { text = '│' }, -- box drawings light vertical
+      delete = { text = '▁' }, -- lower one eighth block
+      topdelete = { text = '▔' }, -- upper one eighth block
+      changedelete = { text = '─' }, -- box drawings light horizontal
+      untracked = { text = '┊' }, -- box drawings light quadruple dash vertical
+    },
+  })
 
-  hi({ 'DiffAdd', bg_none, 'ctermfg=34' })
-  hi({ 'DiffChange', bg_none, 'ctermfg=20' })
-  hi({ 'DiffDelete', bg_none, 'ctermfg=160', st_bold })
-
-  hi({ 'DiffAddBright', bg_none, 'ctermfg=118' })
-  hi({ 'DiffChangeBright', bg_none, 'ctermfg=81' })
-  hi({ 'DiffDeleteBright', bg_none, 'ctermfg=213', st_bold })
+  hi({ 'DiffAdd', bg_none, fg_gray })    -- same as NonText
+  hi({ 'DiffChange', bg_none, fg_gray }) -- same as NonText
+  hi({ 'DiffDelete', bg_none, fg_gray }) -- same as NonText
 end
 
 P[#P + 1] = { 'lewis6991/gitsigns.nvim', config = config }

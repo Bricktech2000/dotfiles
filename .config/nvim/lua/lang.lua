@@ -165,5 +165,5 @@ vim.g.vimwiki_key_mappings = { table_mappings = 0 } -- prevents vimwiki from rem
 vim.g.vimwiki_table_auto_fmt = 0                    -- prevents vtmwiki from constantly breaking tables
 vim.g.vimwiki_filetypes = { 'markdown' }            -- prevents vimwiki from overriding `filetype` and breaking Prettier
 vim.g.vimwiki_conceallevel = 0                      -- disables vimwiki conceal
--- vim.g.vimwiki_conceal_pre = 1 -- conceals code block markers
--- vim.g.vimwiki_ext2syntax = { ['.md'] = 'default' } -- needed for backlink update on rename
+-- vim.g.vimwiki_conceal_pre = 1                       -- conceals code block markers
+-- vim.g.vimwiki_ext2syntax = { ['.md'] = 'default' }  -- needed for backlink update on rename
