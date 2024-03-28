@@ -65,6 +65,8 @@
   environment.systemPackages = with pkgs; [
     direnv
     nix-direnv
+    man-pages-posix
+    man-pages
     neofetch
     neovim
     unzip
