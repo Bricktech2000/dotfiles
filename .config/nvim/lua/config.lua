@@ -130,8 +130,8 @@ config = function()
   require('telescope').setup({
     defaults = { layout_config = { width = 100000000000, height = 100000000000 } },
     pickers = {
-      find_files = { initial_mode = 'insert' },
-      live_grep = { initial_mode = 'insert' },
+      find_files = { initial_mode = 'insert', hidden = true, follow = true, no_ignore = true },
+      live_grep = { initial_mode = 'insert', additional_args = { '--hidden', '--follow', '--glob', '!.git' } },
       lsp_references = { initial_mode = 'normal' },
       help_tags = { initial_mode = 'insert' },
       resume = { initial_mode = 'normal' },
