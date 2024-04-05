@@ -18,7 +18,7 @@ end
 alias v='nvim'
 alias x='nix-shell -p'
 alias X='nix-shell --pure -p'
-alias p='python3 -i -c "import cmath, math, random, re, time"'
+alias p='python3 -i -c "import cmath, math, random, re, string, time"'
 alias c='clear'
 alias e='exit'
 

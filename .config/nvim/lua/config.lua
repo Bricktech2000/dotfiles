@@ -63,6 +63,9 @@ map('n', '<leader>q', '<cmd>q!<cr>')
 P[#P + 1] = 'tpope/vim-commentary'
 P[#P + 1] = 'tpope/vim-surround'
 P[#P + 1] = 'tpope/vim-repeat'
+vim.g.surround_42 = '**\r**'
+vim.g.surround_126 = '~~\r~~'
+vim.g.surround_91 = '[[\r]]'
 
 build = function() vim.cmd('Copilot setup') end
 vim.g.copilot_filetypes = { markdown = true, [''] = true }
@@ -74,13 +77,14 @@ config = function()
   vim.cmd.colorscheme('molokai')
 
   hi({ 'Normal', bg_none })
-  hi({ 'NonText', bg_none })
+  hi({ 'NonText', bg_none, fg_gray })
   hi({ 'Folded', bg_none })
   hi({ 'LineNr', bg_none })
   hi({ 'SignColumn', bg_none })
   hi({ 'Search', bg_none, fg_white, st_bold })
   hi({ 'Question', bg_none, fg_white, st_bold })            -- same as search
   hi({ 'ErrorMsg', bg_none, fg_white, st_bold })            -- same as search
+  hi({ 'WarningMsg', bg_none, fg_white, st_bold })          -- same as search
   hi({ 'Pmenu', bg_none, fg_white })
   hi({ 'PmenuSel', bg_gray, fg_white })                     -- same as visual
   hi({ 'IncSearch', 'ctermfg=16', 'ctermbg=253', st_bold }) -- same as cursor
