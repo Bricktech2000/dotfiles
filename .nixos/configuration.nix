@@ -60,12 +60,7 @@
   services.openssh.enable = true;
   networking.firewall.enable = false;
 
-  # required for flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  # `direnv` and `nix-direnv` required for direnv on NixOS 23.05
   environment.systemPackages = with pkgs; [
-    direnv
-    nix-direnv
     man-pages-posix
     man-pages
     neofetch
@@ -80,13 +75,6 @@
     xxd
     gdb
     pv
-  ];
-  nix.settings = {
-    keep-outputs = true;
-    keep-derivations = true;
-  };
-  environment.pathsToLink = [
-    "/share/nix-direnv"
   ];
   # required for mason.vim pre-compiled binaries
   programs.nix-ld.enable = true;
