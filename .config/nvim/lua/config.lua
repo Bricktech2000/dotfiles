@@ -132,10 +132,10 @@ P[#P + 1] = { 'kyazdani42/nvim-web-devicons', config = config }
 
 config = function()
   require('telescope').setup({
-    defaults = { layout_config = { width = 100000000000, height = 100000000000 } },
+    defaults = { layout_config = { width = 100000000000, height = 100000000000 }, file_ignore_patterns = { '.git/' } },
     pickers = {
-      find_files = { initial_mode = 'insert', hidden = true, follow = true, no_ignore = true },
-      live_grep = { initial_mode = 'insert', additional_args = { '--hidden', '--follow', '--glob', '!.git' } },
+      find_files = { initial_mode = 'insert', hidden = true },
+      live_grep = { initial_mode = 'insert', additional_args = { '--hidden' } },
       lsp_references = { initial_mode = 'normal' },
       help_tags = { initial_mode = 'insert' },
       resume = { initial_mode = 'normal' },
