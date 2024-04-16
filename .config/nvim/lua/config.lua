@@ -1,7 +1,6 @@
 local config = function() end
 local build = function() end
 
-local opt = vim.opt
 local map = vim.keymap.set
 local hi = vim.cmd.highlight
 local bg_none = 'ctermbg=None'
@@ -13,45 +12,45 @@ local fg_gray = 'ctermfg=239'
 
 -- system
 
-opt.errorbells = false
-opt.swapfile = false
-opt.updatetime = 250
-opt.autoread = true
-opt.fileformat = 'unix'
+vim.opt.errorbells = false
+vim.opt.swapfile = false
+vim.opt.updatetime = 250
+vim.opt.autoread = true
+vim.opt.fileformat = 'unix'
 
 -- behavior
 
-opt.tabstop = 2
-opt.softtabstop = 2
-opt.shiftwidth = 2
-opt.expandtab = true
-opt.smartindent = true
-opt.formatoptions = ''
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.formatoptions = ''
 
-opt.ignorecase = true
-opt.smartcase = true
-opt.hlsearch = true
-opt.incsearch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
 
-opt.backspace = 'indent,eol,start'
+vim.opt.backspace = 'indent,eol,start'
 vim.g.mapleader = ' '
 
 -- looks
 
-opt.wrap = true
-opt.number = false
-opt.linebreak = true
-opt.showbreak = '| '
-opt.breakindent = true
-opt.breakindentopt = ''
-opt.scrolloff = 12
-opt.sidescrolloff = 12
-opt.signcolumn = 'yes'
-opt.showmode = false
-opt.ruler = false
-opt.cmdheight = 1
-opt.laststatus = 0
-opt.shortmess = 's' .. 'W' .. 'F' .. 'l' .. 'I'
+vim.opt.wrap = true
+vim.opt.number = false
+vim.opt.linebreak = true
+vim.opt.showbreak = '| '
+vim.opt.breakindent = true
+vim.opt.breakindentopt = ''
+vim.opt.scrolloff = 12
+vim.opt.sidescrolloff = 12
+vim.opt.signcolumn = 'yes'
+vim.opt.showmode = false
+vim.opt.ruler = false
+vim.opt.cmdheight = 1
+vim.opt.laststatus = 0
+vim.opt.shortmess = 's' .. 'W' .. 'F' .. 'l' .. 'I'
 
 -- essentials
 
@@ -184,5 +183,5 @@ end
 
 local ftplugin_overrides = { 'formatoptions', 'softtabstop', 'tabstop', 'shiftwidth' }
 for _, option in ipairs(ftplugin_overrides) do
-  vim.cmd('autocmd FileType * setlocal ' .. option .. '=' .. opt[option]._value)
+  vim.cmd('autocmd FileType * setlocal ' .. option .. '=' .. vim.opt[option]._value)
 end
