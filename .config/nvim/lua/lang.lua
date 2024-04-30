@@ -88,8 +88,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 config = function()
   require('mason-null-ls').setup({
-    -- `automatic_installation` does appear to work here
-    automatic_installation = true,
+    -- `automatic_installation` does not appear to work
+    ensure_installed = {
+      'clang_format',
+      'autopep8',
+      'rustfmt',
+      'shfmt',
+      'stylua',
+      'prettierd',
+      'eslint_d',
+    },
+    -- automatic_installation = true,
   })
 end
 
