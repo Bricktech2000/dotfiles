@@ -59,6 +59,7 @@
 
   services.openssh.enable = true;
   networking.firewall.enable = false;
+  security.sudo.wheelNeedsPassword = false;
 
   environment.systemPackages = with pkgs; [
     man-pages-posix
