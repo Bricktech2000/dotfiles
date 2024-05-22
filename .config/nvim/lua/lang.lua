@@ -145,6 +145,8 @@ P[#P + 1] = { 'jose-elias-alvarez/null-ls.nvim', config = config }
 -- syntax highlighting
 
 P[#P + 1] = { 'llathasa-veleth/vim-brainfuck' }
+P[#P + 1] = { 'vim-scripts/bnf.vim' }
+vim.cmd('autocmd BufNewFile,BufRead *.bnf set ft=bnf')
 
 -- notes
 
