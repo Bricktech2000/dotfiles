@@ -98,6 +98,7 @@ function dbless; python3 ~/.bin/dbless.py (cat ~/.bin/token) $argv | Y 1> /dev/n
 
 set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;37:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37:su=1;37:sf=1;37:xa=1;37:ga=30:gm=30:gd=30:gv=30:gt=30"
 set -x LS_COLORS "*=0;37:di=1;0:ln=1;0:so=0:pi=0:ex=37:bd=0:cd=0:su=37:sg=37:tw=1;0:ow=1;0:or=1;37:pi=1;37"
+set -x GPG_TTY (tty)
 set -x EDITOR nvim
 set -x VISUAL nvim
 set -x PAGER less

@@ -58,6 +58,8 @@ map('n', '<esc>', '<cmd>noh|echo<cr><esc>')
 map('n', '<leader>l', '<cmd>set wrap!<cr>')
 map('n', '<leader>s', '<cmd>w<cr>')
 map('n', '<leader>q', '<cmd>q!<cr>')
+map('v', '*', 'y/\\V<c-r>=escape(@", \'\\/\')<cr><cr>')
+map('v', '#', 'y/\\V<c-r>=escape(@", \'\\/\')<cr><cr>')
 
 P[#P + 1] = 'tpope/vim-commentary'
 P[#P + 1] = 'tpope/vim-surround'
