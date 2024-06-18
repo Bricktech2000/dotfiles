@@ -66,7 +66,7 @@
   ''; # make nix-shell use fish
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "gnome3";
+    pinentryFlavor = "tty";
     enableSSHSupport = true;
   };
   users.users.blackbot7 = {
@@ -107,7 +107,6 @@
       cura
       # libraries
       xclip # neovim
-      pinentry # gnupg
       any-nix-shell # fish
       python311Packages.pip
       gnomeExtensions.just-perfection
