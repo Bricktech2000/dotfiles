@@ -8,7 +8,7 @@
     autoRepeatDelay = 200; # 200 ms
     autoRepeatInterval = 10; # 100 Hz
   };
-  console.keyMap = "dvorak";
+  console.useXkbConfig = true; # dvorak and swapescape
 
   services.xserver.desktopManager.gnome.sessionPath = [
     pkgs.gnomeExtensions.just-perfection # TODO does not seem to work
