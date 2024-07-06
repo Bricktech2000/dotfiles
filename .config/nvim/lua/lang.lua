@@ -169,6 +169,8 @@ config = function()
   end
 
   hi({ 'clear', 'Conceal' })
+
+  vim.cmd('autocmd BufEnter *.md syntax match Todo "#todo\\|#xxx\\|#note"')
 end
 
 P[#P + 1] = { 'vimwiki/vimwiki', config = config }
