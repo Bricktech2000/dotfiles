@@ -142,11 +142,11 @@ end
 
 P[#P + 1] = { 'jose-elias-alvarez/null-ls.nvim', config = config }
 
--- syntax highlighting
+-- language specific
 
 P[#P + 1] = { 'llathasa-veleth/vim-brainfuck' }
 P[#P + 1] = { 'vim-scripts/bnf.vim' }
-vim.cmd('autocmd BufNewFile,BufRead *.bnf set ft=bnf')
+vim.cmd('autocmd BufNewFile,BufRead *.bnf set filetype=bnf')
 
 -- notes
 
@@ -165,7 +165,7 @@ config = function()
     ['&rarr;'] = '→',
   }
   for match, cchar in pairs(conceals) do
-    vim.cmd('autocmd BufEnter * syntax match Conceal "' .. match .. '" conceal cchar=' .. cchar)
+    vim.cmd('autocmd BufEnter *.md syntax match Conceal "' .. match .. '" conceal cchar=' .. cchar)
   end
 
   hi({ 'clear', 'Conceal' })
