@@ -181,3 +181,10 @@ vim.g.vimwiki_conceallevel = 0                      -- disables vimwiki conceal
 vim.g.vimwiki_commentstring = '<!--%s-->'           -- fixes up commentstring for markdown
 vim.g.vimwiki_listsyms = ' x'                       -- fixes up list symbols for markdown
 -- vim.g.vimwiki_ext2syntax = { ['.md'] = 'default' }  -- needed for backlink update on rename
+-- prevents vimwiki from cluttering up the `<leader>w` binding
+vim.g.vimwiki_key_mappings = { global = 0, table_format = 0, links = 0, html = 0 }
+-- reinstates useful bindings collaterally disabled above
+map('n', '<tab>', ':VimwikiNextLink<cr>')
+map('n', '<s-tab>', ':VimwikiPrevLink<cr>')
+map('n', '<cr>', ':VimwikiFollowLink<cr>')
+map('n', '<bs>', ':VimwikiGoBackLink<cr>')
