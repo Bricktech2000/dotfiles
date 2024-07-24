@@ -184,7 +184,7 @@ vim.g.vimwiki_listsyms = ' x'                       -- fixes up list symbols for
 -- prevents vimwiki from cluttering up the `<leader>w` binding
 vim.g.vimwiki_key_mappings = { global = 0, table_format = 0, links = 0, html = 0 }
 -- reinstates useful bindings collaterally disabled above
-map('n', '<tab>', ':VimwikiNextLink<cr>')
-map('n', '<s-tab>', ':VimwikiPrevLink<cr>')
-map('n', '<cr>', ':VimwikiFollowLink<cr>')
-map('n', '<bs>', ':VimwikiGoBackLink<cr>')
+vim.cmd('autocmd FileType markdown nmap <tab> <Plug>VimwikiNextLink')
+vim.cmd('autocmd FileType markdown nmap <s-tab> <Plug>VimwikiPrevLink')
+vim.cmd('autocmd FileType markdown nmap <cr> <Plug>VimwikiFollowLink')
+vim.cmd('autocmd FileType markdown nmap <bs> <Plug>VimwikiGoBackLink')
