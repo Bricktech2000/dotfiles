@@ -61,6 +61,10 @@ map('n', '<leader>s', '<cmd>w<cr>')
 map('n', '<leader>q', '<cmd>q!<cr>')
 map('v', '*', "y/\\V<c-r>=escape(@\", '\\/')<cr><cr>")
 map('v', '#', "y/\\V<c-r>=escape(@\", '\\/')<cr><cr>")
+map('n', '/', '/\\v')
+map('n', '?', '?\\v')
+map('v', '/', '/\\v')
+map('v', '?', '?\\v')
 
 P[#P + 1] = 'tpope/vim-commentary'
 P[#P + 1] = 'tpope/vim-surround'
@@ -68,6 +72,7 @@ P[#P + 1] = 'tpope/vim-repeat'
 vim.g.surround_42 = '**\r**'
 vim.g.surround_126 = '~~\r~~'
 vim.g.surround_91 = '[[\r]]'
+vim.cmd('autocmd FileType c setlocal commentstring=//\\ %s')
 
 build = function() vim.cmd('Copilot setup') end
 vim.g.copilot_filetypes = { markdown = true, [''] = true }
@@ -172,9 +177,7 @@ vim.api.nvim_create_autocmd('VimEnter', {
 
 for _, mode in ipairs({ 'n', 'v' }) do
   map(mode, '<space>', '<nop>')
-
-  map(mode, '/', '/\\v')
-  map(mode, '?', '?\\v')
+  map(mode, '<bs>', '<nop>')
 end
 
 for _, mode in ipairs({ 'n', 'i', 'v' }) do

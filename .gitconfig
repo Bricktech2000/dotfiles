@@ -15,8 +15,9 @@
   meta = 244 ul
 [core]
   filemode = false
+  editor = nvim
 [init]
-	defaultBranch = master
+  defaultBranch = master
 [color "blame"]
   ; exponential decay. `commit_age = (1/2) ** (color_code - darkest) * 10 years` with `darkest = 237`
   highlightRecent = 237, 10 years ago, 238, 5 years ago, 239, 2 years ago, 240, 1 year ago, 241, 8 months ago, 242, 4 months ago, 243, 2 months ago, 244, 1 months ago, 245, 14 days ago, 246, 7 days ago, 247, 4 days ago, 248, 2 days ago, 249, 1 day ago, 250, 11 hours ago, 251, 5 hours ago, 252, 3 hours ago, 253, 1 hour ago, 254, 40 minutes ago, 255
