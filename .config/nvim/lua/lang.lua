@@ -20,7 +20,6 @@ config = function()
       'bashls',
       'vimls',
       'rnix',
-      'tailwindcss',
       'dockerls',
       'tsserver',
       'prismals',
@@ -52,7 +51,6 @@ config = function()
   lspconfig.vimls.setup({})
   lspconfig.rnix.setup({})
   -- web cruft
-  lspconfig.tailwindcss.setup({})
   lspconfig.dockerls.setup({})
   lspconfig.tsserver.setup({})
   lspconfig.prismals.setup({})

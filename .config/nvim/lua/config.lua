@@ -3,7 +3,8 @@ local build = function() end
 
 local map = vim.keymap.set
 local hi = vim.cmd.highlight
-local bg_none = 'ctermbg=None'
+local bg_none = 'ctermbg=none'
+local fg_none = 'ctermfg=none'
 local fg_black = 'ctermfg=0'
 local st_bold = 'cterm=bold'
 local fg_white = 'ctermfg=7'
@@ -88,13 +89,15 @@ config = function()
   hi({ 'Folded', bg_none })
   hi({ 'LineNr', bg_none })
   hi({ 'SignColumn', bg_none })
+  hi({ 'Visual', bg_gray, fg_none })
   hi({ 'Search', bg_none, fg_white, st_bold })
+  hi({ 'CurSearch', bg_none, fg_white, st_bold })
+  hi({ 'IncSearch', 'ctermfg=16', 'ctermbg=253', st_bold }) -- same as cursor
   hi({ 'Question', bg_none, fg_white, st_bold })            -- same as search
   hi({ 'ErrorMsg', bg_none, fg_white, st_bold })            -- same as search
   hi({ 'WarningMsg', bg_none, fg_white, st_bold })          -- same as search
-  hi({ 'Pmenu', bg_none, fg_white })
-  hi({ 'PmenuSel', bg_gray, fg_white })                     -- same as visual
-  hi({ 'IncSearch', 'ctermfg=16', 'ctermbg=253', st_bold }) -- same as cursor
+  hi({ 'Pmenu', 'cterm=none', bg_none, fg_white })
+  hi({ 'PmenuSel', 'cterm=none', bg_gray, fg_white })       -- same as visual
   hi({ 'MatchParen', bg_none, fg_white, st_bold })          -- same as search
   hi({ 'StatusLine', bg_none, fg_black })
   hi({ 'StatusLineNC', bg_none, fg_black })
@@ -104,6 +107,7 @@ config = function()
 end
 
 vim.g.rehash256 = 1
+vim.opt.termguicolors = false
 P[#P + 1] = { 'tomasr/molokai', config = config, priority = 1 }
 
 config = function()
@@ -121,6 +125,9 @@ config = function()
   hi({ 'DiffAdd', bg_none, fg_gray })    -- same as NonText
   hi({ 'DiffChange', bg_none, fg_gray }) -- same as NonText
   hi({ 'DiffDelete', bg_none, fg_gray }) -- same as NonText
+  hi({ 'Added', bg_none, fg_gray })      -- same as NonText
+  hi({ 'Changed', bg_none, fg_gray })    -- same as NonText
+  hi({ 'Removed', bg_none, fg_gray })    -- same as NonText
 end
 
 P[#P + 1] = { 'lewis6991/gitsigns.nvim', config = config }

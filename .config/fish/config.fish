@@ -10,8 +10,9 @@ set -g fish_key_bindings _vi_normal
 function _vi_normal; fish_vi_key_bindings; set fish_bind_mode default; end
 for mode in default insert visual replace replace_one
   bind -M $mode \r -m default execute
-  bind -M $mode \cl 'clear; fish_prompt'
-  bind -M $mode \cg 'meta; fish_prompt' # similar to Vim's <C-g>
+  bind -M $mode \cl clear fish_prompt
+  bind -M $mode \cg meta fish_prompt # similar to Vim's <C-g>
+  bind -M $mode \cn accept-autosuggestion
 end
 
 # general
