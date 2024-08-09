@@ -139,7 +139,7 @@ config = function()
   for _, icon in pairs(devicons.get_icons()) do
     devicons.set_icon({ [icon.name] = { name = icon.name, color = 'white' } })
   end
-  devicons.set_default_icon('', 'white') -- `exa`'s default icon
+  devicons.set_default_icon('', 'white') -- exa's default icon
 end
 
 P[#P + 1] = { 'kyazdani42/nvim-web-devicons', config = config }

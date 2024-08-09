@@ -30,7 +30,7 @@
     pulse.enable = true;
   };
 
-  services.xserver.libinput.enable = true; # touchpad support
+  services.libinput.enable = true; # touchpad support
 
   nixpkgs.config.allowUnfree = true;
 
@@ -45,7 +45,6 @@
     gnome.cheese # webcam tool
     gnome.gnome-music
     gnome.gnome-terminal
-    gnome.gedit # text editor
     gnome.epiphany # web browser
     gnome.geary # email reader
     gnome.evince # document viewer
@@ -55,6 +54,25 @@
     gnome.iagno # go game
     gnome.hitori # sudoku game
     gnome.atomix # puzzle game
+    gnome.gnome-contacts
+    gnome.gnome-weather
+    gnome.gnome-clocks
+    gnome.gnome-maps
+    gnome.gnome-calculator
+    gnome.simple-scan
+    gnome.yelp
+    gnome.gnome-system-monitor
+    gnome-text-editor
+    gnome.gnome-font-viewer
+    gnome.baobab # disk usage analyzer
+    gnome.gnome-logs
+    gnome-connections
+    gnome-console
+    gnome.gnome-calendar
+    gnome.seahorse # passwords and keys
+    gnome.gnome-disk-utility
+    snapshot # camera app
+    gnome.file-roller # archive manager
   ];
 
   services.openssh.enable = true;

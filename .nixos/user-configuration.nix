@@ -2,9 +2,9 @@
 
 {
   services.xserver = {
-    layout = "us";
-    xkbVariant = "dvorak";
-    xkbOptions = "caps:swapescape";
+    xkb.layout = "us";
+    xkb.variant = "dvorak";
+    xkb.options = "caps:swapescape";
     autoRepeatDelay = 200; # 200 ms
     autoRepeatInterval = 10; # 100 Hz
   };
@@ -66,7 +66,7 @@
   ''; # make nix-shell use fish
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "tty";
+    pinentryPackage = pkgs.pinentry-curses;
     enableSSHSupport = true;
   };
   users.users.blackbot7 = {
@@ -91,20 +91,19 @@
       pandoc
       gnupg
       fish
-      exa
+      eza # exa fork
       # graphical
       logisim-evolution
-      prismlauncher # minecraft
       protonvpn-gui
       gnome.totem
       obs-studio
       syncthing
-      minecraft
       obsidian
       bottles
       kitty
       brave
       cura
+      hmcl # minecraft
       # libraries
       xclip # neovim
       any-nix-shell # fish
@@ -114,7 +113,7 @@
     ];
   };
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     nerdfonts # Fira Code
   ];
 }
