@@ -24,28 +24,22 @@ alias c='clear'
 alias e='exit'
 
 # navigation
+zoxide init fish | source
 alias ls='exa --sort modified --reverse --icons --git'
 alias ld=':' # no-op
 alias ll='ls -l'
 alias lt='ls -l --tree'
 alias la='ls -l -a'
 alias lv='v .'
-function cs; _cd_checked $argv && ls; end;
-function cd; _cd_checked $argv && ld; end
-function cl; _cd_checked $argv && ll; end;
-function ct; _cd_checked $argv && lt; end;
-function ca; _cd_checked $argv && la; end;
-function cv; _cd_checked $argv && lv; end;
-function hs; builtin cd ~/; cs (python3 ~/.bin/hd.py $argv); end;
-function hd; builtin cd ~/; cd (python3 ~/.bin/hd.py $argv); end;
-function hl; builtin cd ~/; cl (python3 ~/.bin/hd.py $argv); end;
-function ht; builtin cd ~/; ct (python3 ~/.bin/hd.py $argv); end;
-function ha; builtin cd ~/; ca (python3 ~/.bin/hd.py $argv); end;
-function hv; builtin cd ~/; cv (python3 ~/.bin/hd.py $argv); end;
-function _cd_checked; if test "$argv" = '.'; return 1; end; builtin cd $argv; end
+function cs; z $argv && ls; end
+function cd; z $argv && ld; end
+function cl; z $argv && ll; end
+function ct; z $argv && lt; end
+function ca; z $argv && la; end
+function cv; z $argv && lv; end
 
 # git
-function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | $PAGER -RFX; end;
+function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | $PAGER -RFX; end
 alias D='d --staged'
 alias w='d --word-diff'
 alias W='w --staged'

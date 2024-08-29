@@ -89,6 +89,7 @@
       radare2
       gnumake
       pandoc
+      zoxide
       gnupg
       fish
       eza # exa fork
