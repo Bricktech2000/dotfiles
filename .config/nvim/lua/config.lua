@@ -74,6 +74,7 @@ vim.g.surround_42 = '**\r**'
 vim.g.surround_126 = '~~\r~~'
 vim.g.surround_91 = '[[\r]]'
 vim.cmd('autocmd FileType c setlocal commentstring=//\\ %s')
+vim.cmd('autocmd FileType cpp setlocal commentstring=//\\ %s') -- .h files
 
 build = function() vim.cmd('Copilot setup') end
 vim.g.copilot_filetypes = { markdown = true, [''] = true }

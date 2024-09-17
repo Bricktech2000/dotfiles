@@ -70,10 +70,11 @@ if type -q trash-put
   alias rx='trash-rm'
 end
 
-# ripgrep
+# greps
 alias rg='rg --smart-case --sortr modified --multiline --no-line-number --colors=path:fg:244 --colors=path:style:underline --colors=match:fg:white --colors=match:style:bold'
 alias rc='rg --context 8'
 alias rh='rg --passthru'
+alias ltrep='~/.bin/ltrep'
 
 # xclip
 if type -q termux-clipboard-get
