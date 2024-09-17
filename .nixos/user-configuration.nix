@@ -83,6 +83,7 @@
       gcc
       ghc
       # terminal
+      config.boot.kernelPackages.perf
       trash-cli
       diskonaut
       ripgrep
@@ -106,11 +107,11 @@
       cura
       hmcl # minecraft
       # libraries
-      xclip # neovim
-      any-nix-shell # fish
-      python311Packages.pip
       gnomeExtensions.just-perfection
       texlive.combined.scheme-tetex # pandoc
+      python311Packages.pip
+      any-nix-shell # fish
+      xclip # neovim
     ];
   };
 
