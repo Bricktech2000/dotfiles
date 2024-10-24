@@ -10,8 +10,8 @@ set -g fish_key_bindings _vi_normal
 function _vi_normal; fish_vi_key_bindings; set fish_bind_mode default; end
 for mode in default insert visual replace replace_one
   bind -M $mode \r -m default execute
-  bind -M $mode \cl clear fish_prompt
-  bind -M $mode \cg meta fish_prompt # similar to Vim's <C-g>
+  bind -M $mode \cl fish_greeting fish_prompt
+  bind -M $mode \cg meta fish_prompt # similar to Vim's <c-g>
   bind -M $mode \cn accept-autosuggestion
 end
 
@@ -20,8 +20,6 @@ alias v='nvim'
 alias x='nix-shell -p'
 alias X='nix-shell --pure -p'
 alias p='python3 -i -c "import cmath, math, random, re, string, time"'
-alias c='clear'
-alias e='exit'
 
 # navigation
 zoxide init fish | source
@@ -38,8 +36,8 @@ function ct; z $argv && lt; end
 function ca; z $argv && la; end
 function cv; z $argv && lv; end
 
-# git
-function d; git diff --no-prefix --color=always $argv | sed -z "s/.\{13\}diff --[^\n]*//g; s/\n.\{13\}index[^\n]*//g; s/\n.\{13\}\(new\|deleted\) file mode[^\n]*//g; s/\n.\{13\}---[^\n]*//g; s/+++ //g" | $PAGER -RFX; end
+# Git
+function d; git diff --no-prefix --color=always $argv | ~/.bin/ltrep -v -x "\x1b\[0-;*m(diff \-\-git|index|(new|deleted) file mode) .*" | $PAGER -RFX; end
 alias D='d --staged'
 alias w='d --word-diff'
 alias W='w --staged'
@@ -74,9 +72,8 @@ end
 alias rg='rg --smart-case --sortr modified --multiline --no-line-number --colors=path:fg:244 --colors=path:style:underline --colors=match:fg:white --colors=match:style:bold'
 alias rc='rg --context 8'
 alias rh='rg --passthru'
-alias ltrep='~/.bin/ltrep'
 
-# xclip
+# clipboard
 if type -q termux-clipboard-get
   alias Y='termux-clipboard-set'
   alias P='termux-clipboard-get'
@@ -89,8 +86,16 @@ end
 # dotfiles
 alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 
-# dbless
-function dbless; python3 ~/.bin/dbless.py (cat ~/.bin/token) $argv | Y 1> /dev/null 2> /dev/null; end
+# DBLess
+function dbless; ~/.bin/dbless (cat ~/.bin/token) $argv | Y &> /dev/null; end
+
+# No Shit.
+function no-shit
+  # example usage: no-shit gcc -O2 file.c
+  source ~/.bin/no-shit.sh
+  $argv (string split -n \n $CFLAGS)
+  export CFLAGS=""
+end
 
 set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;37:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37:su=1;37:sf=1;37:xa=1;37:ga=30:gm=30:gd=30:gv=30:gt=30"
 set -x LS_COLORS "*=0;37:di=1;0:ln=1;0:so=0:pi=0:ex=37:bd=0:cd=0:su=37:sg=37:tw=1;0:ow=1;0:or=1;37:pi=1;37"
@@ -99,7 +104,6 @@ set -x EDITOR nvim
 set -x VISUAL nvim
 set -x PAGER less
 
-alias clear='fish_greeting'
 function fish_greeting
   echo -en "\033[2J\033[H" # clears screen and homes cursor
   echo -en "\033[38;5;240m\n" # sets grey foreground color
@@ -191,5 +195,6 @@ function _echo_bold
   end
 end
 
+export PATH="$HOME/.bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
