@@ -10,7 +10,6 @@ set -g fish_key_bindings _vi_normal
 function _vi_normal; fish_vi_key_bindings; set fish_bind_mode default; end
 for mode in default insert visual replace replace_one
   bind -M $mode \r -m default execute
-  bind -M $mode \cl fish_greeting fish_prompt
   bind -M $mode \cg meta fish_prompt # similar to Vim's <c-g>
   bind -M $mode \cn accept-autosuggestion
 end
@@ -90,8 +89,7 @@ alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 function dbless; ~/.bin/dbless (cat ~/.bin/token) $argv | Y &> /dev/null; end
 
 # No Shit.
-function no-shit
-  # example usage: no-shit gcc -O2 file.c
+function no-shit # example usage: no-shit gcc -O2 file.c
   source ~/.bin/no-shit.sh
   $argv (string split -n \n $CFLAGS)
   export CFLAGS=""
@@ -104,26 +102,7 @@ set -x EDITOR nvim
 set -x VISUAL nvim
 set -x PAGER less
 
-function fish_greeting
-  echo -en "\033[2J\033[H" # clears screen and homes cursor
-  echo -en "\033[38;5;240m\n" # sets grey foreground color
-  # move to column 1000, then move left (24 + 2) columns, then print line
-  echo -en "\033[1000G\033[26D      ,+*%%@@%%*+,      \n"
-  echo -en "\033[1000G\033[26D    *@@@@@@@@@@@@@@*    \n"
-  echo -en "\033[1000G\033[26D  *@@@@@@#*++*#@@@@@@*  \n"
-  echo -en "\033[1000G\033[26D #@@@@@%+++::+++%@@@@@# \n"
-  echo -en "\033[1000G\033[26D+@@@@@@*+++**+++#@@@@@@+\n"
-  echo -en "\033[1000G\033[26D%@@@@@@%+::::::+%@@@@@@%\n"
-  echo -en "\033[1000G\033[26D%@@@@@@@@#*++*#@@@@@@@@%\n"
-  echo -en "\033[1000G\033[26D+@@@@#*+=+@@@@+=+*#@@@@+\n"
-  echo -en "\033[1000G\033[26D #@@#:::::%@@%:::::#@@# \n"
-  echo -en "\033[1000G\033[26D  *@#:::::+@@+:::::#@*  \n"
-  echo -en "\033[1000G\033[26D    *::::::**::::::*    \n"
-  echo -en "\033[1000G\033[26D     '''::::::::'''     \n"
-  echo -en "\033[13A" # moves up (12 + 1) lines
-  echo -en "\033[0m" # resets color
-end
-
+function fish_greeting; end # empty fish greeting
 function fish_mode_prompt; end # empty mode prompt
 function fish_right_prompt; end # empty right prompt
 function fish_title; meta raw; end

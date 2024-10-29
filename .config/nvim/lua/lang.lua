@@ -140,12 +140,6 @@ end
 
 P[#P + 1] = { 'jose-elias-alvarez/null-ls.nvim', config = config }
 
--- language specific
-
-P[#P + 1] = { 'llathasa-veleth/vim-brainfuck' }
-P[#P + 1] = { 'vim-scripts/bnf.vim' }
-vim.cmd('autocmd BufNewFile,BufRead *.bnf set filetype=bnf')
-
 -- notes
 
 config = function()
@@ -180,7 +174,8 @@ vim.g.vimwiki_commentstring = '<!--%s-->'           -- fixes up commentstring fo
 vim.g.vimwiki_listsyms = ' x'                       -- fixes up list symbols for markdown
 -- vim.g.vimwiki_ext2syntax = { ['.md'] = 'default' }  -- needed for backlink update on rename
 -- prevents vimwiki from cluttering up the `<leader>w` binding
-vim.g.vimwiki_key_mappings = { global = 0, table_format = 0, links = 0, html = 0 }
+vim.g.vimwiki_key_mappings =
+{ global = 0, headers = 0, table_format = 0, table_mappings = 0, lists = 0, lists_return = 0, links = 0, html = 0 }
 -- reinstates useful bindings collaterally disabled above
 vim.cmd('autocmd FileType markdown nmap <tab> <Plug>VimwikiNextLink')
 vim.cmd('autocmd FileType markdown nmap <s-tab> <Plug>VimwikiPrevLink')
