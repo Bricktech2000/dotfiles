@@ -14,50 +14,31 @@ set backspace=indent,eol,start
 
 " system
 
-set noerrorbells
-set noswapfile
-set updatetime=100
+set belloff=all
+set noswapfile updatetime=100
 set autoread
 set fileformat=unix
 
 " behavior
 
-autocmd Filetype * set tabstop=2
-autocmd Filetype * set softtabstop=2
-autocmd Filetype * set shiftwidth=2
+autocmd Filetype * set tabstop=2 softtabstop=2 shiftwidth=2
 autocmd Filetype * set formatoptions=
-set expandtab
-set smartindent
+set expandtab smartindent
 
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
-set wildmenu
-set wildignorecase
-set wildoptions=pum
-set path+=** " :fin as fuzzy finder
+set ignorecase smartcase hlsearch incsearch
+set wildmenu wildoptions=pum wildignorecase path+=** " :fin as fuzzy finder
 
 let g:mapleader = ' '
 set mouse=a
 
 " looks
 
-set wrap
-set nonumber
-set linebreak
-let &showbreak = '| '
-set breakindent
-set breakindentopt=
-set scrolloff=12
-set sidescrolloff=12
-set signcolumn=yes
-set noshowmode
-set noruler
-set showcmd
-set laststatus=0
-set shortmess=sWFlI
-let g:netrw_banner=0
+set nonumber signcolumn=yes
+set wrap linebreak showbreak=\|\  breakindent breakindentopt=
+silent! set smoothscroll
+set scrolloff=12 sidescrolloff=12
+set noshowmode noruler showcmd shortmess=sWFlI laststatus=0
+let g:netrw_banner = 0
 
 let &t_SI = "\<esc>[6 q" " see :h guicursor
 let &t_SR = "\<esc>[4 q"
@@ -148,7 +129,7 @@ autocmd ColorScheme * highlight WarningMsg ctermbg=none ctermfg=7  cterm=bold| "
 autocmd ColorScheme * highlight Pmenu      ctermbg=none ctermfg=7  cterm=none
 autocmd ColorScheme * highlight PmenuSel   ctermbg=253  ctermfg=16 cterm=none| " same as Cursor
 autocmd ColorScheme * highlight StatusLine ctermbg=0    ctermfg=0  cterm=none
-autocmd ColorScheme * highlight StatusLineNc ctermbg=0  ctermfg=0  cterm=none
+autocmd ColorScheme * highlight StatusLineNC ctermbg=0  ctermfg=0  cterm=none
 autocmd ColorScheme * highlight Wildmenu   ctermbg=253  ctermfg=16 cterm=none| " same as Cursor
 autocmd ColorScheme * highlight MatchParen ctermbg=none ctermfg=7  cterm=bold| " same as Search
 autocmd ColorScheme * highlight VertSplit  ctermbg=none ctermfg=0
