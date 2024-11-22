@@ -89,6 +89,7 @@
       ripgrep
       radare2
       gnumake
+      screen
       pandoc
       zoxide
       gnupg

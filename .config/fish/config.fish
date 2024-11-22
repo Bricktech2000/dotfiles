@@ -18,7 +18,11 @@ end
 alias v='nvim'
 alias x='nix-shell -p'
 alias X='nix-shell --pure -p'
-alias p='python3 -i -c "import cmath, math, random, re, string, time"'
+alias p='python3 -i -c "
+import cmath, math, random, re, statistics as stats, string, sys, time
+if not sys.stdin.isatty():
+  sys.ps1 = sys.ps2 = \'\' # for `!!p<cr>` in Vim
+"'
 
 # navigation
 zoxide init fish | source
@@ -71,6 +75,7 @@ end
 alias rg='rg --smart-case --sortr modified --multiline --no-line-number --colors=path:fg:244 --colors=path:style:underline --colors=match:fg:white --colors=match:style:bold'
 alias rc='rg --context 8'
 alias rh='rg --passthru'
+alias ltrep='~/.bin/ltrep -S'
 
 # clipboard
 if type -q termux-clipboard-get
