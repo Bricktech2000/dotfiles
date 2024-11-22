@@ -21,11 +21,11 @@ config = function()
       'vimls',
       'rnix',
       'dockerls',
-      'tsserver',
       'prismals',
       'denols',
       'eslint',
       'cssls',
+      'ts_ls',
       'yamlls',
       'jsonls',
       'taplo',
@@ -52,11 +52,11 @@ config = function()
   lspconfig.rnix.setup({})
   -- web cruft
   lspconfig.dockerls.setup({})
-  lspconfig.tsserver.setup({})
   lspconfig.prismals.setup({})
   lspconfig.denols.setup({})
   lspconfig.eslint.setup({})
   lspconfig.cssls.setup({})
+  lspconfig.ts_ls.setup({})
   -- data and markup
   lspconfig.yamlls.setup({})
   lspconfig.jsonls.setup({})

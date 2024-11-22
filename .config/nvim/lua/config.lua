@@ -19,7 +19,6 @@ P[#P + 1] = { 'tpope/vim-repeat' }
 P[#P + 1] = { 'tomasr/molokai' }
 P[#P + 1] = { 'llathasa-veleth/vim-brainfuck' }
 P[#P + 1] = { 'vim-scripts/bnf.vim' }
-P[#P + 1] = { 'bhurlow/vim-parinfer' }
 P[#P + 1] = { 'airblade/vim-gitgutter' }
 
 -- navigation
@@ -48,24 +47,24 @@ config = function()
 
   hi({ 'TelescopeMatching', bg_none, fg_white, st_bold }) -- same as search
 
-  local builtin = require('telescope.builtin')
-  map('n', '<leader>o', builtin.find_files)
-  map('n', '<leader>f', builtin.live_grep)
-  map('n', '<leader>h', builtin.help_tags)
-  map('n', '<leader>n', builtin.resume)
+  -- local builtin = require('telescope.builtin')
+  -- map('n', '<leader>o', builtin.find_files)
+  -- map('n', '<leader>f', builtin.live_grep)
+  -- map('n', '<leader>h', builtin.help_tags)
+  -- map('n', '<leader>n', builtin.resume)
 end
 
 P[#P + 1] = 'nvim-lua/plenary.nvim'
 P[#P + 1] = { 'nvim-telescope/telescope.nvim', config = config }
 
--- run telescope.nvim on startup if the current buffer is a directory
-vim.api.nvim_create_autocmd('VimEnter', {
-  callback = function()
-    local bufferPath = vim.fn.expand('%:p')
-    local builtin = require('telescope.builtin')
-    if vim.fn.isdirectory(bufferPath) ~= 0 then
-      vim.api.nvim_buf_delete(0, { force = true })
-      builtin.find_files({ search_dirs = { bufferPath } })
-    end
-  end,
-})
+-- -- run telescope.nvim on startup if the current buffer is a directory
+-- vim.api.nvim_create_autocmd('VimEnter', {
+--   callback = function()
+--     local bufferPath = vim.fn.expand('%:p')
+--     local builtin = require('telescope.builtin')
+--     if vim.fn.isdirectory(bufferPath) ~= 0 then
+--       vim.api.nvim_buf_delete(0, { force = true })
+--       builtin.find_files({ search_dirs = { bufferPath } })
+--     end
+--   end,
+-- })
