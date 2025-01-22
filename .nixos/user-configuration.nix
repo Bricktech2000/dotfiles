@@ -72,7 +72,7 @@
   users.users.blackbot7 = {
     isNormalUser = true;
     description = "Emilien Breton";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
     shell = pkgs.fish;
     packages = with pkgs; [
       # languages
