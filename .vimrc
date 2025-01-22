@@ -1,4 +1,4 @@
-" bootstrap vim-plug. taken verbatim from documentation
+" bootstrap vim-plug. from vim-plug documentation
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
   silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
@@ -10,7 +10,8 @@ call plug#begin()
 
 set nocompatible
 filetype plugin on
-set backspace=indent,eol,start
+set hidden
+set history=10000
 
 " system
 set noswapfile updatetime=100
@@ -27,7 +28,10 @@ let &t_EI = "\<esc>[2 q"
 set nonumber signcolumn=yes
 set noshowmode noruler showcmd shortmess=sWFlI laststatus=0
 let g:netrw_banner = 0
+let g:netrw_cursor = 0 " don't override 'cursorline' please
 
+" text layout
+set display=lastline
 set scrolloff=12 sidescrolloff=12
 set wrap linebreak showbreak=\|\  breakindent breakindentopt=
 silent! set smoothscroll " unfortunate this is a buggy afterthought
@@ -47,6 +51,14 @@ xnoremap # y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
 noremap <c-l> <cmd>nohlsearch<bar>normal! <c-l><cr>
 nnoremap Y y$
 
+" key binding tweaks
+set notimeout
+set backspace=indent,eol,start whichwrap=b,s,h,l " remember, 'X' is 'dh'
+set nrformats=hex,bin,unsigned " `unsigned` so <c-a> and <c-x> work on dates
+nnoremap gK @='ddpkJ'<cr>| " join lines but reversed. `@=` so [count] works
+set nojoinspaces nostartofline " only needed for Vim
+set expandtab smarttab
+
 " all things search
 set ignorecase smartcase hlsearch incsearch
 set wildmenu wildoptions=pum wildignorecase path+=** " :fin as fuzzy finder
@@ -57,17 +69,21 @@ xnoremap :s/ :s/\v
 cnoremap vim/ vim/\v
 
 " essential plugins
-Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+autocmd FileType c set commentstring=//\ %s
+let g:c_syntax_for_h = 1 " use above 'commentstring' in header files too
 let g:surround_{char2nr('*')} = "**\r**"
 let g:surround_{char2nr('~')} = "~~\r~~"
 let g:surround_{char2nr('[')} = "[[\r]]"
-autocmd FileType c set commentstring=//\ %s
-autocmd FileType cpp set commentstring=//\ %s " .h files
+for c in '*~['
+  execute 'nmap ds'.c.' <plug>Dsurround'.c.'<plug>Dsurround'.c
+  execute 'nmap cs'.c.' <plug>Dsurround'.c.'<plug>Csurround'.c
+  execute 'nmap cS'.c.' <plug>Dsurround'.c.'<plug>CSurround'.c
+endfor
 
-" emulate Neovim's `Q` binding
+" emulate Neovim's 'Q' binding
 
 function! s:record_macro()
   let s:last_reg = nr2char(getchar())
@@ -75,7 +91,7 @@ function! s:record_macro()
 endfunction
 
 function! s:exec_last_recorded()
-  execute 'normal! @'.s:last_reg
+  execute 'normal! '.v:count1.'@'.s:last_reg
 endfunction
 
 let s:last_reg = ''
@@ -99,20 +115,30 @@ endfunction
 autocmd BufNewFile,BufRead * let b:undo_marks = {}
 nnoremap gm <cmd>call <sid>mark_undo_point()<cr>
 nnoremap g' <cmd>call <sid>undo_to_mark()<cr>
-nnoremap U <cmd>undo!<cr>| " to keep tree clean
 nnoremap g= g+| " g=g=g= less awkward than g+g+g+
 
 " languages
 
-autocmd Filetype * set tabstop=2 softtabstop=2 shiftwidth=2
-autocmd Filetype * set formatoptions=
-set expandtab smartindent
+set formatoptions=
+set tabstop=2 softtabstop=2 shiftwidth=2
+autocmd FileType * set formatoptions=
+autocmd FileType * set tabstop=2 softtabstop=2 shiftwidth=2
 
 Plug 'llathasa-veleth/vim-brainfuck'
 Plug 'vim-scripts/bnf.vim'
 autocmd BufNewFile,BufRead *.bnf set filetype=bnf
-autocmd BufNewFile,BufRead *.md set suffixesadd=.md " [[wikilinks]]
-autocmd BufNewFile,BufRead *.md set includeexpr=substitute(v:fname,'%20','\ ','g')
+set suffixesadd=.md " [[wikilinks]]
+" percent-encoding substitution expression below taken from :h substitute()
+set includeexpr=substitute(v:fname,'%\\(\\x\\x\\)','\\=nr2char(\"0x\"..submatch(1))','g')
+let g:markdown_fenced_languages = ['rust', 'c', 'python', 'haskell', 'sh', 'bnf', 'mermaid']
+autocmd BufEnter *.md syntax match Todo '#todo\|#xxx\|#note'
+autocmd BufEnter *.md syntax match markdownUrl '\[\[[[:fname:] ]*\]\]'
+autocmd ColorScheme molokai call <sid>markdown_hi()
+function! s:markdown_hi()
+  highlight link markdownAutomaticLink htmlLink
+  highlight link markdownUrl htmlLink
+  highlight markdownCode ctermbg=none ctermfg=244 term=bold| " same as Comment
+endfunction
 
 " colorscheme
 

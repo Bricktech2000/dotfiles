@@ -110,6 +110,7 @@
       # libraries
       gnomeExtensions.just-perfection
       texlive.combined.scheme-tetex # pandoc
+      llvmPackages_18.clang-tools # clangd for Neovim
       python311Packages.pip
       any-nix-shell # fish
       xclip # neovim
