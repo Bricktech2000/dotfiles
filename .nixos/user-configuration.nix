@@ -86,15 +86,18 @@
       config.boot.kernelPackages.perf
       trash-cli
       diskonaut
+      neofetch
       ripgrep
       radare2
       gnumake
       screen
       pandoc
+      neovim
       zoxide
       gnupg
       fish
       eza # exa fork
+      pv
       # graphical
       logisim-evolution
       protonvpn-gui
@@ -109,11 +112,11 @@
       hmcl # minecraft
       # libraries
       gnomeExtensions.just-perfection
-      texlive.combined.scheme-tetex # pandoc
+      texlive.combined.scheme-tetex # for Pandoc
       llvmPackages_18.clang-tools # clangd for Neovim
       python311Packages.pip
-      any-nix-shell # fish
-      xclip # neovim
+      any-nix-shell # for nix-shell
+      xclip # for Neovim
     ];
   };
 

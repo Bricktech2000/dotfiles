@@ -6,6 +6,11 @@
     ./user-configuration.nix
   ];
 
+  swapDevices = [ {
+    device = "/var/lib/swapfile";
+    size = 16*1024; # MB
+  } ];
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
@@ -82,8 +87,6 @@
   environment.systemPackages = with pkgs; [
     man-pages-posix
     man-pages
-    neofetch
-    neovim
     unzip
     file
     htop
@@ -92,8 +95,10 @@
     zip
     git
     xxd
+    gcc
     gdb
-    pv
+    nvi
+    vim
   ];
   # required for mason.vim pre-compiled binaries
   programs.nix-ld.enable = true;

@@ -14,7 +14,7 @@
   frag = white bold
   meta = 244 ul
 [core]
-  filemode = false
+  fileMode = false
   editor = nvim
 [init]
   defaultBranch = master
