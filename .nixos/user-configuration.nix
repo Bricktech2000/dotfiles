@@ -76,8 +76,8 @@
     shell = pkgs.fish;
     packages = with pkgs; [
       # languages
-      python311
-      nodejs_20
+      python3
+      nodejs
       rustup
       clang
       gcc
@@ -112,11 +112,11 @@
       hmcl # minecraft
       # libraries
       gnomeExtensions.just-perfection
-      texlive.combined.scheme-tetex # for Pandoc
       llvmPackages_18.clang-tools # clangd for Neovim
       python311Packages.pip
       any-nix-shell # for nix-shell
       xclip # for Neovim
+      typst # for Pandoc
     ];
   };
 

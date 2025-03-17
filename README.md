@@ -18,7 +18,7 @@ dot config --local status.showUntrackedFiles no
 
 dot checkout
 
-ln -s ~/.nixos/ /etc/nixos # on NixOS
+ln -s ~/.nixos/ /etc/nixos # if on NixOS
 ```
 
 If you are not using NixOS, additional configuration may be required. If anything behaves incorrectly, read over the [.nixos](.nixos/) configuration files and run equivalent commands manually.
@@ -43,6 +43,6 @@ dot commit -m "initial commit"
 dot remote add origin <repo-url>
 dot push -u origin master
 
-mv /etc/nixos/ ~/.nixos # on NixOS
-ln -s ~/.nixos/ /etc/nixos # on NixOS
+mv /etc/nixos/ ~/.nixos # if on NixOS
+ln -s ~/.nixos/ /etc/nixos # if on NixOS
 ```
