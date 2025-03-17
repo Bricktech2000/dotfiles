@@ -55,19 +55,21 @@ nnoremap Y y$
 
 " key binding tweaks
 set notimeout
-set backspace=indent,eol,start whichwrap=b,s,h,l " remember, 'X' is 'dh'
+set backspace=indent,eol,start
 set nrformats=hex,bin,unsigned " `unsigned` so <c-a> and <c-x> work on dates
+set isfname+=@-@ " many URLs contain '@'s
 nnoremap gK @='ddpkJ'<cr>| " join lines but reversed. `@=` so [count] works
 set nojoinspaces nostartofline " only needed for Vim
 set expandtab smarttab
 
 " all things search
-set ignorecase smartcase hlsearch incsearch
+set ignorecase smartcase infercase hlsearch incsearch
 set wildmenu wildoptions=pum wildignorecase path+=** " :fin as fuzzy finder
 noremap / /\v
 noremap ? ?\v
-cnoremap %s/ %s/\v
-xnoremap :s/ :s/\v
+cnoremap s/ s/\v
+cnoremap v/ v/\v
+cnoremap g/ g/\v
 cnoremap vim/ vim/\v
 
 " essential plugins
@@ -89,7 +91,8 @@ endfor
 
 function! s:record_macro()
   let s:last_reg = nr2char(getchar())
-  execute 'normal! q'.s:last_reg
+  " `execute 'normal! q'.s:last_reg` breaks q: and q/
+  call feedkeys('q'.s:last_reg, 'n')
 endfunction
 
 function! s:exec_last_recorded()
