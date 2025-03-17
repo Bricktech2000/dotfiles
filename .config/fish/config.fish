@@ -25,25 +25,33 @@ if not sys.stdin.isatty():
 "'
 
 # navigation
-zoxide init fish | source
-alias ls='exa --sort modified --reverse --icons --git'
+zoxide init fish --no-cmd | source
+alias ls='exa --sort modified --reverse --git'
 alias ld=':' # no-op
 alias ll='ls -l'
 alias lt='ls -l --tree'
 alias la='ls -l -a'
 alias lv='v .'
-function cs; z $argv && ls; end
-function cd; z $argv && ld; end
-function cl; z $argv && ll; end
-function ct; z $argv && lt; end
-function ca; z $argv && la; end
-function cv; z $argv && lv; end
+function cs; __zoxide_z $argv && ls; end
+function cd; __zoxide_z $argv && ld; end
+function cl; __zoxide_z $argv && ll; end
+function ct; __zoxide_z $argv && lt; end
+function ca; __zoxide_z $argv && la; end
+function cv; __zoxide_z $argv && lv; end
+function ks; mkdir -p $argv && cs $argv; end
+function kd; mkdir -p $argv && cd $argv; end
+function kl; mkdir -p $argv && cl $argv; end
+function kt; mkdir -p $argv && ct $argv; end
+function ka; mkdir -p $argv && ca $argv; end
+function kv; mkdir -p $argv && cv $argv; end
+set -x LS_COLORS "*=0;37:di=1;0:ln=1;0:so=0:pi=0:ex=37:bd=0:cd=0:su=37:sg=37:tw=1;0:ow=1;0:or=1;37:pi=1;37"
+set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;37:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37:su=1;37:sf=1;37:xa=1;37:ga=30:gm=30:gd=30:gv=30:gt=30"
 
 # Git
-function d; git diff --no-prefix --color=always $argv | ~/.bin/ltrep -v -x "\x1b\[0-;*m(diff \-\-git|index|(new|deleted) file mode) .*" | $PAGER -RFX; end
-alias D='d --staged'
-alias w='d --word-diff'
-alias W='w --staged'
+alias d='git diff --no-prefix'
+alias D='git diff --no-prefix --staged'
+alias w='git diff --no-prefix --word-diff'
+alias W='git diff --no-prefix --word-diff --staged'
 alias s='git status --short'
 alias a='git add'
 alias A='git fetch --all --prune'
@@ -87,29 +95,24 @@ if type -q xclip
   alias P='xclip -selection clipboard -o'
 end
 
-# dotfiles
+# misc
+alias less='less --ignore-case' # '--ignore-case' is smartcase
 alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
-
-# DBLess
 function dbless; ~/.bin/dbless (cat ~/.bin/token) $argv | Y &> /dev/null; end
-
-# No Shit.
 function no-shit # example usage: no-shit gcc -O2 file.c
   source ~/.bin/no-shit.sh
   $argv (string split -n \n $CFLAGS)
   export CFLAGS=""
 end
 
-set -x EXA_COLORS "da=37:uu=1;37:sn=37:sb=37:lp=1;37:ur=1;37:uw=1;37:ux=1;37:ue=1;37:gr=1;37:gw=1;37:gx=1;37:tr=1;37:tw=1;37:tx=1;37:su=1;37:sf=1;37:xa=1;37:ga=30:gm=30:gd=30:gv=30:gt=30"
-set -x LS_COLORS "*=0;37:di=1;0:ln=1;0:so=0:pi=0:ex=37:bd=0:cd=0:su=37:sg=37:tw=1;0:ow=1;0:or=1;37:pi=1;37"
 set -x GPG_TTY (tty)
 set -x EDITOR nvim
 set -x VISUAL nvim
 set -x PAGER less
 
-function fish_greeting; end # empty fish greeting
-function fish_mode_prompt; end # empty mode prompt
-function fish_right_prompt; end # empty right prompt
+function fish_greeting; end
+function fish_mode_prompt; end
+function fish_right_prompt; end
 function fish_title; meta raw; end
 
 function fish_prompt
