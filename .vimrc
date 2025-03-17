@@ -37,13 +37,15 @@ set wrap linebreak showbreak=\|\  breakindent breakindentopt=
 silent! set smoothscroll " unfortunate this is a buggy afterthought
 
 " typographic characters
-set list listchars=tab:>-,trail:#,nbsp:+
+set list listchars=tab:>-,trail:#
 set iminsert=1 " see :h mapmode-l
 lnoremap <c-space> <c-k>NS
 lnoremap <c-/> <c-k>-N
 lnoremap <c-_> <c-k>-M| " for Vim
 lnoremap <c--> <c-k>-M| " for Neovim
 lnoremap <c-'> <c-k>'9
+autocmd BufEnter * syntax match nonascii /[^\x00-\x7f]/ containedin=ALL
+autocmd BufEnter * highlight nonascii cterm=underline
 
 " some of Neovim's `default-mappings`, except less broken
 xnoremap * y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
