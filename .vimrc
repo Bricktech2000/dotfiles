@@ -27,7 +27,7 @@ let &t_EI = "\<esc>[2 q"
 
 " reduce clutter
 set nonumber signcolumn=yes
-set noshowmode noruler showcmd shortmess=sWFlI laststatus=0
+set noshowmode noruler showcmd laststatus=0
 let g:netrw_banner = 0
 let g:netrw_cursor = 0 " don't override 'cursorline' please
 
@@ -58,7 +58,7 @@ nnoremap Y y$
 set notimeout
 set backspace=indent,eol,start
 set nrformats=hex,bin,unsigned " `unsigned` so <c-a> and <c-x> work on dates
-set isfname+=@-@ " many URLs contain '@'s
+set isfname+=@-@ " for gf and gx; many URLs contain '@'s
 nnoremap gK @='ddpkJ'<cr>| " join lines but reversed. `@=` so [count] works
 set nojoinspaces nostartofline " only needed for Vim
 set expandtab smarttab
@@ -134,11 +134,11 @@ Plug 'llathasa-veleth/vim-brainfuck'
 Plug 'vim-scripts/bnf.vim'
 autocmd BufNewFile,BufRead *.bnf set filetype=bnf
 set suffixesadd=.md " [[wikilinks]]
-" percent-encoding substitution expression below taken from :h substitute()
-set includeexpr=substitute(v:fname,'%\\(\\x\\x\\)','\\=nr2char(\"0x\"..submatch(1))','g')
+" percent-encoding substitution expression below based on the one from :h substitute()
+set includeexpr=substitute(v:fname,'%\\(\\x\\x\\)\\\|#.*',{m->nr2char('0x'.m[1])},'g')
 let g:markdown_fenced_languages = ['rust', 'c', 'python', 'haskell', 'sh', 'bnf', 'mermaid']
 autocmd BufEnter *.md syntax match Todo '#todo\|#xxx\|#note'
-autocmd BufEnter *.md syntax match markdownUrl '\[\[[[:fname:] ]*\]\]'
+autocmd BufEnter *.md syntax match markdownUrl '\[\[[[:fname:]|# ]*\]\]'
 autocmd ColorScheme molokai call <sid>markdown_hi()
 function! s:markdown_hi()
   highlight! link markdownAutomaticLink htmlLink

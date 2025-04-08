@@ -96,6 +96,7 @@
       zoxide
       gnupg
       fish
+      acpi
       eza # exa fork
       pv
       # graphical
@@ -105,7 +106,6 @@
       obs-studio
       syncthing
       obsidian
-      bottles
       kitty
       brave
       cura
