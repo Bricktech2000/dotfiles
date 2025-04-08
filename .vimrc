@@ -11,7 +11,8 @@ call plug#begin()
 set nocompatible
 filetype plugin on
 set hidden
-set history=10000
+set history=10000 " max value
+set synmaxcol=0 " no limit
 
 " system
 set noswapfile updatetime=100
@@ -45,7 +46,7 @@ lnoremap <c-_> <c-k>-M| " for Vim
 lnoremap <c--> <c-k>-M| " for Neovim
 lnoremap <c-'> <c-k>'9
 autocmd BufEnter * syntax match nonascii /[^\x00-\x7f]/ containedin=ALL
-autocmd BufEnter * highlight nonascii cterm=underline
+autocmd BufEnter * highlight! nonascii cterm=underline
 
 " some of Neovim's `default-mappings`, except less broken
 xnoremap * y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
@@ -140,9 +141,9 @@ autocmd BufEnter *.md syntax match Todo '#todo\|#xxx\|#note'
 autocmd BufEnter *.md syntax match markdownUrl '\[\[[[:fname:] ]*\]\]'
 autocmd ColorScheme molokai call <sid>markdown_hi()
 function! s:markdown_hi()
-  highlight link markdownAutomaticLink htmlLink
-  highlight link markdownUrl htmlLink
-  highlight markdownCode ctermbg=none ctermfg=244 term=bold| " same as Comment
+  highlight! link markdownAutomaticLink htmlLink
+  highlight! link markdownUrl htmlLink
+  highlight! link markdownCode Comment
 endfunction
 
 " colorscheme
@@ -153,24 +154,24 @@ set notermguicolors
 
 autocmd ColorScheme molokai call <sid>molokai_hi()
 function! s:molokai_hi()
-  highlight Normal     ctermbg=none
-  highlight NonText    ctermbg=none ctermfg=244 term=bold| " same as Comment
-  highlight Folded     ctermbg=none
-  highlight LineNr     ctermbg=none
-  highlight SignColumn ctermbg=none
-  highlight Visual     ctermbg=238  ctermfg=none
-  highlight Search     ctermbg=none ctermfg=7  cterm=bold
-  highlight IncSearch  ctermbg=253  ctermfg=16 cterm=bold| " same as Cursor
-  highlight Question   ctermbg=none ctermfg=7  cterm=bold| " same as Search
-  highlight ErrorMsg   ctermbg=none ctermfg=7  cterm=bold| " same as Search
-  highlight WarningMsg ctermbg=none ctermfg=7  cterm=bold| " same as Search
-  highlight Pmenu      ctermbg=none ctermfg=7  cterm=none
-  highlight PmenuSel   ctermbg=253  ctermfg=16 cterm=none| " same as Cursor
-  highlight StatusLine ctermbg=0    ctermfg=0  cterm=none
-  highlight StatusLineNC ctermbg=0  ctermfg=0  cterm=none
-  highlight Wildmenu   ctermbg=253  ctermfg=16 cterm=none| " same as Cursor
-  highlight MatchParen ctermbg=none ctermfg=7  cterm=bold| " same as Search
-  highlight VertSplit  ctermbg=none ctermfg=0
+  highlight! Normal       ctermbg=none
+  highlight! Folded       ctermbg=none
+  highlight! LineNr       ctermbg=none
+  highlight! Question     ctermbg=none
+  highlight! ErrorMsg     ctermbg=none
+  highlight! WarningMsg   ctermbg=none
+  highlight! StatusLine   ctermbg=none ctermfg=0
+  highlight! StatusLineNC ctermbg=none ctermfg=0
+  highlight! VertSplit    ctermbg=none ctermfg=0
+  highlight! Visual ctermfg=none " only needed for Vim
+  highlight! link SignColumn Comment
+  highlight! link NonText    Comment
+  highlight! link Search     Todo
+  highlight! link IncSearch  Cursor
+  highlight! link Pmenu      Normal
+  highlight! link PmenuSel   Cursor
+  highlight! link Wildmenu   Cursor
+  highlight! link MatchParen Todo
 endfunction
 
 " miscellaneous
@@ -185,9 +186,9 @@ let g:gitgutter_sign_modified_removed = '|'
 
 autocmd ColorScheme molokai call <sid>gitgutter_hi()
 function! s:gitgutter_hi()
-  highlight GitGutterAdd    ctermbg=none ctermfg=244 term=bold| " same as Comment
-  highlight GitGutterChange ctermbg=none ctermfg=244 term=bold| " same as Comment
-  highlight GitGutterDelete ctermbg=none ctermfg=244 term=bold| " same as Comment
+  highlight! link GitGutterAdd    SignColumn
+  highlight! link GitGutterChange SignColumn
+  highlight! link GitGutterDelete SignColumn
 endfunction
 
 call plug#end()
