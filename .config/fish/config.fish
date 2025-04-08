@@ -31,7 +31,7 @@ alias ld=':' # no-op
 alias ll='ls -l'
 alias lt='ls -l --tree'
 alias la='ls -l -a'
-alias lv='v .'
+alias lv='_refresh_title; v .'
 function cs; __zoxide_z $argv && ls; end
 function cd; __zoxide_z $argv && ld; end
 function cl; __zoxide_z $argv && ll; end
@@ -114,6 +114,8 @@ function fish_greeting; end
 function fish_mode_prompt; end
 function fish_right_prompt; end
 function fish_title; meta raw; end
+
+function _refresh_title; echo -en '\e]0;'; fish_title; echo -en '\a'; end
 
 function fish_prompt
   set -l _status $status
