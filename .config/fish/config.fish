@@ -108,7 +108,7 @@ end
 set -x GPG_TTY (tty)
 set -x EDITOR nvim
 set -x VISUAL nvim
-set -x PAGER less
+set -x PAGER fish -c less # ensure the alias gets resolved
 
 function fish_greeting; end
 function fish_mode_prompt; end
