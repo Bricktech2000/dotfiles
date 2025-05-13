@@ -13,21 +13,23 @@ filetype plugin on
 set hidden
 set history=10000 " max value
 set synmaxcol=0 " no limit
+set undolevels=1000000
 
 " system
-set noswapfile updatetime=100
 set autoread
-set fileformat=unix
+set noswapfile updatetime=100
+set fileformat=unix encoding=utf-8
 
 " terminal
-set belloff=all mouse=a
-let &t_SI = "\<esc>[6 q" " see :h guicursor
-let &t_SR = "\<esc>[4 q"
-let &t_EI = "\<esc>[2 q"
+set belloff=all mouse=a mousemodel=extend
+let &t_SI = "\e[6 q" " see :h termcap-cursor-shape
+let &t_SR = "\e[4 q"
+let &t_EI = "\e[2 q"
 
 " reduce clutter
 set nonumber signcolumn=yes
 set noshowmode noruler showcmd laststatus=0
+set winminheight=0 winminwidth=0
 let g:netrw_banner = 0
 let g:netrw_cursor = 0 " don't override 'cursorline' please
 
@@ -48,20 +50,29 @@ lnoremap <c-'> <c-k>'9
 autocmd BufEnter * syntax match nonascii /[^\x00-\x7f]/ containedin=ALL
 autocmd BufEnter * highlight! nonascii cterm=underline
 
-" some of Neovim's `default-mappings`, except less broken
+" some of Neovim's `default-mappings` but less broken
 xnoremap * y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
 xnoremap # y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
 noremap <c-l> <cmd>nohlsearch<bar>normal! <c-l><cr>
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
 nnoremap Y y$
 
 " key binding tweaks
 set notimeout
-set backspace=indent,eol,start
+set complete-=i switchbuf=uselast " Neovim default
+set backspace=indent,eol,start " Neovim default
 set nrformats=hex,bin,unsigned " `unsigned` so <c-a> and <c-x> work on dates
 set isfname+=@-@ " for gf and gx; many URLs contain '@'s
-nnoremap gK @='ddpkJ'<cr>| " join lines but reversed. `@=` so [count] works
-set nojoinspaces nostartofline " only needed for Vim
-set expandtab smarttab
+set formatoptions=
+set matchpairs+=<:>
+nnoremap gK @='ddkPJ'<cr>| " join lines but reversed. `@=` so [count] works
+xnoremap gK <esc><cmd>'<,'>-global/$/normal! ddpkJ<cr>
+silent! set cpoptions-=z " for Vim
+silent! set cpoptions-=_ " for Neovim
+set nojoinspaces nostartofline " Neovim default
+set autoindent expandtab smarttab tabstop=2 shiftwidth=2
+autocmd WinNew * wincmd L " split vertically by default
 
 " all things search
 set ignorecase smartcase infercase hlsearch incsearch
@@ -73,21 +84,6 @@ cnoremap v/ v/\v
 cnoremap g/ g/\v
 cnoremap vim/ vim/\v
 
-" essential plugins
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-autocmd FileType c set commentstring=//\ %s
-let g:c_syntax_for_h = 1 " use above 'commentstring' in header files too
-let g:surround_{char2nr('*')} = "**\r**"
-let g:surround_{char2nr('~')} = "~~\r~~"
-let g:surround_{char2nr('[')} = "[[\r]]"
-for c in '*~['
-  execute 'nmap ds'.c.' <plug>Dsurround'.c.'<plug>Dsurround'.c
-  execute 'nmap cs'.c.' <plug>Dsurround'.c.'<plug>Csurround'.c
-  execute 'nmap cS'.c.' <plug>Dsurround'.c.'<plug>CSurround'.c
-endfor
-
 " emulate Neovim's 'Q' binding
 
 function! s:record_macro()
@@ -97,7 +93,7 @@ function! s:record_macro()
 endfunction
 
 function! s:exec_last_recorded()
-  execute 'normal! '.v:count1.'@'.s:last_reg
+  execute 'normal!' v:count1.'@'.s:last_reg
 endfunction
 
 let s:last_reg = ''
@@ -105,38 +101,59 @@ noremap <expr> q reg_recording() == '' ? '<cmd>call <sid>record_macro()<cr>' : '
 noremap Q <cmd>call <sid>exec_last_recorded()<cr>
 
 " undo tree plugins have it all backward. the way to make Vim's undo tree nicer
-" is to create bindings to jump around it more freely, not to make some ASCII
-" art visualization with `hjkl` navigation
+" is to add bindings to jump around it more freely, not to make some ASCII art
+" visualization with 'hjkl' navigation
 
 function! s:mark_undo_point()
   let b:undo_marks[getchar()] = undotree().seq_cur
 endfunction
 
 function! s:undo_to_mark()
-  let seq_cur = undotree().seq_cur
-  execute 'undo '.get(b:undo_marks, getchar(), seq_cur)
-  let b:undo_marks[char2nr("'")] = seq_cur " for g''
+  let l:seq_cur = undotree().seq_cur
+  execute 'undo' get(b:undo_marks, getchar(), l:seq_cur)
+  let b:undo_marks[char2nr("'")] = l:seq_cur " for y''
 endfunction
 
 autocmd BufNewFile,BufRead * let b:undo_marks = {}
-nnoremap gm <cmd>call <sid>mark_undo_point()<cr>
-nnoremap g' <cmd>call <sid>undo_to_mark()<cr>
-nnoremap g= g+| " g=g=g= less awkward than g+g+g+
+nnoremap ym <cmd>call <sid>mark_undo_point()<cr>
+nnoremap y' <cmd>call <sid>undo_to_mark()<cr>
+nnoremap g= g+| " g=g=g= is less awkward than g+g+g+
 
-" languages
+" essential plugins
 
-set formatoptions=
-set tabstop=2 softtabstop=2 shiftwidth=2
-autocmd FileType * set formatoptions=
-autocmd FileType * set tabstop=2 softtabstop=2 shiftwidth=2
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-repeat'
+autocmd FileType c set commentstring=//\ %s
+let g:c_syntax_for_h = 1 " use above 'commentstring' in header files too
+let g:surround_{char2nr('*')} = "**\r**"
+let g:surround_{char2nr('~')} = "~~\r~~"
+let g:surround_{char2nr('[')} = "[[\r]]"
+for c in '*~['
+  execute 'nmap ds'.c.' <Plug>Dsurround'.c.'<Plug>Dsurround'.c
+  execute 'nmap cs'.c.' <Plug>Dsurround'.c.'<Plug>Csurround'.c
+  execute 'nmap cS'.c.' <Plug>Dsurround'.c.'<Plug>CSurround'.c
+endfor
+
+" filetypes
+
+" don't overwrite my stuff please
+for opt in ['fo', 'mps', 'ts', 'sts', 'sw', 'et', 'ic', 'scs'] " 'tw', 'isk', 'isf', 'kp'
+  execute 'let s:opt_'.opt.' = &'.opt
+  execute 'autocmd FileType * let &'.opt.' = s:opt_'.opt
+endfor
 
 Plug 'llathasa-veleth/vim-brainfuck'
+
 Plug 'vim-scripts/bnf.vim'
 autocmd BufNewFile,BufRead *.bnf set filetype=bnf
+
 set suffixesadd=.md " [[wikilinks]]
 " percent-encoding substitution expression below based on the one from :h substitute()
 set includeexpr=substitute(v:fname,'%\\(\\x\\x\\)\\\|#.*',{m->nr2char('0x'.m[1])},'g')
-let g:markdown_fenced_languages = ['rust', 'c', 'python', 'haskell', 'sh', 'bnf', 'mermaid']
+let g:markdown_fenced_languages =
+      \ ['rust', 'c', 'python', 'haskell', 'sh', 'vim', 'bnf', 'mermaid']
 autocmd BufEnter *.md syntax match Todo '#todo\|#xxx\|#note'
 autocmd BufEnter *.md syntax match markdownUrl '\[\[[[:fname:]|# ]*\]\]'
 autocmd ColorScheme molokai call <sid>markdown_hi()
@@ -163,7 +180,7 @@ function! s:molokai_hi()
   highlight! StatusLine   ctermbg=none ctermfg=0
   highlight! StatusLineNC ctermbg=none ctermfg=0
   highlight! VertSplit    ctermbg=none ctermfg=0
-  highlight! Visual ctermfg=none " only needed for Vim
+  highlight! Visual ctermfg=none " Neovim default
   highlight! link SignColumn Comment
   highlight! link NonText    Comment
   highlight! link Search     Todo
@@ -176,14 +193,15 @@ endfunction
 
 " miscellaneous
 
+Plug 'Bricktech2000/jumptree.vim'
+
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '|'
 let g:gitgutter_sign_removed = '_'
-let g:gitgutter_sign_removed_first_line = '‾'
-let g:gitgutter_sign_removed_above_and_below = '|'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_removed_above_and_below = '^'
 let g:gitgutter_sign_modified_removed = '|'
-
 autocmd ColorScheme molokai call <sid>gitgutter_hi()
 function! s:gitgutter_hi()
   highlight! link GitGutterAdd    SignColumn

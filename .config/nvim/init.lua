@@ -26,10 +26,12 @@ P = {}
 -- XXX why do plugins not autoload? need PlugInstall or this:
 P[#P + 1] = { 'tpope/vim-commentary' }
 P[#P + 1] = { 'tpope/vim-surround' }
+P[#P + 1] = { 'wellle/targets.vim' }
 P[#P + 1] = { 'tpope/vim-repeat' }
 P[#P + 1] = { 'tomasr/molokai' }
 P[#P + 1] = { 'llathasa-veleth/vim-brainfuck' }
 P[#P + 1] = { 'vim-scripts/bnf.vim' }
+P[#P + 1] = { 'Bricktech2000/jumptree.vim' }
 P[#P + 1] = { 'airblade/vim-gitgutter' }
 
 local config = function() end
