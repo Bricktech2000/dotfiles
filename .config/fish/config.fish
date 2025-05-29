@@ -96,6 +96,7 @@ if type -q xclip
 end
 
 # misc
+alias date='date --iso-8601=seconds'
 alias less='less --ignore-case' # '--ignore-case' is smartcase
 alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 function dbless; ~/.bin/dbless (cat ~/.bin/token) $argv | Y &> /dev/null; end
@@ -165,7 +166,7 @@ function meta
   end
   _echo_bold -n 'as'; echo -n " $USER "
   if test $cmd_duration -gt 0
-    _echo_bold -n 'took'; echo -n " $(date -d @$cmd_duration -u +%H:%M:%S) "
+    _echo_bold -n 'took'; echo -n " $(command date -d @$cmd_duration -u +%H:%M:%S) "
   end
   if test $_status -ne 0
     _echo_bold -n 'exit'; echo -n " $(printf '0x%02X' $_status) "
