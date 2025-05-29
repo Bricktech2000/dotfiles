@@ -109,7 +109,6 @@
       kitty
       brave
       cura
-      hmcl # minecraft
       # libraries
       gnomeExtensions.just-perfection
       llvmPackages_18.clang-tools # clangd for Neovim

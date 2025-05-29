@@ -1,6 +1,6 @@
 {
   "bnf.vim": { "branch": "master", "commit": "1c79e9323d8fce3daaaf24029fbe6309a592b326" },
-  "jumptree.vim": { "branch": "master", "commit": "c1172d2ac53e6aaf631ae6ef3dd1f20facedd253" },
+  "jumptree.vim": { "branch": "master", "commit": "f0fd87237068ac8297866fc6ca47fb370bd911d0" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "mason-lspconfig": { "branch": "main", "commit": "cab00668464d2914d0752b86168b4a431cc93eb2" },
   "mason-null-ls.nvim": { "branch": "main", "commit": "de19726de7260c68d94691afb057fa73d3cc53e7" },
