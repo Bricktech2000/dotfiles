@@ -60,12 +60,14 @@ nnoremap Y y$
 
 " key binding tweaks
 set notimeout
+set ignorecase infercase
 set complete-=i switchbuf=uselast " Neovim default
 set backspace=indent,eol,start " Neovim default
 set nrformats=hex,bin,unsigned " `unsigned` so <c-a> and <c-x> work on dates
 set isfname+=@-@ " for gf and gx; many URLs contain '@'s
-set formatoptions=
+set formatoptions= " no thanks
 set matchpairs+=<:>
+nnoremap g= g+| " g=g=g= is less awkward than g+g+g+
 nnoremap gK @='ddkPJ'<cr>| " join lines but reversed. `@=` so [count] works
 xnoremap gK <esc><cmd>'<,'>-global/$/normal! ddpkJ<cr>
 silent! set cpoptions-=z " for Vim
@@ -75,7 +77,7 @@ set autoindent expandtab smarttab tabstop=2 shiftwidth=2
 autocmd WinNew * wincmd L " split vertically by default
 
 " all things search
-set ignorecase smartcase infercase hlsearch incsearch
+set ignorecase smartcase hlsearch incsearch
 set wildmenu wildoptions=pum wildignorecase path+=** " :fin as fuzzy finder
 noremap / /\v
 noremap ? ?\v
@@ -99,25 +101,6 @@ endfunction
 let s:last_reg = ''
 noremap <expr> q reg_recording() == '' ? '<cmd>call <sid>record_macro()<cr>' : 'q'
 noremap Q <cmd>call <sid>exec_last_recorded()<cr>
-
-" undo tree plugins have it all backward. the way to make Vim's undo tree nicer
-" is to add bindings to jump around it more freely, not to make some ASCII art
-" visualization with 'hjkl' navigation
-
-function! s:mark_undo_point()
-  let b:undo_marks[getchar()] = undotree().seq_cur
-endfunction
-
-function! s:undo_to_mark()
-  let l:seq_cur = undotree().seq_cur
-  execute 'undo' get(b:undo_marks, getchar(), l:seq_cur)
-  let b:undo_marks[char2nr("'")] = l:seq_cur " for y''
-endfunction
-
-autocmd BufNewFile,BufRead * let b:undo_marks = {}
-nnoremap ym <cmd>call <sid>mark_undo_point()<cr>
-nnoremap y' <cmd>call <sid>undo_to_mark()<cr>
-nnoremap g= g+| " g=g=g= is less awkward than g+g+g+
 
 " essential plugins
 
