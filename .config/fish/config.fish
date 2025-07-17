@@ -21,16 +21,16 @@ alias X='nix-shell --pure -p'
 alias p='python3 -i -c "
 import cmath, math, random, re, statistics as stats, string, sys, time
 if not sys.stdin.isatty():
-  sys.ps1 = sys.ps2 = \'\' # for `!!p<cr>` in Vim
+  sys.ps1 = sys.ps2 = \'\' # for !!p<cr> in Vim
 "'
 
 # navigation
 zoxide init fish --no-cmd | source
 alias ls='exa --sort modified --reverse --git'
 alias ld=':' # no-op
-alias ll='ls -l'
-alias lt='ls -l --tree'
-alias la='ls -l -a'
+alias ll='ls --long'
+alias lt='ls --long --tree'
+alias la='ls --long --all'
 alias lv='_refresh_title; v .'
 function cs; __zoxide_z $argv && ls; end
 function cd; __zoxide_z $argv && ld; end

@@ -87,18 +87,11 @@
   environment.systemPackages = with pkgs; [
     man-pages-posix
     man-pages
-    unzip
+    busybox
     file
-    htop
-    wget
-    curl
-    zip
     git
-    xxd
-    gcc
     gdb
-    nvi
-    vim
+    zip
   ];
   # required for mason.vim pre-compiled binaries
   programs.nix-ld.enable = true;
