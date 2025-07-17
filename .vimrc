@@ -53,6 +53,10 @@ autocmd BufEnter * highlight! nonascii cterm=underline
 " some of Neovim's `default-mappings` but less broken
 xnoremap * y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
 xnoremap # y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
+xnoremap gd ym':keepjumps normal! [[/\V<c-v><c-r>=
+      \ substitute(escape(@", '/\\'), '\n', '\\n', 'g')<c-v><cr><c-v><cr><cr>
+xnoremap gD ym':keepjumps normal! go/\V<c-v><c-r>=
+      \ substitute(escape(@", '/\\'), '\n', '\\n', 'g')<c-v><cr><c-v><cr><cr>
 noremap <c-l> <cmd>nohlsearch<bar>normal! <c-l><cr>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
@@ -137,6 +141,7 @@ set suffixesadd=.md " [[wikilinks]]
 set includeexpr=substitute(v:fname,'%\\(\\x\\x\\)\\\|#.*',{m->nr2char('0x'.m[1])},'g')
 let g:markdown_fenced_languages =
       \ ['rust', 'c', 'python', 'haskell', 'sh', 'vim', 'bnf', 'mermaid']
+autocmd BufEnter *.md setlocal comments= " for gd and gD to work in lists
 autocmd BufEnter *.md syntax match Todo '#todo\|#xxx\|#note'
 autocmd BufEnter *.md syntax match markdownUrl '\[\[[[:fname:]|# ]*\]\]'
 autocmd ColorScheme molokai call <sid>markdown_hi()
