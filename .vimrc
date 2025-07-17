@@ -29,7 +29,7 @@ let &t_EI = "\e[2 q"
 " reduce clutter
 set nonumber signcolumn=yes
 set noshowmode noruler showcmd laststatus=0
-set winminheight=0 winminwidth=0
+set winheight=1 winwidth=1 winminheight=0 winminwidth=0
 let g:netrw_banner = 0
 let g:netrw_cursor = 0 " don't override 'cursorline' please
 
@@ -89,6 +89,9 @@ cnoremap s/ s/\v
 cnoremap v/ v/\v
 cnoremap g/ g/\v
 cnoremap vim/ vim/\v
+for k in 'edyu' " scroll from within command-line mode
+  execute 'cnoremap <c-'.k.'> <c-r>=execute(["normal! \<lt>c-'.k.'>", "redraw"])<cr>'
+endfor
 
 " emulate Neovim's 'Q' binding
 
