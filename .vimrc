@@ -74,6 +74,8 @@ set matchpairs+=<:>
 nnoremap g= g+| " g=g=g= is less awkward than g+g+g+
 nnoremap gK @='ddkPJ'<cr>| " join lines but reversed. `@=` so [count] works
 xnoremap gK <esc><cmd>'<,'>-global/$/normal! ddpkJ<cr>
+nnoremap <s-del> a<del><esc>
+noremap! <s-del> <cmd>let ww=&ww<bar>se ww+=[,]<cr><right><del><left><cmd>let &ww=ww<cr>
 silent! set cpoptions-=z " for Vim
 silent! set cpoptions-=_ " for Neovim
 set nojoinspaces nostartofline " Neovim default
