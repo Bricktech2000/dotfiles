@@ -99,7 +99,6 @@
       acpi
       htop
       eza # exa fork
-      vim
       pv
       # graphical
       logisim-evolution
