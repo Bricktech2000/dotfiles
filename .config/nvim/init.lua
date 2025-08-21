@@ -25,6 +25,7 @@ P = {}
 
 -- XXX why do plugins not autoload? need PlugInstall or this:
 P[#P + 1] = { 'tpope/vim-commentary' }
+P[#P + 1] = { 'tpope/vim-unimpaired' }
 P[#P + 1] = { 'tpope/vim-surround' }
 P[#P + 1] = { 'wellle/targets.vim' }
 P[#P + 1] = { 'tpope/vim-repeat' }
