@@ -98,6 +98,7 @@ end
 # misc
 alias date='date --iso-8601=seconds'
 alias less='less --QUIET --no-vbell --wordwrap --ignore-case --incsearch --search-options=W' # '--ignore-case' is smartcase
+set -x PAGER less --QUIET --no-vbell --wordwrap --ignore-case --incsearch --search-options=W
 alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 function dbless; ~/.bin/dbless (cat ~/.bin/token) $argv | Y &> /dev/null; end
 function no-shit # example usage: no-shit gcc -O2 file.c
@@ -109,7 +110,6 @@ end
 set -x GPG_TTY (tty)
 set -x EDITOR nvim
 set -x VISUAL nvim
-set -x PAGER fish -c less # ensure the alias gets resolved
 
 function fish_greeting; end
 function fish_mode_prompt; end
