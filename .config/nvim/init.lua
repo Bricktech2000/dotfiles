@@ -29,7 +29,6 @@ P[#P + 1] = { 'tpope/vim-unimpaired' }
 P[#P + 1] = { 'tpope/vim-surround' }
 P[#P + 1] = { 'wellle/targets.vim' }
 P[#P + 1] = { 'tpope/vim-repeat' }
-P[#P + 1] = { 'tomasr/molokai' }
 P[#P + 1] = { 'llathasa-veleth/vim-brainfuck' }
 P[#P + 1] = { 'vim-scripts/bnf.vim' }
 P[#P + 1] = { 'Bricktech2000/jumptree.vim' }
@@ -73,6 +72,14 @@ P[#P + 1] = { 'williamboman/mason-lspconfig', config = config }
 
 config = function()
   local lspconfig = require('lspconfig')
+
+  -- https://vi.stackexchange.com/questions/43428/how-to-disable-lsp-server-syntax-highlighting
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      client.server_capabilities.semanticTokensProvider = nil
+    end,
+  })
 
   -- general purpose
   lspconfig.rust_analyzer.setup({})
@@ -143,6 +150,7 @@ config = function()
   -- from null-ls documentation
   local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 
+  -- XXX prettierd is toast so Markdown formatting doesn't work anymore
   null_ls.setup({
     sources = {
       -- general purpose

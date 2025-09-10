@@ -25,8 +25,7 @@
 
   services.printing.enable = true;
 
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -47,37 +46,37 @@
   environment.gnome.excludePackages = with pkgs; [
     gnome-photos
     gnome-tour
-    gnome.cheese # webcam tool
-    gnome.gnome-music
-    gnome.gnome-terminal
-    gnome.epiphany # web browser
-    gnome.geary # email reader
-    gnome.evince # document viewer
-    gnome.gnome-characters
-    gnome.totem # video player
-    gnome.tali # poker game
-    gnome.iagno # go game
-    gnome.hitori # sudoku game
-    gnome.atomix # puzzle game
-    gnome.gnome-contacts
-    gnome.gnome-weather
-    gnome.gnome-clocks
-    gnome.gnome-maps
-    gnome.gnome-calculator
-    gnome.simple-scan
-    gnome.yelp
-    gnome.gnome-system-monitor
+    cheese # webcam tool
+    gnome-music
+    gnome-terminal
+    epiphany # web browser
+    geary # email reader
+    evince # document viewer
+    gnome-characters
+    totem # video player
+    tali # poker game
+    iagno # go game
+    hitori # sudoku game
+    atomix # puzzle game
+    gnome-contacts
+    gnome-weather
+    gnome-clocks
+    gnome-maps
+    gnome-calculator
+    simple-scan
+    yelp
+    gnome-system-monitor
     gnome-text-editor
-    gnome.gnome-font-viewer
-    gnome.baobab # disk usage analyzer
-    gnome.gnome-logs
+    gnome-font-viewer
+    baobab # disk usage analyzer
+    gnome-logs
     gnome-connections
     gnome-console
-    gnome.gnome-calendar
-    gnome.seahorse # passwords and keys
-    gnome.gnome-disk-utility
+    gnome-calendar
+    seahorse # passwords and keys
+    gnome-disk-utility
     snapshot # camera app
-    gnome.file-roller # archive manager
+    file-roller # archive manager
   ];
 
   services.openssh.enable = true;
@@ -96,7 +95,7 @@
     xxd
     gcc
     gdb
-    nvi
+    # nvi # XXX fails to compile
     vim
   ];
   # required for mason.vim pre-compiled binaries

@@ -85,7 +85,6 @@
       # terminal
       config.boot.kernelPackages.perf
       trash-cli
-      diskonaut
       neofetch
       ripgrep
       radare2
@@ -95,6 +94,7 @@
       neovim
       zoxide
       gnupg
+      dust
       fish
       acpi
       htop
@@ -103,14 +103,14 @@
       # graphical
       logisim-evolution
       protonvpn-gui
-      gnome.totem
       obs-studio
       syncthing
       obsidian
       gcolor3
       kitty
+      totem
       brave
-      cura
+      # cura # XXX complains that an upstream dependency is marked as broken
       # libraries
       gnomeExtensions.just-perfection
       llvmPackages_18.clang-tools # clangd for Neovim
@@ -122,6 +122,6 @@
   };
 
   fonts.packages = with pkgs; [
-    nerdfonts # Fira Code
+    nerd-fonts.fira-code
   ];
 }

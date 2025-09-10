@@ -9,6 +9,7 @@ endif
 call plug#begin()
 
 set nocompatible
+syntax on
 filetype plugin on
 set hidden
 set history=10000 " max value
@@ -52,8 +53,8 @@ lnoremap <c-`> <c-k>'6
 lnoremap <c-'> <c-k>'9
 lnoremap <c-9> <c-k>"6
 lnoremap <c-0> <c-k>"9
-autocmd BufEnter * syntax match nonascii /[^\x00-\x7f]/ containedin=ALL
-autocmd BufEnter * highlight! nonascii cterm=underline
+autocmd Syntax * syntax match nonascii /[^\x00-\x7f]/ containedin=ALL
+autocmd ColorScheme * highlight! link nonascii Underlined
 
 " some of Neovim's `default-mappings` but less broken
 xnoremap * y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
@@ -152,42 +153,10 @@ autocmd FileType markdown setlocal
       \ includeexpr=substitute(v:fname,'%\\(\\x\\x\\)\\\|#.*',{m->nr2char('0x'.m[1])},'g')
 autocmd FileType markdown setlocal suffixesadd=.md " [[wikilinks]]
 autocmd FileType markdown setlocal comments= " for gd and gD to work in lists
-autocmd BufEnter *.md syntax match Todo '#todo\|#xxx\|#note'
-autocmd BufEnter *.md syntax match markdownUrl '\[\[[[:fname:]|# ]*\]\]'
-autocmd ColorScheme molokai call <sid>markdown_hi()
-function! s:markdown_hi()
-  highlight! link markdownAutomaticLink htmlLink
-  highlight! link markdownUrl htmlLink
-  highlight! link markdownCode Comment
-endfunction
-
-" colorscheme
-
-Plug 'tomasr/molokai'
-let g:rehash256 = 1
-set notermguicolors
-
-autocmd ColorScheme molokai call <sid>molokai_hi()
-function! s:molokai_hi()
-  highlight! Normal       ctermbg=none
-  highlight! Folded       ctermbg=none
-  highlight! LineNr       ctermbg=none
-  highlight! Question     ctermbg=none
-  highlight! ErrorMsg     ctermbg=none
-  highlight! WarningMsg   ctermbg=none
-  highlight! StatusLine   ctermbg=none ctermfg=0
-  highlight! StatusLineNC ctermbg=none ctermfg=0
-  highlight! VertSplit    ctermbg=none ctermfg=0
-  highlight! Visual ctermfg=none " Neovim default
-  highlight! link SignColumn Comment
-  highlight! link NonText    Comment
-  highlight! link Search     Todo
-  highlight! link IncSearch  Cursor
-  highlight! link Pmenu      Normal
-  highlight! link PmenuSel   Cursor
-  highlight! link Wildmenu   Cursor
-  highlight! link MatchParen Todo
-endfunction
+autocmd Syntax markdown syntax match Todo '#todo\|#xxx\|#note'
+autocmd Syntax markdown syntax match markdownUrl '\[\[[[:fname:]|# ]*\]\]'
+autocmd ColorScheme * highlight! link markdownCode String
+autocmd ColorScheme * highlight! link markdownLinkText NONE
 
 " miscellaneous
 
@@ -200,13 +169,11 @@ let g:gitgutter_sign_removed = '_'
 let g:gitgutter_sign_removed_first_line = '^'
 let g:gitgutter_sign_removed_above_and_below = '^'
 let g:gitgutter_sign_modified_removed = '|'
-autocmd ColorScheme molokai call <sid>gitgutter_hi()
-function! s:gitgutter_hi()
-  highlight! link GitGutterAdd    SignColumn
-  highlight! link GitGutterChange SignColumn
-  highlight! link GitGutterDelete SignColumn
-endfunction
+
+" color scheme
+
+set notermguicolors
+set background=dark
+colorscheme wildcharm
 
 call plug#end()
-
-colorscheme molokai
