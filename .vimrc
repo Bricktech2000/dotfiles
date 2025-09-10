@@ -94,7 +94,7 @@ autocmd WinNew * wincmd L " split vertically by default
 set ignorecase smartcase hlsearch incsearch
 set wildmenu wildoptions=pum wildignorecase path+=** " :fin as fuzzy finder
 for k in 'edyu' " scroll from within command-line mode
-  execute 'cnoremap <c-'.k.'> <c-r>=execute(["normal! \<lt>c-'.k.'>", "redraw"])<cr>'
+  execute 'cnoremap <c-'.k.'> <c-r>=execute("normal! \<lt>c-'.k.'>:redraw\<lt>cr>")<cr>'
 endfor
 
 " emulate Neovim's 'Q' binding
