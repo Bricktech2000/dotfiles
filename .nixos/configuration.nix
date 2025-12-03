@@ -87,6 +87,7 @@
     man-pages-posix
     man-pages
     unzip
+    groff
     file
     wget
     curl

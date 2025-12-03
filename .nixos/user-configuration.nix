@@ -106,6 +106,7 @@
       obs-studio
       syncthing
       obsidian
+      freecad
       gcolor3
       kitty
       totem
@@ -116,6 +117,8 @@
       llvmPackages_18.clang-tools # clangd for Neovim
       python311Packages.pip
       any-nix-shell # for nix-shell
+      spacenavd # for freecad
+      graphviz # for freecad
       xclip # for Neovim
       typst # for Pandoc
     ];
