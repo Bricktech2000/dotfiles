@@ -33,6 +33,7 @@ P[#P + 1] = { 'llathasa-veleth/vim-brainfuck' }
 P[#P + 1] = { 'vim-scripts/bnf.vim' }
 P[#P + 1] = { 'Bricktech2000/jumptree.vim' }
 P[#P + 1] = { 'airblade/vim-gitgutter' }
+P[#P + 1] = { 'Bricktech2000/c_CTRL-O.vim' }
 
 local config = function() end
 

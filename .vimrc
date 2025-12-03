@@ -26,7 +26,7 @@ set fileformat=unix encoding=utf-8
 set title
 set belloff=all
 set mouse=a mousemodel=extend
-let &t_SI = "\e[6 q" " see :h termcap-cursor-shape
+let &t_SI = "\e[6 q" " see |termcap-cursor-shape|
 let &t_SR = "\e[4 q"
 let &t_EI = "\e[2 q"
 
@@ -39,22 +39,31 @@ let g:netrw_banner = 0
 let g:netrw_cursor = 0 " don't override 'cursorline' please
 set display=lastline
 set scrolloff=5 sidescrolloff=10
+set listchars=precedes:\|,extends:\|
 set wrap linebreak showbreak=\|\  breakindent breakindentopt=min:20
 silent! set smoothscroll " unfortunate this is a buggy afterthought
 
 " character input & display
-set list listchars=tab:>-,trail:#
-set iminsert=1 " see :h mapmode-l
+set list listchars+=tab:>-,trail:#
+set iminsert=1 " see |mapmode-l|
 lnoremap <c-space> <c-k>NS
+lnoremap <c-_> <c-k>NY| " for Vim
+lnoremap <c--> <c-k>NY| " for Neovim
 lnoremap <c-/> <c-k>-N
-lnoremap <c-_> <c-k>-M| " for Vim
-lnoremap <c--> <c-k>-M| " for Neovim
+lnoremap <c-,> <c-k>-M
 lnoremap <c-.> <c-k>,.
 lnoremap <c-`> <c-k>'6
 lnoremap <c-'> <c-k>'9
 lnoremap <c-9> <c-k>"6
 lnoremap <c-0> <c-k>"9
-autocmd Syntax * syntax match nonascii /[^\x00-\x7f]/ containedin=ALL
+digraph NY  8209 " U+2011 NON-BREAKING HYPHEN
+digraph \|- 8866 " U+22A2 RIGHT TACK
+digraph -\| 8867 " U+22A3 LEFT TACK
+digraph TO  8868 " U+22A4 DOWN TACK
+digraph BO  8869 " U+22A5 UP TACK
+digraph \|= 8872 " U+22A8 TRUE
+autocmd BufEnter,Syntax * silent! syntax clear nonascii |
+      \ syntax match nonascii /[^\x00-\x7f]/ containedin=ALL
 autocmd ColorScheme * highlight! link nonascii Underlined
 
 " key binding tweaks
@@ -62,9 +71,10 @@ set notimeout
 set ignorecase infercase
 set complete-=i switchbuf=uselast " Neovim default
 set nrformats-=octal nrformats+=unsigned " so <c-a> and <c-x> work on dates
-set formatoptions= " no thanks
+set formatoptions=q " no smarts please
 set matchpairs+=<:>
 nnoremap g= g+| " g=g=g= is less awkward than g+g+g+
+autocmd FileType help silent! nunmap <buffer> g==| " shadow Neovim's g== mapping
 nnoremap gK @='ddkPJ'<cr>| " join lines but reversed. `@=` so [count] works
 xnoremap gK <esc><cmd>keeppatterns '<,'>-global/$/normal! ddpkJ<cr>
 nnoremap <s-del> a<del><esc>| " delete character after the cursor
@@ -72,30 +82,48 @@ noremap! <s-del> <cmd>let ww=&ww<bar>se ww+=[,]<cr><right><del><left><cmd>let &w
 silent! set cpoptions-=z " for Vim
 silent! set cpoptions-=_ " for Neovim
 set nojoinspaces nostartofline " Neovim default
-set autoindent expandtab smarttab tabstop=2 shiftwidth=2
+set expandtab nosmarttab softtabstop=0 " no smarts please. (to indent use <c-t> and <c-d>)
+set autoindent shiftwidth=2
+inoremap <s-tab> <cmd>let sts=&sts<bar>let &sts=&ts<cr><bs><cmd>let &sts=sts<cr>
 autocmd WinNew * wincmd L " split vertically by default
+cnoremap <c-f> <cmd>let ei=&ei<bar>se ei+=WinNew<cr><c-f><cmd>let &ei=ei<cr>
 Plug 'Bricktech2000/jumptree.vim'
-silent! iunmap <c-s>| " Neovim `default-mapping`. clashes with vim-surround
+silent! iunmap <c-s>| " Neovim default mapping; clashes with vim-surround
+let g:unimpaired_colorcolumn = '+0' " color the last column, not the one after it
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
 Plug 'tpope/vim-repeat'
+cnoremap <c-r><c-d> <c-r>=strftime('%F')<cr>
+cnoremap <c-r><c-t> <c-r>=strftime('%T')<cr>
+inoremap <silent> <c-r><c-d> <c-r>=strftime('%F')<cr>
+inoremap <silent> <c-r><c-t> <c-r>=strftime('%T')<cr>
+" make the scroll wheel move through time instead of space. https://xkcd.com/1806/
+nnoremap <c-scrollwheelup>    u
+nnoremap <c-scrollwheeldown>  <c-r>
+nnoremap <c-scrollwheelleft>  g-
+nnoremap <c-scrollwheelright> g+
 
 " all things search
 set ignorecase smartcase hlsearch incsearch
 set wildmenu wildoptions=pum wildignorecase path+=** " :fin as fuzzy finder
-for k in 'edyu' " scroll from within command-line mode
-  execute 'cnoremap <c-'.k.'> <c-r>=execute("normal! \<lt>c-'.k.'>:redraw\<lt>cr>")<cr>'
-endfor
+set grepprg=ltrep\ -Hnk    " verbatim from LTRE/grepprg.vim
+set grepformat=%f:%l:%c:%m " this too
+Plug 'Bricktech2000/c_CTRL-O.vim'
+cnoremap <plug>Pattern <c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr>
+nnoremap  <c-8> :vimgrep/\V\<<c-r><c-w>\>/g**
+nnoremap g<c-8> :vimgrep/\V\(<c-r><c-w>\)/g**| " parens for when searching for say 'vim'
+xnoremap  <c-8> y:vimgrep/\V\<<plug>Pattern\>/g**
+xnoremap g<c-8> y:vimgrep/\V\(<plug>Pattern\)/g**
+xnoremap <silent>  * y/\V\<<plug>Pattern\><cr>
+xnoremap <silent> g* y/\V\(<plug>Pattern\)<cr>
+xnoremap <silent>  # y?\V\<<plug>Pattern\><cr>
+xnoremap <silent> g# y?\V\(<plug>Pattern\)<cr>
+xnoremap <silent> gd ym':keepjumps normal! [[/\V\(<plug>Pattern\)<c-v><cr><cr>zt
+xnoremap <silent> gD ym':keepjumps normal! go/\V\(<plug>Pattern\)<c-v><cr><cr>zt
 
 " Neovim-inspired bindings
-xnoremap * y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
-xnoremap # y/\V<c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr><cr>
-xnoremap <silent> gd ym':keepjumps normal! [[/\V<c-v><c-r>=
-      \ substitute(escape(@", '/\\'), '\n', '\\n', 'g')<c-v><cr><c-v><cr><cr>zt
-xnoremap <silent> gD ym':keepjumps normal! go/\V<c-v><c-r>=
-      \ substitute(escape(@", '/\\'), '\n', '\\n', 'g')<c-v><cr><c-v><cr><cr>zt
 noremap <c-l> <cmd>nohlsearch<bar>normal! <c-l><cr>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
@@ -133,7 +161,7 @@ for opt in ['fo', 'mps', 'ts', 'sts', 'sw', 'et', 'ic', 'scs'] " 'tw', 'isk', 'i
   execute 'autocmd FileType * let &'.opt.' = &g:'.opt
 endfor
 autocmd User Dummy " dummy event
-autocmd BufEnter,FileType * doautocmd User Dummy " re-run modeline. see :h <nomodeline>
+autocmd BufEnter,FileType * doautocmd User Dummy " re-run modeline. see |<nomodeline>|
 
 autocmd FileType c set commentstring=//\ %s
 let g:c_syntax_for_h = 1 " use above 'commentstring' in header files too
@@ -145,7 +173,7 @@ autocmd BufNewFile,BufRead *.bnf set filetype=bnf
 
 let g:markdown_fenced_languages =
       \ ['rust', 'c', 'python', 'haskell', 'sh', 'vim', 'diff', 'bnf', 'mermaid']
-" percent-encoding substitution expression below based on the one from :h substitute()
+" percent-encoding substitution expression below based on the one from |substitute()|
 autocmd FileType markdown setlocal
       \ includeexpr=substitute(v:fname,'%\\(\\x\\x\\)\\\|#.*',{m->nr2char('0x'.m[1])},'g')
 autocmd FileType markdown setlocal suffixesadd=.md " [[wikilinks]]
