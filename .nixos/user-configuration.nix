@@ -84,6 +84,7 @@
       ghc
       # terminal
       config.boot.kernelPackages.perf
+      vim_configurable # has +clipboard
       trash-cli
       neofetch
       ripgrep
