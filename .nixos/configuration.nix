@@ -99,8 +99,6 @@
     # nvi # XXX fails to compile
     vim
   ];
-  # required for mason.vim pre-compiled binaries
-  programs.nix-ld.enable = true;
 
   system.stateVersion = "23.05";
 }

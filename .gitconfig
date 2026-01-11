@@ -15,7 +15,7 @@
   meta = 244 ul
 [core]
   fileMode = false
-  editor = nvim
+  editor = vim
 [init]
   defaultBranch = master
 [color "blame"]

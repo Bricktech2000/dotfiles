@@ -91,7 +91,6 @@
       gnumake
       screen
       pandoc
-      neovim
       zoxide
       gnupg
       dust
@@ -114,12 +113,12 @@
       # cura # XXX complains that an upstream dependency is marked as broken
       # libraries
       gnomeExtensions.just-perfection
-      llvmPackages_18.clang-tools # clangd for Neovim
+      llvmPackages_18.clang-tools # clangd
       python311Packages.pip
       any-nix-shell # for nix-shell
       spacenavd # for freecad
       graphviz # for freecad
-      xclip # for Neovim
+      xclip # for config.fish
       typst # for Pandoc
     ];
   };

@@ -15,7 +15,7 @@ for mode in default insert visual replace replace_one
 end
 
 # general
-alias v='nvim'
+alias v='vim'
 alias x='nix-shell -p'
 alias X='nix-shell --pure -p'
 alias p='python3 -i -c "
@@ -108,8 +108,8 @@ function no-shit # example usage: no-shit gcc -O2 file.c
 end
 
 set -x GPG_TTY (tty)
-set -x EDITOR nvim
-set -x VISUAL nvim
+set -x EDITOR vim
+set -x VISUAL vim
 
 function fish_greeting; end
 function fish_mode_prompt; end
@@ -187,4 +187,3 @@ end
 
 export PATH="$HOME/.bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
