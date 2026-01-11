@@ -19,8 +19,10 @@ set undolevels=1000000
 
 " system
 set autoread
+set noshelltemp
 set noswapfile updatetime=100
 set fileformat=unix encoding=utf-8
+set sessionoptions+=unix,slash viewoptions+=unix,slash
 
 " terminal
 set title
@@ -31,17 +33,18 @@ let &t_SR = "\e[4 q"
 let &t_EI = "\e[2 q"
 
 " screen drawing
-set nonumber signcolumn=yes
-set noshowmode noruler showcmd laststatus=0
+set nonumber signcolumn=yes foldcolumn=0 diffopt+=foldcolumn:0
+set noshowmode noruler showcmd laststatus=0 showtabline=0
 set winheight=1 winwidth=1 winminheight=0 winminwidth=0
 set shortmess-=S " Neovim default
 let g:netrw_banner = 0
 let g:netrw_cursor = 0 " don't override 'cursorline' please
 set display=lastline
 set scrolloff=5 sidescrolloff=10
+set smoothscroll " unfortunate this is a buggy afterthought
 set listchars=precedes:\|,extends:\|
 set wrap linebreak showbreak=\|\  breakindent breakindentopt=min:20
-silent! set smoothscroll " unfortunate this is a buggy afterthought
+set completeopt-=menu
 
 " character input & display
 set list listchars+=tab:>-,trail:#
@@ -56,12 +59,12 @@ lnoremap <c-`> <c-k>'6
 lnoremap <c-'> <c-k>'9
 lnoremap <c-9> <c-k>"6
 lnoremap <c-0> <c-k>"9
-digraph NY  8209 " U+2011 NON-BREAKING HYPHEN
-digraph \|- 8866 " U+22A2 RIGHT TACK
-digraph -\| 8867 " U+22A3 LEFT TACK
-digraph TO  8868 " U+22A4 DOWN TACK
-digraph BO  8869 " U+22A5 UP TACK
-digraph \|= 8872 " U+22A8 TRUE
+digraphs NY  8209 " U+2011 NON-BREAKING HYPHEN
+digraphs \|- 8866 " U+22A2 RIGHT TACK
+digraphs -\| 8867 " U+22A3 LEFT TACK
+digraphs TO  8868 " U+22A4 DOWN TACK
+digraphs BO  8869 " U+22A5 UP TACK
+digraphs \|= 8872 " U+22A8 TRUE
 autocmd BufEnter,Syntax * silent! syntax clear nonascii |
       \ syntax match nonascii /[^\x00-\x7f]/ containedin=ALL
 autocmd ColorScheme * highlight! link nonascii Underlined
@@ -78,28 +81,39 @@ autocmd FileType help silent! nunmap <buffer> g==| " shadow Neovim's g== mapping
 nnoremap gK @='ddkPJ'<cr>| " join lines but reversed. `@=` so [count] works
 xnoremap gK <esc><cmd>keeppatterns '<,'>-global/$/normal! ddpkJ<cr>
 nnoremap <s-del> a<del><esc>| " delete character after the cursor
-noremap! <s-del> <cmd>let ww=&ww<bar>se ww+=[,]<cr><right><del><left><cmd>let &ww=ww<cr>
+noremap! <s-del>
+      \ <cmd>let ww=&ww<bar>se ww+=[,]<cr><right><del><left><cmd>let &ww=ww<cr>
 silent! set cpoptions-=z " for Vim
 silent! set cpoptions-=_ " for Neovim
 set nojoinspaces nostartofline " Neovim default
-set expandtab nosmarttab softtabstop=0 " no smarts please. (to indent use <c-t> and <c-d>)
+set expandtab nosmarttab softtabstop=0 " no smarts please. (to indent use <c-t>)
 set autoindent shiftwidth=2
 inoremap <s-tab> <cmd>let sts=&sts<bar>let &sts=&ts<cr><bs><cmd>let &sts=sts<cr>
-autocmd WinNew * wincmd L " split vertically by default
-cnoremap <c-f> <cmd>let ei=&ei<bar>se ei+=WinNew<cr><c-f><cmd>let &ei=ei<cr>
-Plug 'Bricktech2000/jumptree.vim'
+augroup wincmdl | augroup END
+noremap <c-w>a <cmd>autocmd wincmdl WinNew * ++once wincmd L<cr>
+noremap <c-w>e <cmd>autocmd! wincmdl<cr>
+nmap <c-w><c-a> <c-w>a
+nmap <c-w><c-e> <c-w>e
 silent! iunmap <c-s>| " Neovim default mapping; clashes with vim-surround
-let g:unimpaired_colorcolumn = '+0' " color the last column, not the one after it
+Plug 'Bricktech2000/jumptree.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
+let g:unimpaired_colorcolumn = '+0' " color the last column, not the one past it
 Plug 'tpope/vim-surround'
 Plug 'wellle/targets.vim'
+autocmd User targets#mappings#user
+      "\ stop remapping the defaults, man...
+      \ call targets#mappings#extend({'b': {'pair': [{'o':'(', 'c':')'}]}}) |
+      \ call targets#mappings#extend({'"': {'pair': [{'o': '"', 'c': '"'}]}}) |
+      \ call targets#mappings#extend({"'": {'pair': [{'o': "'", 'c': "'"}]}}) |
+      \ call targets#mappings#extend({'`': {'pair': [{'o': '`', 'c': '`'}]}}) |
+set foldopen-=undo " fix bug in vim-repeat where <c-o>u inserts 'zv' into buffer
 Plug 'tpope/vim-repeat'
 cnoremap <c-r><c-d> <c-r>=strftime('%F')<cr>
 cnoremap <c-r><c-t> <c-r>=strftime('%T')<cr>
 inoremap <silent> <c-r><c-d> <c-r>=strftime('%F')<cr>
 inoremap <silent> <c-r><c-t> <c-r>=strftime('%T')<cr>
-" make the scroll wheel move through time instead of space. https://xkcd.com/1806/
+" make ctrl+scroll move through time instead of space. https://xkcd.com/1806/
 nnoremap <c-scrollwheelup>    u
 nnoremap <c-scrollwheeldown>  <c-r>
 nnoremap <c-scrollwheelleft>  g-
@@ -111,29 +125,29 @@ set wildmenu wildoptions=pum wildignorecase path+=** " :fin as fuzzy finder
 set grepprg=ltrep\ -Hnk    " verbatim from LTRE/grepprg.vim
 set grepformat=%f:%l:%c:%m " this too
 Plug 'Bricktech2000/c_CTRL-O.vim'
-cnoremap <plug>Pattern <c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr>
+cnoremap <plug>Pat <c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr>
 nnoremap  <c-8> :vimgrep/\V\<<c-r><c-w>\>/g**
-nnoremap g<c-8> :vimgrep/\V\(<c-r><c-w>\)/g**| " parens for when searching for say 'vim'
-xnoremap  <c-8> y:vimgrep/\V\<<plug>Pattern\>/g**
-xnoremap g<c-8> y:vimgrep/\V\(<plug>Pattern\)/g**
-xnoremap <silent>  * y/\V\<<plug>Pattern\><cr>
-xnoremap <silent> g* y/\V\(<plug>Pattern\)<cr>
-xnoremap <silent>  # y?\V\<<plug>Pattern\><cr>
-xnoremap <silent> g# y?\V\(<plug>Pattern\)<cr>
-xnoremap <silent> gd ym':keepjumps normal! [[/\V\(<plug>Pattern\)<c-v><cr><cr>zt
-xnoremap <silent> gD ym':keepjumps normal! go/\V\(<plug>Pattern\)<c-v><cr><cr>zt
+nnoremap g<c-8> :vimgrep/\V\(<c-r><c-w>\)/g**| " parens needed |c_CTRL-R_CTRL-W|
+xnoremap  <c-8> y:vimgrep/\V\<<plug>Pat\>/g**
+xnoremap g<c-8> y:vimgrep/\V\(<plug>Pat\)/g**
+xnoremap <silent>  * y/\V\<<plug>Pat\><cr>
+xnoremap <silent> g* y/\V\(<plug>Pat\)<cr>
+xnoremap <silent>  # y?\V\<<plug>Pat\><cr>
+xnoremap <silent> g# y?\V\(<plug>Pat\)<cr>
+xnoremap <silent> gd ym':keepjumps normal! [[/\V\(<plug>Pat\)<c-v><cr><cr>zz
+xnoremap <silent> gD ym':keepjumps normal! go/\V\(<plug>Pat\)<c-v><cr><cr>zz
 
 " Neovim-inspired bindings
 noremap <c-l> <cmd>nohlsearch<bar>normal! <c-l><cr>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
-function! s:record_macro()
+function! s:record()
   let g:reg_recorded = getcharstr()
-  call feedkeys('q'.g:reg_recorded, 'ni') " using `execute 'normal!'` breaks q: and q/
+  call feedkeys('q'.g:reg_recorded, 'ni') " using `exe 'norm!'` breaks q: and q/
 endfunction
 let g:reg_recorded = '' " same idea as Neovim's reg_recorded()
-nnoremap <expr> q reg_recording() == '' ? '<cmd>call <sid>record_macro()<cr>' : 'q'
-xnoremap <expr> q reg_recording() == '' ? '<cmd>call <sid>record_macro()<cr>' : 'q'
+nnoremap <expr> q reg_recording() == '' ? '<cmd>call <sid>record()<cr>' : 'q'
+xnoremap <expr> q reg_recording() == '' ? '<cmd>call <sid>record()<cr>' : 'q'
 nnoremap <expr> Q '<cmd>normal! '.v:count1.'@'.g:reg_recorded.'<cr>'
 xnoremap <expr> Q "<esc><cmd>'<,'>normal! ".v:count1.'@'.g:reg_recorded.'<cr>'
 xnoremap <expr> @ "<esc><cmd>'<,'>normal! ".v:count1.'@'.getcharstr().'<cr>'
@@ -157,11 +171,11 @@ let g:gitgutter_sign_modified_removed = 'L'
 " filetypes
 
 " don't overwrite my stuff please
-for opt in ['fo', 'mps', 'ts', 'sts', 'sw', 'et', 'ic', 'scs'] " 'tw', 'isk', 'isf', 'kp'
+for opt in ['fo', 'mps', 'ts', 'sts', 'sw', 'et'] " 'tw', 'isk', 'isf', 'kp'
   execute 'autocmd FileType * let &'.opt.' = &g:'.opt
 endfor
-autocmd User Dummy " dummy event
-autocmd BufEnter,FileType * doautocmd User Dummy " re-run modeline. see |<nomodeline>|
+autocmd User Dummy " dummy event to re-run modeline. see |<nomodeline>|
+autocmd BufEnter,FileType * doautocmd User Dummy
 
 autocmd FileType c set commentstring=//\ %s
 let g:c_syntax_for_h = 1 " use above 'commentstring' in header files too
@@ -171,11 +185,11 @@ Plug 'llathasa-veleth/vim-brainfuck'
 Plug 'vim-scripts/bnf.vim'
 autocmd BufNewFile,BufRead *.bnf set filetype=bnf
 
-let g:markdown_fenced_languages =
-      \ ['rust', 'c', 'python', 'haskell', 'sh', 'vim', 'diff', 'bnf', 'mermaid']
-" percent-encoding substitution expression below based on the one from |substitute()|
-autocmd FileType markdown setlocal
-      \ includeexpr=substitute(v:fname,'%\\(\\x\\x\\)\\\|#.*',{m->nr2char('0x'.m[1])},'g')
+let g:markdown_fenced_languages = ['mermaid', 'rust', 'c', 'python', 'haskell',
+      \ 'sh', 'vim', 'diff', 'bnf']
+" percent-encoding substitution below is based on the one from |substitute()|
+autocmd FileType markdown setlocal includeexpr=
+       \substitute(v:fname,'%\(\x\x\)\\\|#.*',{m->nr2char('0x'.m[1])},'g')
 autocmd FileType markdown setlocal suffixesadd=.md " [[wikilinks]]
 autocmd FileType markdown setlocal comments= " for gd and gD to work in lists
 autocmd Syntax markdown syntax match Todo '#todo\|#xxx\|#note'
@@ -198,3 +212,5 @@ set background=dark
 colorscheme wildcharm
 
 call plug#end()
+
+" vim:tw=80:
