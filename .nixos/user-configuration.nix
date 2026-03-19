@@ -90,6 +90,7 @@
       ripgrep
       radare2
       gnumake
+      rlwrap
       screen
       pandoc
       zoxide
@@ -114,7 +115,8 @@
       # cura # XXX complains that an upstream dependency is marked as broken
       # libraries
       gnomeExtensions.just-perfection
-      llvmPackages_18.clang-tools # clangd
+      llvmPackages_18.clang-tools # clang-format
+      nodePackages.prettier
       python311Packages.pip
       any-nix-shell # for nix-shell
       spacenavd # for freecad

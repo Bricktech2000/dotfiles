@@ -13,16 +13,20 @@ set nocompatible
 syntax on
 filetype plugin on
 set hidden
+set encoding=utf-8
 set history=10000 " max value
 set synmaxcol=0 " no limit
 set undolevels=1000000
+set chistory=100 lhistory=100 " max values
+set maxsearchcount=9999 " max value
 
 " system
 set autoread
 set noshelltemp
 set noswapfile updatetime=100
-set fileformat=unix encoding=utf-8
+set fileformat=unix nofixeol " see |'fileformats'| |file-formats| |eol-and-eof|
 set sessionoptions+=unix,slash viewoptions+=unix,slash
+set shell=sh " always use the standard shell
 
 " terminal
 set title
@@ -65,6 +69,8 @@ digraphs -\| 8867 " U+22A3 LEFT TACK
 digraphs TO  8868 " U+22A4 DOWN TACK
 digraphs BO  8869 " U+22A5 UP TACK
 digraphs \|= 8872 " U+22A8 TRUE
+digraphs :=  8788 " U+2254 COLON EQUALS
+digraphs =:  8789 " U+2255 EQUALS COLON
 autocmd BufEnter,Syntax * silent! syntax clear nonascii |
       \ syntax match nonascii /[^\x00-\x7f]/ containedin=ALL
 autocmd ColorScheme * highlight! link nonascii Underlined
@@ -77,6 +83,7 @@ set nrformats-=octal nrformats+=unsigned " so <c-a> and <c-x> work on dates
 set formatoptions=q " no smarts please
 set matchpairs+=<:>
 nnoremap g= g+| " g=g=g= is less awkward than g+g+g+
+nnoremap <c-w><c--> <c-w><c-_>| " for Neovim
 autocmd FileType help silent! nunmap <buffer> g==| " shadow Neovim's g== mapping
 nnoremap gK @='ddkPJ'<cr>| " join lines but reversed. `@=` so [count] works
 xnoremap gK <esc><cmd>keeppatterns '<,'>-global/$/normal! ddpkJ<cr>
@@ -89,24 +96,18 @@ set nojoinspaces nostartofline " Neovim default
 set expandtab nosmarttab softtabstop=0 " no smarts please. (to indent use <c-t>)
 set autoindent shiftwidth=2
 inoremap <s-tab> <cmd>let sts=&sts<bar>let &sts=&ts<cr><bs><cmd>let &sts=sts<cr>
-augroup wincmdl | augroup END
-noremap <c-w>a <cmd>autocmd wincmdl WinNew * ++once wincmd L<cr>
-noremap <c-w>e <cmd>autocmd! wincmdl<cr>
-nmap <c-w><c-a> <c-w>a
-nmap <c-w><c-e> <c-w>e
 silent! iunmap <c-s>| " Neovim default mapping; clashes with vim-surround
 Plug 'Bricktech2000/jumptree.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 let g:unimpaired_colorcolumn = '+0' " color the last column, not the one past it
 Plug 'tpope/vim-surround'
-Plug 'wellle/targets.vim'
-autocmd User targets#mappings#user
-      "\ stop remapping the defaults, man...
-      \ call targets#mappings#extend({'b': {'pair': [{'o':'(', 'c':')'}]}}) |
-      \ call targets#mappings#extend({'"': {'pair': [{'o': '"', 'c': '"'}]}}) |
-      \ call targets#mappings#extend({"'": {'pair': [{'o': "'", 'c': "'"}]}}) |
-      \ call targets#mappings#extend({'`': {'pair': [{'o': '`', 'c': '`'}]}}) |
+for c in ['*', '~', '_', '$', '<bar>', ',', '<tab>', '/'] " md, csv, tsv, re
+  execute 'xnoremap i'.c.' <cmd>normal! lT'.c.'ot'.c.'<cr>'
+  execute 'xnoremap a'.c.' <cmd>normal! lF'.c.'of'.c.'<cr>'
+  execute 'onoremap i'.c.' <cmd>normal vi'.c.'<cr>'
+  execute 'onoremap a'.c.' <cmd>normal va'.c.'<cr>'
+endfor
 set foldopen-=undo " fix bug in vim-repeat where <c-o>u inserts 'zv' into buffer
 Plug 'tpope/vim-repeat'
 cnoremap <c-r><c-d> <c-r>=strftime('%F')<cr>
@@ -183,6 +184,7 @@ let g:c_syntax_for_h = 1 " use above 'commentstring' in header files too
 Plug 'llathasa-veleth/vim-brainfuck'
 
 Plug 'vim-scripts/bnf.vim'
+autocmd Syntax bnf syntax match bnfComment ';.*$' contained " default is '#.*$'
 autocmd BufNewFile,BufRead *.bnf set filetype=bnf
 
 let g:markdown_fenced_languages = ['mermaid', 'rust', 'c', 'python', 'haskell',

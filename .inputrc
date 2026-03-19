@@ -16,6 +16,9 @@ set keymap vi-insert
 # disable bell
 set bell-style none
 
+# ignorecase
+set completion-ignore-case on
+
 # seems to break `python3` REPL
 # # remap `<cr>` to `<cr><esc>`
 # set keymap vi-insert
