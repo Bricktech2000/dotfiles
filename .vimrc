@@ -23,7 +23,7 @@ set maxsearchcount=9999 " max value
 " system
 set autoread
 set noshelltemp
-set noswapfile updatetime=100
+set shortmess+=A updatetime=100
 set fileformat=unix nofixeol " see |'fileformats'| |file-formats| |eol-and-eof|
 set sessionoptions+=unix,slash viewoptions+=unix,slash
 set shell=sh " always use the standard shell
@@ -143,7 +143,7 @@ noremap <c-l> <cmd>nohlsearch<bar>normal! <c-l><cr>
 inoremap <c-u> <c-g>u<c-u>
 inoremap <c-w> <c-g>u<c-w>
 function! s:record()
-  let g:reg_recorded = getcharstr()
+  let g:reg_recorded = getcharstr(-1, {'cursor': 'keep'})
   call feedkeys('q'.g:reg_recorded, 'ni') " using `exe 'norm!'` breaks q: and q/
 endfunction
 let g:reg_recorded = '' " same idea as Neovim's reg_recorded()

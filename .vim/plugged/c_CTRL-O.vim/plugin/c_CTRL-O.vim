@@ -29,49 +29,53 @@ set cpo&vim
 " see also |normal-index|, including all subsections right up until (and
 " excluding) |visual-index|
 
+function! s:getcharstr()
+  return getcharstr(-1, {'cursor': 'keep'})
+endfunction
+
 function! s:getcount()
-  let l:cmd = getcharstr()
-  while l:cmd =~ "\\v[1-9](\\d|\<del>)*$" | let l:cmd .= getcharstr() | endwhile
+  let l:cmd = s:getcharstr()
+  while l:cmd =~ "\\v[1-9](\\d|\<del>)*$" | let l:cmd .= s:getcharstr() | endw
   return l:cmd
 endfunction
 
 function! s:getreg()
-  let l:cmd = getcharstr()
+  let l:cmd = s:getcharstr()
   if l:cmd =~ '=$' | return l:cmd.input('=')."\<cr>" | endif
   return l:cmd
 endfunction
 
 function! s:getcmd(operator_pending)
   let l:cmd = s:getcount()
-  if l:cmd =~# "[][fFtT'`\<c-\>]$" | return l:cmd.getcharstr() | endif
+  if l:cmd =~# "[][fFtT'`\<c-\>]$" | return l:cmd.s:getcharstr() | endif
   if l:cmd =~ '[:/?]$' | return l:cmd.input(l:cmd[-1:])."\<cr>" | endif
   if a:operator_pending
     if l:cmd =~# "[vV\<c-v>]$" | return l:cmd.s:getcmd(1) | endif
-    if l:cmd =~# '[aiz]$' | return l:cmd.getcharstr() | endif
-    if l:cmd =~# 'g$' | let l:cmd .= getcharstr()
-      if l:cmd =~ "['`]$" | return l:cmd.getcharstr() | endif
+    if l:cmd =~# '[aiz]$' | return l:cmd.s:getcharstr() | endif
+    if l:cmd =~# 'g$' | let l:cmd .= s:getcharstr()
+      if l:cmd =~ "['`]$" | return l:cmd.s:getcharstr() | endif
       return l:cmd
     endif
     return l:cmd
   else
     if l:cmd =~ '!$' | return l:cmd.s:getcmd(1).input(':!')."\<cr>" | endif
     if l:cmd =~ "\<c-w>$" | let l:cmd .= s:getcount()
-      if l:cmd =~# 'g$' | return l:cmd.getcharstr() | endif
+      if l:cmd =~# 'g$' | return l:cmd.s:getcharstr() | endif
       return l:cmd
     endif
     if l:cmd =~ '@$' | return l:cmd.s:getreg() | endif
     if l:cmd =~ '"$' | return l:cmd.s:getreg().s:getcmd(0) | endif
-    if l:cmd =~# '[mZr]$' | return l:cmd.getcharstr() | endif
+    if l:cmd =~# '[mZr]$' | return l:cmd.s:getcharstr() | endif
     if l:cmd =~# '[<=>cdy]$' | return l:cmd.s:getcmd(1) | endif
     " nv_z_get_count() can actually parse a count of 0 but let's not bother
     if l:cmd =~# "z$" | let l:cmd .= s:getcount()
-      if l:cmd =~# 'u$' | return l:cmd.getcharstr() | endif
+      if l:cmd =~# 'u$' | return l:cmd.s:getcharstr() | endif
       if l:cmd =~# '[yf]$' | return l:cmd.s:getcmd(1) | endif
       return l:cmd
     endif
-    if l:cmd =~# "g$" | let l:cmd .= getcharstr()
+    if l:cmd =~# "g$" | let l:cmd .= s:getcharstr()
       if l:cmd =~# "[qw~uU?@]$" | return l:cmd.s:getcmd(1) | endif
-      if l:cmd =~# "['`r]$" | return l:cmd.getcharstr() | endif
+      if l:cmd =~# "['`r]$" | return l:cmd.s:getcharstr() | endif
       return l:cmd
     endif
     return l:cmd
