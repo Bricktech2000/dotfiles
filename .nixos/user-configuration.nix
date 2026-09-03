@@ -85,6 +85,7 @@
       # terminal
       config.boot.kernelPackages.perf
       vim_configurable # has +clipboard
+      appimage-run
       trash-cli
       neofetch
       ripgrep
@@ -112,11 +113,13 @@
       kitty
       totem
       brave
+      mpv
       # cura # XXX complains that an upstream dependency is marked as broken
       # libraries
       gnomeExtensions.just-perfection
       llvmPackages_18.clang-tools # clang-format
       nodePackages.prettier
+      python311Packages.autopep8
       python311Packages.pip
       any-nix-shell # for nix-shell
       spacenavd # for freecad

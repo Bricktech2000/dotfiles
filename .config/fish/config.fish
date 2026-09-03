@@ -97,8 +97,8 @@ end
 
 # misc
 alias date='date --iso-8601=seconds'
-alias less='less --QUIET --no-vbell --wordwrap --ignore-case --incsearch --search-options=W' # '--ignore-case' is smartcase
-set -x PAGER less --QUIET --no-vbell --wordwrap --ignore-case --incsearch --search-options=W
+alias less='less --QUIET --no-vbell --ignore-case --incsearch --search-options=W' # '--ignore-case' is smartcase
+set -x PAGER less --QUIET --no-vbell --ignore-case --incsearch --search-options=W
 alias dot='git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
 function dbless; ~/.bin/dbless (cat ~/.bin/token) $argv | Y &> /dev/null; end
 function no-shit # example usage: no-shit gcc -O2 file.c

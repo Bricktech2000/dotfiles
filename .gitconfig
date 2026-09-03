@@ -16,6 +16,10 @@
 [core]
   fileMode = false
   editor = vim
+[diff]
+  tool = vimdiff
+[merge]
+  tool = vimdiff
 [init]
   defaultBranch = master
 [color "blame"]
