@@ -10,7 +10,7 @@ set -g fish_key_bindings _vi_normal
 function _vi_normal; fish_vi_key_bindings; set fish_bind_mode default; end
 for mode in default insert visual replace replace_one
   bind -M $mode \r -m default execute
-  bind -M $mode \cg meta fish_prompt # similar to Vim's <c-g>
+  bind -M $mode \cg meta fish_prompt # similar to Vim's <C-G>
   bind -M $mode \cn accept-autosuggestion
 end
 
@@ -21,7 +21,7 @@ alias X='nix-shell --pure -p'
 alias p='python3 -i -c "
 import cmath, math, random, re, statistics as stats, string, sys, time
 if not sys.stdin.isatty():
-  sys.ps1 = sys.ps2 = \'\' # for !!p<cr> in Vim
+  sys.ps1 = sys.ps2 = \'\' # for !!p<CR> in Vim
 "'
 
 # navigation

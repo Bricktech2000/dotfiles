@@ -31,7 +31,7 @@ set shell=sh " always use the standard shell
 set title
 set belloff=all
 set mouse=a mousemodel=extend
-set ttimeout ttimeoutlen=10 " make <c-[> instant
+set ttimeout ttimeoutlen=10 " make <C-[> instant
 let &t_SI = "\e[6 q" " see |termcap-cursor-shape|
 let &t_SR = "\e[4 q"
 let &t_EI = "\e[2 q"
@@ -53,26 +53,26 @@ function! s:nosbr() " 'sbr' breaks gw when window is narrower than 'tw'. fix it
   let w:sbr = &l:sbr | setlocal sbr=NONE
   autocmd ModeChanged *:n{,[^o]*} ++once let &l:sbr = w:sbr
 endfunction
-nnoremap <expr> gw 'gw'.<sid>nosbr()[-1]
-vnoremap <expr> gw 'gw'.<sid>nosbr()[-1]
-nnoremap <expr> gq 'gq'.<sid>nosbr()[-1]
-vnoremap <expr> gq 'gq'.<sid>nosbr()[-1]
+nnoremap <expr> gw 'gw'.<SID>nosbr()[-1]
+vnoremap <expr> gw 'gw'.<SID>nosbr()[-1]
+nnoremap <expr> gq 'gq'.<SID>nosbr()[-1]
+vnoremap <expr> gq 'gq'.<SID>nosbr()[-1]
 set completeopt-=menu
 set diffopt+=inline:char
 
 " character input & display
 set list listchars+=tab:>-,trail:#
 set iminsert=1 " see |mapmode-l|
-lnoremap <c-space> <c-k> <space>
-lnoremap <c-_> <c-k>NY| " for Vim
-lnoremap <c--> <c-k>NY| " for Neovim
-lnoremap <c-/> <c-k>-N
-lnoremap <c-,> <c-k>-M
-lnoremap <c-.> <c-k>,.
-lnoremap <c-`> <c-k>'6
-lnoremap <c-'> <c-k>'9
-lnoremap <c-9> <c-k>"6
-lnoremap <c-0> <c-k>"9
+lnoremap <C-Space> <C-K> <Space>
+lnoremap <C-_> <C-K>NY| " for Vim
+lnoremap <C--> <C-K>NY| " for Neovim
+lnoremap <C-/> <C-K>-N
+lnoremap <C-,> <C-K>-M
+lnoremap <C-.> <C-K>,.
+lnoremap <C-`> <C-K>'6
+lnoremap <C-'> <C-K>'9
+lnoremap <C-9> <C-K>"6
+lnoremap <C-0> <C-K>"9
 digraphs NY   8209 " U+2011 NON-BREAKING HYPHEN
 digraphs Ke   8490 " U+212A KELVIN SIGN
 digraphs \|-  8866 " U+22A2 RIGHT TACK
@@ -102,14 +102,14 @@ let s:backpatch = {
       \ 0x1d4ad: 0x211b, 0x1d515: 0x211c, 0x1d549: 0x211d, 0x1d551: 0x2124,
       \ 0x1d51d: 0x2128, 0x1d49d: 0x212c, 0x1d506: 0x212d, 0x1d4ba: 0x212f,
       \ 0x1d4a0: 0x2130, 0x1d4a1: 0x2131, 0x1d4a8: 0x2133, 0x1d4c4: 0x2134}
-for [k, v] in items({"\<c-b>": 0x1d400, "\<c-i>": 0x1d434, "\<c-s>": 0x1d49c,
-                   \ "\<c-l>": 0x1d4d0, "\<c-f>": 0x1d504, "\<c-d>": 0x1d538})
+for [k, v] in items({"\<C-B>": 0x1d400, "\<C-I>": 0x1d434, "\<C-S>": 0x1d49c,
+                   \ "\<C-L>": 0x1d4d0, "\<C-F>": 0x1d504, "\<C-D>": 0x1d538})
 for [i, c] in items('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz')
 call digraph_set(k.c, nr2char(get(s:backpatch, v+i, v+i))) | endfor | endfor
-for [k, v] in items({"\<c-b>": 0x1d7ce, "\<c-d>": 0x1d7d8})
+for [k, v] in items({"\<C-B>": 0x1d7ce, "\<C-D>": 0x1d7d8})
 for [i, c] in items('0123456789')
 call digraph_set(k.c, nr2char(get(s:backpatch, v+i, v+i))) | endfor | endfor
-for [k, v] in items({"\<c-b>": 0x1d6a8, "\<c-i>": 0x1d6e2})
+for [k, v] in items({"\<C-B>": 0x1d6a8, "\<C-I>": 0x1d6e2})
 for [i, c] in items('ABGDEZYHIKLMNCOPR STUFXQWVabgdezyhiklmncopr stufxqw')
 call digraph_set(c.k, nr2char(get(s:backpatch, v+i, v+i))) | endfor | endfor
 " Unicode Latin subscripts and superscripts from various blocks
@@ -129,7 +129,7 @@ call digraph_set(nr2char(i + 97).'s', nr2char(c)) | endfor
 " highlight non-ASCII characters and overlong encodings of ASCII characters.
 " the latter is an abuse of the regex engine: it turns out that you can search
 " for a given overlong encoding by putting the overlong encoding literally in
-" the search string, using, for example, `/<c-r><c-r>="\xc1\x81"<cr><cr>` or
+" the search string, using, for example, `/<C-R><C-R>="\xc1\x81"<CR><CR>` or
 " `let @/ = "\xc1\x81"`. this only works on the NFA engine |two-engines|. it
 " also turns out that if you search for the two-byte and three-byte overlong
 " encodings of an ASCII character, all overlong encodings of that character
@@ -151,10 +151,10 @@ autocmd ColorScheme * highlight! link nonascii Underlined
 silent! nunmap Y
 silent! xunmap @
 silent! xunmap Q
-silent! iunmap <c-u>
-silent! iunmap <c-w>
+silent! iunmap <C-U>
+silent! iunmap <C-W>
 silent! autocmd LspAttach * silent! nunmap <buffer> K
-for map in ['grn', 'grr', 'gra', 'gri', 'grt', ']d', '[d', ']D', '[D', '<c-w>d']
+for map in ['grn', 'grr', 'gra', 'gri', 'grt', ']d', '[d', ']D', '[D', '<C-W>d']
   silent! execute 'nunmap' map| " how fucking dare you
 endfor
 
@@ -162,99 +162,99 @@ endfor
 set notimeout
 set ignorecase infercase
 set complete-=i switchbuf=uselast " Neovim default
-set nrformats-=octal nrformats+=unsigned " so <c-a> and <c-x> work on dates
+set nrformats-=octal nrformats+=unsigned " so <C-A> and <C-X> work on dates
 set formatoptions=q " no smarts please
 set matchpairs+=<:>
-nnoremap <c-w><c--> <c-w><c-_>| " for Neovim
+nnoremap <C-W><C--> <C-W><C-_>| " for Neovim
 nnoremap g= g+| " g=g=g= is less awkward than g+g+g+
 autocmd FileType help silent! nunmap <buffer> g==| " shadow Neovim's g== mapping
-nnoremap gK @='ddkPJ'<cr>| " join lines but reversed. `@=` so [count] works
-xnoremap gK <esc><cmd>keeppatterns '<,'>-global/$/normal! ddpkJ<cr>
-nnoremap <s-del> a<del><esc>| " delete character after the cursor
-noremap! <s-del> <cmd>let ww=&ww<bar>set ww=[,]
-      \ <cr><right><del><left><cmd>let &ww=ww<cr>
+nnoremap gK @='ddkPJ'<CR>| " join lines but reversed. `@=` so [count] works
+xnoremap gK <Esc><Cmd>keeppatterns '<,'>-global/$/normal! ddpkJ<CR>
+nnoremap <S-Del> a<Del><Esc>| " delete character after the cursor
+noremap! <S-Del> <Cmd>let ww=&ww<Bar>set ww=[,]
+      \ <CR><Right><Del><Left><Cmd>let &ww=ww<CR>
 let g:reg_recorded = '' " same idea as Neovim's reg_recorded()
 autocmd KeyInputPre * if v:char ==# 'q' && reg_recording() != '' |
       \ let g:reg_recorded = reg_recording() | endif
 nnoremap <expr> Q '@'.g:reg_recorded
 xnoremap <expr> Q '@'.g:reg_recorded
-" you certainly know the pain of hitting <c-w> to delete the |word| before the
+" you certainly know the pain of hitting <C-W> to delete the |word| before the
 " cursor but you're not in Vim so it closes your tab. well I'm extending the
-" favor! now you can know the pain of hitting <c-q> and closing your entire
+" favor! now you can know the pain of hitting <C-Q> and closing your entire
 " application when you only meant to delete the |WORD| before the cursor
-noremap! <c-q> <cmd>let isk=&isk<bar>set isk=^32,^9
-      \ <cr><c-w><cmd>let &isk=isk<cr>| " delete the |WORD| before the cursor
+noremap! <C-Q> <Cmd>let isk=&isk<Bar>set isk=^32,^9
+      \ <CR><C-W><Cmd>let &isk=isk<CR>| " delete the |WORD| before the cursor
 silent! set cpoptions-=z " for Vim
 silent! set cpoptions-=_ " for Neovim
 set nojoinspaces nostartofline " Neovim default
-set expandtab nosmarttab softtabstop=0 " no smarts please. (to indent use <c-t>)
+set expandtab nosmarttab softtabstop=0 " no smarts please. (to indent use <C-T>)
 set autoindent shiftwidth=2
-inoremap <s-tab> <cmd>let sts=&sts<bar>let &sts=&ts<cr><bs><cmd>let &sts=sts<cr>
-silent! iunmap <c-s>| " Neovim default mapping; clashes with vim-surround
+inoremap <S-Tab> <Cmd>let sts=&sts<Bar>let &sts=&ts<CR><BS><Cmd>let &sts=sts<CR>
+silent! iunmap <C-S>| " Neovim default mapping; clashes with vim-surround
 Plug 'Bricktech2000/jumptree.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired'
 let g:unimpaired_colorcolumn = '+0' " color the last column, not the one past it
 Plug 'tpope/vim-surround'
-for c in ['*', '~', '_', '$', '<bar>', ',', '<tab>', '/'] " md, csv, tsv, re
-  execute 'xnoremap i'.c.' <cmd>normal! lT'.c.'ot'.c.'<cr>'
-  execute 'xnoremap a'.c.' <cmd>normal! lF'.c.'of'.c.'<cr>'
-  execute 'onoremap i'.c.' <cmd>normal vi'.c.'<cr>'
-  execute 'onoremap a'.c.' <cmd>normal va'.c.'<cr>'
+for c in ['*', '~', '_', '$', '<Bar>', ',', '<Tab>', '/'] " md, csv, tsv, re
+  execute 'xnoremap i'.c.' <Cmd>normal! lT'.c.'ot'.c.'<CR>'
+  execute 'xnoremap a'.c.' <Cmd>normal! lF'.c.'of'.c.'<CR>'
+  execute 'onoremap i'.c.' <Cmd>normal vi'.c.'<CR>'
+  execute 'onoremap a'.c.' <Cmd>normal va'.c.'<CR>'
 endfor
-set foldopen-=undo " fix bug in vim-repeat where <c-o>u inserts 'zv' into buffer
+set foldopen-=undo " fix bug in vim-repeat where <C-O>u inserts 'zv' into buffer
 Plug 'tpope/vim-repeat'
-cnoremap <c-r><c-d> <c-r>=strftime('%F')<cr>
-cnoremap <c-r><c-t> <c-r>=strftime('%T')<cr>
-inoremap <silent> <c-r><c-d> <c-r>=strftime('%F')<cr>
-inoremap <silent> <c-r><c-t> <c-r>=strftime('%T')<cr>
+cnoremap <C-R><C-D> <C-R>=strftime('%F')<CR>
+cnoremap <C-R><C-T> <C-R>=strftime('%T')<CR>
+inoremap <silent> <C-R><C-D> <C-R>=strftime('%F')<CR>
+inoremap <silent> <C-R><C-T> <C-R>=strftime('%T')<CR>
 " remapping : to a non-shifted key like , increases the entropy of my key
 " presses by 0.17 bits (from 2.89 bits to 3.06 bits). I chose , instead of ;
 " because I also use ; a lot. and also ;/: fits well with n/N f/F t/T //?
 noremap <expr> q reg_recording() != '' ? 'q' :
       \ 'q'.substitute(getcharstr(-1, {'cursor': 'keep'}), ',', ':', '')
-noremap , :|noremap : ,|noremap <c-w>, <c-w>:|tnoremap <c-w>, <c-w>:
-sunmap q|sunmap ,|sunmap :|sunmap <c-w>,
+noremap , :|noremap : ,|noremap <C-W>, <C-W>:|tnoremap <C-W>, <C-W>:
+sunmap q|sunmap ,|sunmap :|sunmap <C-W>,
 " make ctrl+scroll move through time instead of space. https://xkcd.com/1806/
-nnoremap <c-scrollwheelup>    u
-nnoremap <c-scrollwheeldown>  <c-r>
-nnoremap <c-scrollwheelleft>  g-
-nnoremap <c-scrollwheelright> g+
+nnoremap <C-ScrollWheelUp>    u
+nnoremap <C-ScrollWheelDown>  <C-R>
+nnoremap <C-ScrollWheelLeft>  g-
+nnoremap <C-ScrollWheelRight> g+
 " like |gF| but the number is a byte offset, 0-based, eg. src/normal.c[1337]
-cnoremap <expr> <plug>NGotoFile v:count1.'find '.fnameescape(substitute(
-      \ expand('<cfile>'), '\\ ', ' ', 'g')).'<bar>keepjumps goto '.(1 +
+cnoremap <expr> <Plug>NGotoFile v:count1.'find '.fnameescape(substitute(
+      \ expand('<cfile>'), '\\ ', ' ', 'g')).'<Bar>keepjumps goto '.(1 +
       \ matchstr(getline('.'), '\d\+', stridx(getline('.'), expand('<cfile>'),
       \ col('.') - len(expand('<cfile>'))) + len(expand('<cfile>'))))
-cnoremap <expr> <plug>VGotoFile v:count1.'find '.fnameescape(substitute(
-      \ getline("'>")[col("'<")-1:col("'>")-1], '\\ ', ' ', 'g')).'<bar>
+cnoremap <expr> <Plug>VGotoFile v:count1.'find '.fnameescape(substitute(
+      \ getline("'>")[col("'<")-1:col("'>")-1], '\\ ', ' ', 'g')).'<Bar>
       \ keepjumps goto '.(1 + matchstr(getline("'>"), '\d\+', col("'>")))
-nnoremap <silent> g<c-f>      :<c-u><plug>NGotoFile<cr>
-vnoremap <silent> g<c-f>      <esc>:<plug>VGotoFile<cr>
-nnoremap <silent> <c-w><c-f>  :<c-u>split<bar><plug>NGotoFile<cr>
-vnoremap <silent> <c-w><c-f>  <esc>:split<bar><plug>VGotoFile<cr>
-nnoremap <silent> <c-w>g<c-f> :<c-u>tab split<bar><plug>NGotoFile<cr>
-vnoremap <silent> <c-w>g<c-f> <esc>:tab split<bar><plug>VGotoFile<cr>
-nmap <silent> <c-w><c-g><c-f> <c-w>g<c-f>
-vmap <silent> <c-w><c-g><c-f> <c-w>g<c-f>
+nnoremap <silent> g<C-F>      :<C-U><Plug>NGotoFile<CR>
+vnoremap <silent> g<C-F>      <Esc>:<Plug>VGotoFile<CR>
+nnoremap <silent> <C-W><C-F>  :<C-U>split<Bar><Plug>NGotoFile<CR>
+vnoremap <silent> <C-W><C-F>  <Esc>:split<Bar><Plug>VGotoFile<CR>
+nnoremap <silent> <C-W>g<C-F> :<C-U>tab split<Bar><Plug>NGotoFile<CR>
+vnoremap <silent> <C-W>g<C-F> <Esc>:tab split<Bar><Plug>VGotoFile<CR>
+nmap <silent> <C-W><C-G><C-F> <C-W>g<C-F>
+vmap <silent> <C-W><C-G><C-F> <C-W>g<C-F>
 
 " all things search
 set ignorecase smartcase hlsearch incsearch
 set wildmenu wildoptions=pum wildignorecase path+=** " :fin as fuzzy finder
 set grepprg=ltrep\ -Hnk    " verbatim from LTRE/ltrep/grepprg.vim
 set grepformat=%f:%l:%c:%m " this too
-noremap <c-l> <cmd>nohlsearch<bar>normal! <c-l><cr>
+noremap <C-L> <Cmd>nohlsearch<Bar>normal! <C-L><CR>
 Plug 'Bricktech2000/c_CTRL-O.vim'
-cnoremap <plug>Pat <c-r>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<cr>
-nnoremap  <c-8> :lvimgrep/\V\<<c-r><c-w>\>/g**
-nnoremap g<c-8> :lvimgrep/\V\(<c-r><c-w>\)/g**| " need parens |c_CTRL-R_CTRL-W|
-xnoremap  <c-8> y:lvimgrep/\V\<<plug>Pat\>/g**
-xnoremap g<c-8> y:lvimgrep/\V\(<plug>Pat\)/g**
-xnoremap <silent>  * y/\V\<<plug>Pat\><cr>
-xnoremap <silent> g* y/\V\(<plug>Pat\)<cr>
-xnoremap <silent>  # y?\V\<<plug>Pat\><cr>
-xnoremap <silent> g# y?\V\(<plug>Pat\)<cr>
-xnoremap <silent> gd ym':keepjumps normal! [[/\V\(<plug>Pat\)<c-v><cr><cr>zz
-xnoremap <silent> gD ym':keepjumps normal! go/\V\(<plug>Pat\)<c-v><cr><cr>zz
+cnoremap <Plug>Pat <C-R>=substitute(escape(@", '/\\'), '\n', '\\n', 'g')<CR>
+nnoremap  <C-8> :lvimgrep/\V\<<C-R><C-W>\>/g**
+nnoremap g<C-8> :lvimgrep/\V\(<C-R><C-W>\)/g**| " need parens |c_CTRL-R_CTRL-W|
+xnoremap  <C-8> y:lvimgrep/\V\<<Plug>Pat\>/g**
+xnoremap g<C-8> y:lvimgrep/\V\(<Plug>Pat\)/g**
+xnoremap <silent>  * y/\V\<<Plug>Pat\><CR>
+xnoremap <silent> g* y/\V\(<Plug>Pat\)<CR>
+xnoremap <silent>  # y?\V\<<Plug>Pat\><CR>
+xnoremap <silent> g# y?\V\(<Plug>Pat\)<CR>
+xnoremap <silent> gd ym':keepjumps normal! [[/\V\(<Plug>Pat\)<C-V><CR><CR>zz
+xnoremap <silent> gD ym':keepjumps normal! go/\V\(<Plug>Pat\)<C-V><CR><CR>zz
 
 " integrations
 
@@ -267,9 +267,9 @@ let g:gitgutter_sign_removed_above_and_below = '^'
 let g:gitgutter_sign_modified_removed = 'L'
 
 let g:keycap = ''
-nnoremap <c-k> <cmd>let g:keycap = empty(g:keycap) ? repeat(' ', 999) : ''<cr>
+nnoremap <C-K> <Cmd>let g:keycap = empty(g:keycap) ? repeat(' ', 999) : ''<CR>
 autocmd KeyInputPre * if !empty(g:keycap) |
-      \ let s:keycap_map = {"\<cursorhold>": "", "\<ignore>": "",
+      \ let s:keycap_map = {"\<CursorHold>": "", "\<Ignore>": "",
       \     "\x80\xfdT": "<C-F>", " ": " "} |
       \ let g:keycap .= get(s:keycap_map, v:char, keytrans(v:char)) | endif
 " autocmd KeyInputPre [^cr]* if !empty(g:keycap) |

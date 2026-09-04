@@ -6,10 +6,10 @@ set show-mode-in-prompt on
 set vi-cmd-mode-string "\1\e[2 q\2"
 set vi-ins-mode-string "\1\e[6 q\2"
 
-# remove delay between `<esc>` and cursor change
+# remove delay between `<Esc>` and cursor change
 set keyseq-timeout 0
 
-# fix `<c-l>` in insert mode
+# fix `<C-L>` in insert mode
 set keymap vi-insert
 "\f": clear-screen
 
@@ -20,7 +20,7 @@ set bell-style none
 set completion-ignore-case on
 
 # seems to break `python3` REPL
-# # remap `<cr>` to `<cr><esc>`
+# # remap `<CR>` to `<CR><Esc>`
 # set keymap vi-insert
 # "\C-m": "\C-j\e"
 # set keymap vi-command
